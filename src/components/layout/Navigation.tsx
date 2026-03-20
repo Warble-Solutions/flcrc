@@ -22,6 +22,7 @@ const navLinks = [
   },
   { href: "/programs", label: "Programs" },
   { href: "/events", label: "Events" },
+  { href: "/news", label: "News" },
   { href: "/facility-rentals", label: "Rentals" },
   { 
     label: "Get Involved", 
