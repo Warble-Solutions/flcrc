@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import DonateProvider from "@/components/layout/DonateProvider";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
+import PublicLayout from "@/components/layout/PublicLayout";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -53,12 +51,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <DonateProvider>
-          <div className="min-h-screen flex flex-col relative text-luminous-text">
-            <AnimatedBackground />
-            <Navigation />
-            <main className="flex-grow z-10">{children}</main>
-            <Footer />
-          </div>
+          <PublicLayout>{children}</PublicLayout>
         </DonateProvider>
       </body>
     </html>
