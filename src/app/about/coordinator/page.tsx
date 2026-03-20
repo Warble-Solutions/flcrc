@@ -79,10 +79,11 @@ export default function ProgramCoordinatorPage() {
                 >
                   <Download size={18} /> Download Application PDF
                 </Button>
-                <a href="mailto:info@familylifecrc.org">
-                  <Button variant="primary" className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 border-none text-white">
-                    <LinkIcon size={18} /> Email Application
-                  </Button>
+                <a
+                  href="mailto:info@familylifecrc.org"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-colors cursor-pointer"
+                >
+                  <LinkIcon size={18} /> Email Application
                 </a>
               </div>
             </div>
