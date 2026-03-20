@@ -71,6 +71,32 @@ export default function ProgramsPage() {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [filter, setFilter] = useState("All");
   const [programs, setPrograms] = useState<Program[]>(fallbackPrograms);
+  const [appForm, setAppForm] = useState({ name: "", email: "", phone: "", reason: "" });
+  const [appSubmitted, setAppSubmitted] = useState(false);
+  const [appSubmitting, setAppSubmitting] = useState(false);
+
+  const handleApply = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedProgram) return;
+    setAppSubmitting(true);
+    const supabase = createClient();
+    await supabase.from("form_submissions").insert({
+      type: "program_application",
+      name: appForm.name,
+      email: appForm.email,
+      phone: appForm.phone || null,
+      message: appForm.reason || null,
+      metadata: { program_title: selectedProgram.title, program_tag: selectedProgram.tag },
+    });
+    setAppSubmitting(false);
+    setAppSubmitted(true);
+  };
+
+  const closeProgram = () => {
+    setSelectedProgram(null);
+    setAppSubmitted(false);
+    setAppForm({ name: "", email: "", phone: "", reason: "" });
+  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -169,7 +195,7 @@ export default function ProgramsPage() {
       {/* Program Detail Modal */}
       <Modal
         isOpen={!!selectedProgram}
-        onClose={() => setSelectedProgram(null)}
+        onClose={closeProgram}
         title={selectedProgram?.title || ""}
       >
         {selectedProgram && (
@@ -197,9 +223,36 @@ export default function ProgramsPage() {
                 ))}
               </ul>
             </div>
-            <Button variant="primary" className="w-full">
-              Apply for Program
-            </Button>
+
+            {appSubmitted ? (
+              <div className="text-center py-6 space-y-3">
+                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
+                  <Check size={32} className="text-emerald-400" />
+                </div>
+                <h4 className="text-xl font-bold text-white">Application Submitted!</h4>
+                <p className="text-luminous-muted text-sm">We&apos;ll review your application for <strong className="text-white">{selectedProgram.title}</strong> and reach out soon.</p>
+                <Button variant="outline" onClick={closeProgram} className="mt-4">Close</Button>
+              </div>
+            ) : (
+              <form onSubmit={handleApply} className="space-y-4">
+                <h4 className="font-bold text-white text-sm uppercase tracking-wider">Apply for this Program</h4>
+                <input type="text" required placeholder="Full Name" value={appForm.name}
+                  onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
+                <input type="email" required placeholder="Email Address" value={appForm.email}
+                  onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
+                <input type="tel" placeholder="Phone Number (optional)" value={appForm.phone}
+                  onChange={(e) => setAppForm({ ...appForm, phone: e.target.value })}
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
+                <textarea rows={3} placeholder="Why are you interested in this program?" value={appForm.reason}
+                  onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
+                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white resize-none placeholder:text-gray-500" />
+                <Button variant="primary" className="w-full" disabled={appSubmitting}>
+                  {appSubmitting ? "Submitting..." : "Submit Application"}
+                </Button>
+              </form>
+            )}
           </div>
         )}
       </Modal>

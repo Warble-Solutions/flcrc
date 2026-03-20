@@ -49,7 +49,7 @@ export default function AdminSubmissionsPage() {
         </div>
         <div className="flex items-center gap-2">
           <Filter size={14} className="text-gray-400" />
-          {["all", "contact", "rental", "volunteer", "sponsor"].map((f) => (
+          {["all", "contact", "rental", "program_application", "event_booking", "volunteer", "sponsor"].map((f) => (
             <button key={f} onClick={() => setFilter(f)}
               className={`text-xs font-bold px-3 py-1.5 rounded-full capitalize cursor-pointer transition-all ${filter === f ? "bg-cyan-500/20 text-cyan-400" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>
               {f}
