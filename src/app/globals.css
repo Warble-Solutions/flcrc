@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ===== FLCRC Dark Theme — CSS-first Tailwind v4 Config ===== */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts */
+  --font-sans: var(--font-inter);
+
+  /* Luminous Dark Palette */
+  --color-luminous-bg: #020617;
+  --color-luminous-card: rgba(255, 255, 255, 0.03);
+  --color-luminous-card-hover: rgba(255, 255, 255, 0.08);
+  --color-luminous-border: rgba(255, 255, 255, 0.1);
+  --color-luminous-cyan: #22d3ee;
+  --color-luminous-violet: #a78bfa;
+  --color-luminous-fuchsia: #e879f9;
+  --color-luminous-text: #f8fafc;
+  --color-luminous-muted: #94a3b8;
+
+  /* Animations */
+  --animate-blob: blob 10s infinite;
+  --animate-blob-delayed: blob 10s infinite 2s;
+  --animate-blob-reverse: blob-reverse 15s infinite;
+  --animate-fade-up: fadeUp 0.8s ease-out forwards;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float 8s ease-in-out infinite 2s;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Keyframes */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
+
+@keyframes blob-reverse {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-30px, 50px) scale(1.2); }
+  66% { transform: translate(20px, -20px) scale(0.8); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(34, 211, 238, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 10px rgba(34, 211, 238, 0.4); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* ===== Base Styles ===== */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #020617;
+  color: #f8fafc;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #22d3ee;
+  color: #000;
+}
+
+/* ===== Glassmorphism Utilities ===== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #e879f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-glow {
+  background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #e879f9 100%);
+}
+
+/* ===== Scrollbar ===== */
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===== Smooth Scroll ===== */
+
+html {
+  scroll-behavior: smooth;
 }

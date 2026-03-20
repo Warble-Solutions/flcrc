@@ -1,65 +1,826 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Network,
+  Zap,
+  HeartHandshake,
+
+  ArrowRight,
+  Users,
+  Calendar,
+  Trophy,
+  Heart,
+  MapPin,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  HandHeart,
+  Megaphone,
+  Briefcase,
+  GraduationCap,
+  RefreshCw,
+  MessageCircle,
+  Shield,
+  BookOpen,
+} from "lucide-react";
+import AnimatedBackground from "@/components/layout/AnimatedBackground";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
+import HeroCarousel from "@/components/home/HeroCarousel";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import Button from "@/components/ui/Button";
+import GlassCard from "@/components/ui/GlassCard";
+import SectionTitle from "@/components/ui/SectionTitle";
+import Modal from "@/components/ui/Modal";
+import { HERO_IMAGES } from "@/lib/images";
+
+// ───── FAQ Data ─────
+const faqs = [
+  {
+    q: "What does FLCRC stand for?",
+    a: "Family Life and Community Resource Center — a 501(c)(3) non-profit dedicated to building stronger families and communities in Fort Bend County, Texas.",
+  },
+  {
+    q: "What programs do you offer?",
+    a: "We offer Youth Ambassador Leadership Education (Y.A.L.E.), Growth Rewarding Insight Tools (GRIT), Restorative Practices & Youth Leadership (RPYL), Victim Intervention Program (VIP), Back-2-School Parent Chat, Summer Enrichment Camp, Scholarships & Awards, and the Bullying Awareness Conference.",
+  },
+  {
+    q: "How can I get involved?",
+    a: "You can volunteer, become a sponsor, donate, or become a member. We're also hiring — visit our Get Involved page for current opportunities.",
+  },
+  {
+    q: "Are the programs free?",
+    a: "Our Victim Intervention Program (VIP) services are free and confidential. The Y.A.L.E. program has an annual membership fee of $75 (renewals $30). Many other programs and events are offered free of charge.",
+  },
+  {
+    q: "Where is FLCRC located?",
+    a: "We're located at 821 E Highway 90A, Richmond, TX 77406, serving the greater Fort Bend County area.",
+  },
+];
+
+// ───── FAQ Accordion Item ─────
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div
+      className="border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-blue-400 cursor-pointer"
+      onClick={() => setOpen(!open)}
+    >
+      <div className="flex justify-between items-center p-6">
+        <h3 className="font-bold text-lg text-slate-900 pr-4">{q}</h3>
+        {open ? (
+          <ChevronUp size={20} className="text-blue-600 shrink-0" />
+        ) : (
+          <ChevronDown size={20} className="text-slate-400 shrink-0" />
+        )}
+      </div>
+      <div
+        className={`px-6 overflow-hidden transition-all duration-500 ${
+          open ? "max-h-40 pb-6" : "max-h-0"
+        }`}
+      >
+        <p className="text-slate-600 leading-relaxed">{a}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const [showDonate, setShowDonate] = useState(false);
+
+  return (
+    <div className="min-h-screen flex flex-col relative text-luminous-text">
+      <AnimatedBackground />
+      <Navigation onDonate={() => setShowDonate(true)} />
+
+      <main className="flex-grow z-10">
+        {/* ╔═══════════════════════════════════════════════════╗
+           ║  HERO CAROUSEL — 3 Unique Slides from 3 Designs  ║
+           ╚═══════════════════════════════════════════════════╝ */}
+        <HeroCarousel>
+          {/* ── SLIDE 1: Design 3 style — Floating Cards ── */}
+          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900">
+            <div className="absolute top-32 left-10 w-32 h-32 bg-luminous-cyan rounded-full blur-3xl opacity-30 animate-float -z-10" />
+            <div className="absolute bottom-20 right-10 w-48 h-48 bg-luminous-fuchsia rounded-full blur-3xl opacity-20 animate-float-delayed -z-10" />
+
+            <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8 z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-luminous-cyan/30 bg-luminous-cyan/10 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-4 animate-pulse-slow">
+                  <span className="w-2 h-2 rounded-full bg-luminous-cyan" />
+                  Empowering Families Since 2013
+                </div>
+
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight">
+                  Build. <br />
+                  <span className="text-gradient">Grow.</span> <br />
+                  Thrive.
+                </h1>
+
+                <p className="text-xl text-luminous-muted max-w-lg leading-relaxed font-light mt-6">
+                  FLCRC is the catalyst for change in Fort Bend County. We
+                  provide the tools, resources, and support families need to
+                  navigate the challenges of modern life.
+                </p>
+
+                <div className="flex flex-wrap gap-4 pt-6">
+                  <Link href="/programs">
+                    <Button variant="primary" className="px-8 py-4">
+                      Explore Programs <ArrowRight size={16} />
+                    </Button>
+                  </Link>
+                  <Link href="/about">
+                    <Button variant="glow" className="px-8 py-4">
+                      Our Story
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Trust Badge */}
+                <div className="flex items-center gap-4 pt-8 border-t border-white/10">
+                  <div className="flex gap-6">
+                    {[
+                      { num: "8", label: "Programs" },
+                      { num: "150+", label: "Years Experience" },
+                    ].map((stat, i) => (
+                      <div key={i} className="text-center">
+                        <div className="text-2xl font-bold text-luminous-cyan">{stat.num}</div>
+                        <div className="text-[10px] text-luminous-muted uppercase tracking-widest">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Cards */}
+              <div className="relative h-[500px] flex items-center justify-center hidden lg:flex">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-96 bg-gradient-to-br from-luminous-cyan to-luminous-violet rounded-3xl blur-2xl opacity-30 animate-pulse" />
+
+                <div className="absolute top-10 right-10 w-64 h-80 glass rounded-2xl overflow-hidden shadow-2xl transform rotate-6 animate-float-delayed z-10">
+                  <Image
+                    src={HERO_IMAGES[1]}
+                    className="w-full h-full object-cover opacity-80"
+                    alt="Youth Leadership"
+                    width={400}
+                    height={500}
+                    unoptimized
+                  />
+                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent">
+                    <p className="text-sm font-bold">Youth Leadership</p>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-20 left-10 w-72 h-60 glass rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 animate-float z-20">
+                  <Image
+                    src={HERO_IMAGES[2]}
+                    className="w-full h-full object-cover opacity-80"
+                    alt="Community Joy"
+                    width={450}
+                    height={350}
+                    unoptimized
+                  />
+                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent">
+                    <p className="text-sm font-bold">Community Joy</p>
+                  </div>
+                </div>
+
+                <div className="absolute -bottom-4 -left-4 bg-black/80 backdrop-blur-xl p-5 rounded-2xl shadow-xl border border-white/10 max-w-[200px] animate-float-delayed z-30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 bg-luminous-cyan rounded-full animate-ping absolute" />
+                    <div className="w-3 h-3 bg-luminous-cyan rounded-full" />
+                    <span className="text-xs font-bold text-luminous-muted uppercase ml-2">
+                      Active Now
+                    </span>
+                  </div>
+                  <p className="font-bold text-white leading-tight text-sm">
+                    Youth Leadership Workshop
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── SLIDE 2: Design 1 style — Bold dark with text focus ── */}
+          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.08)_0%,transparent_70%)]" />
+
+            <div className="max-w-5xl mx-auto text-center relative z-10">
+              <div className="inline-block mb-6 px-4 py-2 rounded-full border border-luminous-violet/30 bg-luminous-violet/10 text-luminous-violet text-xs font-bold uppercase tracking-widest">
+                Building Better Communities
+              </div>
+
+              <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white leading-[0.95] tracking-tight mb-8">
+                Igniting <span className="text-gradient">Hope</span>,<br />
+                One Family at a Time
+              </h1>
+
+              <p className="text-xl md:text-2xl text-luminous-muted max-w-2xl mx-auto leading-relaxed font-light mb-12">
+                For over a decade, we&apos;ve been the bridge between families in
+                crisis and the communities that support them.
+              </p>
+
+              <div className="flex flex-wrap justify-center gap-6">
+                <Link href="/about">
+                  <Button variant="primary" className="px-10 py-5 text-sm">
+                    Discover Our Mission <ArrowRight size={16} />
+                  </Button>
+                </Link>
+                <Button
+                  variant="glow"
+                  className="px-10 py-5 text-sm"
+                  onClick={() => setShowDonate(true)}
+                >
+                  Support Our Cause
+                </Button>
+              </div>
+
+              {/* Floating Stats */}
+              <div className="flex flex-wrap justify-center gap-12 mt-20 opacity-80">
+                {[
+                  { num: "8", label: "Programs & Services" },
+                  { num: "150+", label: "Years Combined Experience" },
+                  { num: "5", label: "Core Competencies" },
+                ].map((stat, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-4xl font-bold text-gradient">
+                      {stat.num}
+                    </div>
+                    <div className="text-xs text-luminous-muted uppercase tracking-widest mt-2">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── SLIDE 3: Design 2 style — Image-focused, lighter feel ── */}
+          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(232,121,249,0.1)_0%,transparent_60%)]" />
+
+            <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
+              {/* Image side */}
+              <div className="relative hidden lg:block">
+                <div className="absolute inset-0 bg-gradient-to-r from-luminous-fuchsia to-luminous-cyan rounded-[3rem] blur-3xl opacity-20" />
+                <div className="bg-white/5 backdrop-blur-sm p-3 rounded-[3rem] border border-white/10">
+                  <Image
+                    src={HERO_IMAGES[3]}
+                    alt="Community Growth"
+                    className="w-full h-[500px] object-cover rounded-[2.5rem]"
+                    width={800}
+                    height={500}
+                    unoptimized
+                  />
+                </div>
+                {/* Overlay card */}
+                <div className="absolute -bottom-6 -right-6 bg-white text-black p-6 rounded-2xl shadow-2xl max-w-[240px]">
+                  <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                    10+ Years
+                  </div>
+                  <p className="text-sm text-gray-600 mt-1 font-medium">
+                    Of Community Transformation
+                  </p>
+                </div>
+              </div>
+
+              {/* Text side */}
+              <div className="space-y-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-luminous-fuchsia/30 bg-luminous-fuchsia/10 text-luminous-fuchsia text-xs font-bold uppercase tracking-widest">
+                  <Heart size={14} />
+                  Empowering Our Future
+                </div>
+
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.95]">
+                  Where <span className="text-gradient">Community</span> Comes
+                  Together
+                </h1>
+
+                <p className="text-lg text-luminous-muted leading-relaxed">
+                  From youth leadership programs to family counseling, FLCRC is
+                  the heart of positive change in Fort Bend County.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { icon: GraduationCap, label: "Youth Programs" },
+                    { icon: HeartHandshake, label: "Family Services" },
+                    { icon: RefreshCw, label: "Restorative Justice" },
+                    { icon: MessageCircle, label: "Community Support" },
+                  ].map(({ icon: Icon, label }, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10"
+                    >
+                      <Icon size={20} className="text-luminous-fuchsia" />
+                      <span className="text-sm font-medium">{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link href="/programs">
+                  <Button variant="primary" className="px-10 py-5 mt-4">
+                    View All Programs <ArrowRight size={16} />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </section>
+        </HeroCarousel>
+
+        {/* ╔═══════════════════════════════════╗
+           ║  IMPACT NUMBERS — Light Section    ║
+           ╚═══════════════════════════════════╝ */}
+        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+          <div className="max-w-7xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                  Our Impact
+                </p>
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                  Numbers That Tell Our Story
+                </h2>
+              </div>
+            </ScrollReveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { icon: Users, num: "150+", label: "Years Combined Experience", color: "text-blue-600" },
+                { icon: Calendar, num: "8", label: "Programs & Services", color: "text-purple-600" },
+                { icon: Trophy, num: "5", label: "Core Competencies", color: "text-emerald-600" },
+                { icon: Heart, num: "10+", label: "Years of Service", color: "text-rose-600" },
+              ].map((stat, i) => (
+                <ScrollReveal key={i} delay={i * 100}>
+                  <div className="text-center group">
+                    <div
+                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center ${stat.color} group-hover:scale-110 transition-transform`}
+                    >
+                      <stat.icon size={28} />
+                    </div>
+                    <div className="text-4xl md:text-5xl font-black mb-2">
+                      {stat.num}
+                    </div>
+                    <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
+                      {stat.label}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ╔═══════════════════════════════════╗
+           ║  CORE COMPETENCIES — Dark Section  ║
+           ╚═══════════════════════════════════╝ */}
+        <section className="relative py-24 px-4 bg-luminous-bg z-10">
+          <div className="max-w-7xl mx-auto">
+            <SectionTitle title="What We Do" />
+            <p className="text-center text-luminous-muted max-w-2xl mx-auto mb-12 -mt-4">
+              Ongoing assistance for crime victims, youth, families, and communities.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {[
+                {
+                  title: "Community Support",
+                  desc: "Linking families with resources and building a culture of respect at all times.",
+                  icon: Network,
+                  gradient: "from-cyan-500 to-blue-500",
+                },
+                {
+                  title: "Crime Victim Services",
+                  desc: "Providing direct services, advocacy, and support for crime victims and their families.",
+                  icon: Shield,
+                  gradient: "from-violet-500 to-purple-500",
+                },
+                {
+                  title: "Stronger Families",
+                  desc: "Equipping individuals and families with resources to build a thriving community.",
+                  icon: HeartHandshake,
+                  gradient: "from-fuchsia-500 to-pink-500",
+                },
+                {
+                  title: "Trainings",
+                  desc: "Education and professional development driving positive change through knowledge.",
+                  icon: BookOpen,
+                  gradient: "from-amber-500 to-orange-500",
+                },
+                {
+                  title: "Youth Services",
+                  desc: "Empowering the next generation through leadership, mentorship, and civic engagement.",
+                  icon: GraduationCap,
+                  gradient: "from-emerald-500 to-teal-500",
+                },
+              ].map((item, i) => (
+                <ScrollReveal key={i} delay={i * 80}>
+                  <GlassCard className="h-full group text-center">
+                    <div
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform mx-auto`}
+                    >
+                      <item.icon size={24} className="text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                    <p className="text-luminous-muted leading-relaxed text-sm">
+                      {item.desc}
+                    </p>
+                  </GlassCard>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ╔═══════════════════════════════════════╗
+           ║  FEATURED PROGRAMS — Light Section     ║
+           ╚═══════════════════════════════════════╝ */}
+        <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
+          <div className="max-w-7xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+                  What We Do
+                </p>
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                  Featured Programs
+                </h2>
+              </div>
+            </ScrollReveal>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Y.A.L.E. Program",
+                  desc: "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
+                  icon: GraduationCap,
+                  color: "bg-blue-600",
+                  tag: "Youth",
+                },
+                {
+                  title: "GRIT / Victim Services",
+                  desc: "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
+                  icon: Zap,
+                  color: "bg-purple-600",
+                  tag: "Community",
+                },
+                {
+                  title: "RPYL Program",
+                  desc: "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
+                  icon: RefreshCw,
+                  color: "bg-emerald-600",
+                  tag: "Education",
+                },
+              ].map((prog, i) => (
+                <ScrollReveal key={i} delay={i * 100}>
+                  <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group h-full flex flex-col">
+                    <div className="flex justify-between items-start mb-6">
+                      <div
+                        className={`w-14 h-14 ${prog.color} rounded-xl flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform`}
+                      >
+                        <prog.icon size={28} />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
+                        {prog.tag}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-700 transition-colors">
+                      {prog.title}
+                    </h3>
+                    <p className="text-slate-500 leading-relaxed mb-6 flex-grow">
+                      {prog.desc}
+                    </p>
+                    <Link
+                      href="/programs"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 uppercase tracking-wider group-hover:gap-3 transition-all"
+                    >
+                      Learn More <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+            <ScrollReveal>
+              <div className="text-center mt-12">
+                <Link href="/programs">
+                  <Button variant="primary" className="!bg-slate-900 !text-white hover:!bg-slate-800">
+                    View All Programs <ArrowRight size={16} />
+                  </Button>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+
+
+        {/* ╔═══════════════════════════════════════════╗
+           ║  UPCOMING EVENTS — Light Section           ║
+           ╚═══════════════════════════════════════════╝ */}
+        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-emerald-600 mb-3">
+                  Mark Your Calendar
+                </p>
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                  Upcoming Events
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            <div className="space-y-4">
+              {[
+                {
+                  d: "02",
+                  m: "AUG",
+                  title: "Back-to-School Parent Chat",
+                  loc: "FLCRC Main Hall",
+                  time: "TBA",
+                  color: "from-cyan-500 to-blue-500",
+                },
+                {
+                  d: "27",
+                  m: "SEP",
+                  title: "Senior Social Mixer",
+                  loc: "FLCRC Main Hall",
+                  time: "TBA",
+                  color: "from-violet-500 to-purple-500",
+                },
+                {
+                  d: "15",
+                  m: "NOV",
+                  title: "Dakota Merriweather 5K Walk/Run",
+                  loc: "Community Park",
+                  time: "8:00 AM",
+                  color: "from-amber-400 to-rose-500",
+                },
+                {
+                  d: "06",
+                  m: "DEC",
+                  title: "9th Annual Banquet",
+                  loc: "FLCRC Grand Hall",
+                  time: "6:00 PM",
+                  color: "from-emerald-500 to-teal-500",
+                },
+              ].map((evt, i) => (
+                <ScrollReveal key={i} delay={i * 100}>
+                  <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all group">
+                    <div
+                      className={`w-20 h-20 rounded-xl bg-gradient-to-br ${evt.color} flex flex-col items-center justify-center shrink-0 shadow-lg text-white group-hover:scale-105 transition-transform`}
+                    >
+                      <span className="text-2xl font-bold">{evt.d}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                        {evt.m}
+                      </span>
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <h3 className="text-xl font-bold text-slate-900 mb-1">
+                        {evt.title}
+                      </h3>
+                      <div className="flex items-center justify-center md:justify-start gap-4 text-sm text-slate-500">
+                        <span className="flex items-center gap-1">
+                          <MapPin size={14} /> {evt.loc}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock size={14} /> {evt.time}
+                        </span>
+                      </div>
+                    </div>
+                    <Link href="/events">
+                      <button className="px-6 py-2.5 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
+                        Register
+                      </button>
+                    </Link>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+
+            <ScrollReveal>
+              <div className="text-center mt-12">
+                <Link href="/events">
+                  <button className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-slate-700 transition-all cursor-pointer inline-flex items-center gap-2">
+                    View All Events <ArrowRight size={14} />
+                  </button>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+
+
+        {/* ╔══════════════════════════════════════════╗
+           ║  HOW TO GET INVOLVED — Light Section      ║
+           ╚══════════════════════════════════════════╝ */}
+        <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
+          <div className="max-w-7xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-rose-600 mb-3">
+                  Make a Difference
+                </p>
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                  How to Get Involved
+                </h2>
+              </div>
+            </ScrollReveal>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: HandHeart,
+                  title: "Volunteer",
+                  desc: "Donate your time and talent. Mentor youth, assist at events, or support our administrative team.",
+                  color: "bg-emerald-600",
+                  cta: "Apply to Volunteer",
+                },
+                {
+                  icon: Megaphone,
+                  title: "Sponsor",
+                  desc: "Partner with us as a corporate or community sponsor. Your brand helps families and builds trust.",
+                  color: "bg-purple-600",
+                  cta: "Become a Sponsor",
+                },
+                {
+                  icon: Briefcase,
+                  title: "Donate",
+                  desc: "Every dollar directly funds programs for at-risk youth and families in crisis. 85% goes to services.",
+                  color: "bg-rose-600",
+                  cta: "Make a Donation",
+                },
+              ].map((card, i) => (
+                <ScrollReveal key={i} delay={i * 100}>
+                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center group hover:shadow-xl transition-all h-full flex flex-col">
+                    <div
+                      className={`w-16 h-16 ${card.color} text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}
+                    >
+                      <card.icon size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
+                    <p className="text-slate-500 leading-relaxed flex-grow mb-6">
+                      {card.desc}
+                    </p>
+                    <button
+                      onClick={() => card.title === "Donate" && setShowDonate(true)}
+                      className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer"
+                    >
+                      {card.cta}
+                    </button>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ╔══════════════════════════════════════════╗
+           ║  SPONSORSHIP — Dark Section                ║
+           ╚══════════════════════════════════════════╝ */}
+        <section className="relative py-24 px-4 bg-luminous-bg z-10">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <p className="text-sm font-bold uppercase tracking-widest text-luminous-cyan mb-3">
+                  Support Our Mission
+                </p>
+                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                  Become a Sponsor
+                </h2>
+                <p className="text-luminous-muted max-w-2xl mx-auto text-sm leading-relaxed">
+                  Your sponsorship directly fuels our mission to impact thousands of children and
+                  families in this community. All sponsors are recognized on our website and in our
+                  quarterly newsletter.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal>
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+                {[
+                  { tier: "Elite", amount: "$25,000+", color: "from-amber-400 to-yellow-500", textColor: "text-amber-400" },
+                  { tier: "Platinum", amount: "$20,000", color: "from-slate-300 to-slate-400", textColor: "text-slate-300" },
+                  { tier: "Gold", amount: "$10,000", color: "from-yellow-500 to-amber-600", textColor: "text-yellow-500" },
+                  { tier: "Silver", amount: "$5,000", color: "from-gray-300 to-gray-400", textColor: "text-gray-300" },
+                  { tier: "Bronze", amount: "$2,500", color: "from-amber-700 to-orange-800", textColor: "text-amber-600" },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className="glass rounded-2xl p-6 text-center min-w-[140px] border border-white/10 hover:border-luminous-cyan/40 transition-all group cursor-default"
+                  >
+                    <div className={`w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-br ${s.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    <div className={`text-lg font-bold ${s.textColor} mb-1`}>{s.tier}</div>
+                    <div className="text-sm text-luminous-muted font-mono">{s.amount}</div>
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+            <ScrollReveal>
+              <div className="text-center mt-10">
+                <Link href="/contact">
+                  <Button variant="glow" className="px-8 py-4">
+                    Become a Sponsor
+                  </Button>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ╔══════════════════════════════════════════╗
+           ║  FAQ — Light Section                      ║
+           ╚══════════════════════════════════════════╝ */}
+        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+          <div className="max-w-3xl mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                  Questions?
+                </p>
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                  Frequently Asked
+                </h2>
+              </div>
+            </ScrollReveal>
+            <div className="space-y-4">
+              {faqs.map((faq, i) => (
+                <ScrollReveal key={i} delay={i * 50}>
+                  <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 transition-colors">
+                    <FAQItem q={faq.q} a={faq.a} />
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ╔══════════════════════════════════════════╗
+           ║  CTA / NEWSLETTER — Dark Section          ║
+           ╚══════════════════════════════════════════╝ */}
+        <section className="relative py-24 px-4 bg-luminous-bg z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <ScrollReveal>
+              <GlassCard className="p-12 md:p-16 !border-luminous-fuchsia/30 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-luminous-violet/10 to-luminous-fuchsia/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white relative z-10">
+                  Join the Signal
+                </h2>
+                <p className="text-luminous-muted text-lg mb-10 max-w-xl mx-auto relative z-10">
+                  Be the first to know about upcoming workshops, volunteer
+                  opportunities, and community success stories.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-10">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="flex-1 bg-black/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all"
+                  />
+                  <Button
+                    variant="primary"
+                    className="py-4 shadow-lg shadow-luminous-violet/20"
+                  >
+                    Subscribe
+                  </Button>
+                </div>
+              </GlassCard>
+            </ScrollReveal>
+          </div>
+        </section>
       </main>
+
+      <Footer />
+
+      {/* ===== DONATE MODAL ===== */}
+      <Modal
+        isOpen={showDonate}
+        onClose={() => setShowDonate(false)}
+        title="Support Our Mission"
+      >
+        <div className="space-y-6">
+          <p className="text-luminous-muted text-center">
+            Your generous donation supports programs for at-risk youth and
+            families in crisis.
+          </p>
+          <div className="grid grid-cols-3 gap-4">
+            {[50, 100, 250].map((amt) => (
+              <button
+                key={amt}
+                className="py-3 border border-white/20 rounded-xl font-bold hover:bg-luminous-cyan hover:text-black transition-colors hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] cursor-pointer"
+              >
+                ${amt}
+              </button>
+            ))}
+          </div>
+          <input
+            type="text"
+            placeholder="Card Number"
+            className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white"
+          />
+          <Button variant="primary" className="w-full">
+            Process Secure Donation
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
