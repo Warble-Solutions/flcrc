@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   GraduationCap,
@@ -11,65 +11,53 @@ import {
   BookOpen,
   ArrowRight,
   Check,
+  Network,
+  HeartHandshake,
+  Users,
+  Heart,
 } from "lucide-react";
 import AnimatedBackground from "@/components/layout/AnimatedBackground";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
-import SectionTitle from "@/components/ui/SectionTitle";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
+import { createClient } from "@/lib/supabase/client";
+import type { Program } from "@/lib/supabase/types";
 
-const programs = [
-  {
-    id: 1,
-    title: "YALE Leadership",
-    cat: "Youth",
-    desc: "Youth Ambassador Leadership Education — civic engagement & mentorship for tomorrow's leaders.",
-    icon: GraduationCap,
-    color: "text-luminous-cyan",
-  },
-  {
-    id: 2,
-    title: "Restorative Practices",
-    cat: "Community",
-    desc: "Conflict resolution training that heals rather than punishes. For schools, workplaces, and homes.",
-    icon: RefreshCw,
-    color: "text-luminous-violet",
-  },
-  {
-    id: 3,
-    title: "Parent Chat",
-    cat: "Family",
-    desc: "Support circles where parents connect, share experiences, and learn together.",
-    icon: MessageCircle,
-    color: "text-luminous-fuchsia",
-  },
-  {
-    id: 4,
-    title: "GRIT Program",
-    cat: "Youth",
-    desc: "Growth Rewarding Insight Tools — building resilience in at-risk youth.",
-    icon: Zap,
-    color: "text-yellow-400",
-  },
-  {
-    id: 5,
-    title: "Victim Services",
-    cat: "Community",
-    desc: "Confidential crisis intervention, counseling, and legal advocacy for crime victims.",
-    icon: Shield,
-    color: "text-red-400",
-  },
-  {
-    id: 6,
-    title: "Scholarships",
-    cat: "Family",
-    desc: "Financial aid and awards to support students pursuing higher education.",
-    icon: BookOpen,
-    color: "text-emerald-400",
-  },
+// Icon mapping for programs stored in Supabase
+const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+  GraduationCap,
+  RefreshCw,
+  MessageCircle,
+  Zap,
+  Shield,
+  BookOpen,
+  Network,
+  HeartHandshake,
+  Users,
+  Heart,
+};
+
+// Color mapping for the icon color in the card
+const colorMap: Record<string, string> = {
+  "bg-blue-600": "text-luminous-cyan",
+  "bg-purple-600": "text-luminous-violet",
+  "bg-emerald-600": "text-emerald-400",
+  "bg-rose-600": "text-luminous-fuchsia",
+  "bg-yellow-400": "text-yellow-400",
+  "bg-red-400": "text-red-400",
+};
+
+// Fallback programs if Supabase is unavailable
+const fallbackPrograms: Program[] = [
+  { id: "1", title: "YALE Leadership", description: "Youth Ambassador Leadership Education — civic engagement & mentorship for tomorrow's leaders.", tag: "Youth", icon: "GraduationCap", color: "bg-blue-600", is_featured: true, sort_order: 0, created_at: "" },
+  { id: "2", title: "Restorative Practices", description: "Conflict resolution training that heals rather than punishes. For schools, workplaces, and homes.", tag: "Community", icon: "RefreshCw", color: "bg-purple-600", is_featured: true, sort_order: 1, created_at: "" },
+  { id: "3", title: "Parent Chat", description: "Support circles where parents connect, share experiences, and learn together.", tag: "Family", icon: "MessageCircle", color: "bg-emerald-600", is_featured: false, sort_order: 2, created_at: "" },
+  { id: "4", title: "GRIT Program", description: "Growth Rewarding Insight Tools — building resilience in at-risk youth.", tag: "Youth", icon: "Zap", color: "bg-yellow-400", is_featured: true, sort_order: 3, created_at: "" },
+  { id: "5", title: "Victim Services", description: "Confidential crisis intervention, counseling, and legal advocacy for crime victims.", tag: "Community", icon: "Shield", color: "bg-rose-600", is_featured: false, sort_order: 4, created_at: "" },
+  { id: "6", title: "Scholarships", description: "Financial aid and awards to support students pursuing higher education.", tag: "Family", icon: "BookOpen", color: "bg-emerald-600", is_featured: false, sort_order: 5, created_at: "" },
 ];
 
 const programImages: Record<string, string> = {
@@ -80,10 +68,23 @@ const programImages: Record<string, string> = {
 
 export default function ProgramsPage() {
   const [showDonate, setShowDonate] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState<(typeof programs)[0] | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [filter, setFilter] = useState("All");
+  const [programs, setPrograms] = useState<Program[]>(fallbackPrograms);
 
-  const filtered = filter === "All" ? programs : programs.filter((p) => p.cat === filter);
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from("programs")
+      .select("*")
+      .order("sort_order", { ascending: true })
+      .then(({ data }: { data: Program[] | null }) => {
+        if (data && data.length > 0) setPrograms(data);
+      });
+  }, []);
+
+  const allTags = ["All", ...Array.from(new Set(programs.map((p) => p.tag).filter(Boolean)))];
+  const filtered = filter === "All" ? programs : programs.filter((p) => p.tag === filter);
 
   return (
     <div className="min-h-screen flex flex-col relative text-luminous-text">
@@ -107,10 +108,10 @@ export default function ProgramsPage() {
           {/* Filter Chips */}
           <ScrollReveal>
             <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {["All", "Youth", "Family", "Community"].map((cat) => (
+              {allTags.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setFilter(cat)}
+                  onClick={() => setFilter(cat!)}
                   className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     filter === cat
                       ? "bg-white text-black shadow-lg scale-105"
@@ -125,34 +126,40 @@ export default function ProgramsPage() {
 
           {/* Programs Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((prog, i) => (
-              <ScrollReveal key={prog.id} delay={i * 50}>
-                <GlassCard
-                  className="cursor-pointer group relative overflow-hidden h-full"
-                  hoverEffect={true}
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br from-luminous-cyan to-luminous-fuchsia" />
-                  <div
-                    onClick={() => setSelectedProgram(prog)}
-                    className="relative z-10"
+            {filtered.map((prog, i) => {
+              const IconComp = iconMap[prog.icon || ""] || GraduationCap;
+              const iconColor = colorMap[prog.color || ""] || "text-luminous-cyan";
+              return (
+                <ScrollReveal key={prog.id} delay={i * 50}>
+                  <GlassCard
+                    className="cursor-pointer group relative overflow-hidden h-full"
+                    hoverEffect={true}
                   >
-                    <div className="flex justify-between items-start mb-8">
-                      <prog.icon size={32} className={prog.color} />
-                      <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/10 bg-white/5 text-luminous-muted">
-                        {prog.cat}
-                      </span>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br from-luminous-cyan to-luminous-fuchsia" />
+                    <div
+                      onClick={() => setSelectedProgram(prog)}
+                      className="relative z-10"
+                    >
+                      <div className="flex justify-between items-start mb-8">
+                        <IconComp size={32} className={iconColor} />
+                        {prog.tag && (
+                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/10 bg-white/5 text-luminous-muted">
+                            {prog.tag}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-luminous-cyan transition-colors">
+                        {prog.title}
+                      </h3>
+                      <p className="text-luminous-muted mb-8">{prog.description}</p>
+                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white/70 group-hover:text-white group-hover:gap-4 transition-all">
+                        Explore <ArrowRight size={16} />
+                      </div>
                     </div>
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-luminous-cyan transition-colors">
-                      {prog.title}
-                    </h3>
-                    <p className="text-luminous-muted mb-8">{prog.desc}</p>
-                    <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white/70 group-hover:text-white group-hover:gap-4 transition-all">
-                      Explore <ArrowRight size={16} />
-                    </div>
-                  </div>
-                </GlassCard>
-              </ScrollReveal>
-            ))}
+                  </GlassCard>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </main>
@@ -169,7 +176,7 @@ export default function ProgramsPage() {
           <div className="space-y-6">
             <div className="rounded-xl overflow-hidden h-48 border border-white/10">
               <Image
-                src={programImages[selectedProgram.cat] || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"}
+                src={programImages[selectedProgram.tag || ""] || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"}
                 className="w-full h-full object-cover"
                 alt={selectedProgram.title}
                 width={800}
@@ -178,7 +185,7 @@ export default function ProgramsPage() {
               />
             </div>
             <p className="text-lg text-luminous-muted leading-relaxed">
-              {selectedProgram.desc}
+              {selectedProgram.description}
             </p>
             <div className="bg-white/5 p-6 rounded-xl border border-white/10">
               <h4 className="font-bold text-white mb-3">What we provide:</h4>

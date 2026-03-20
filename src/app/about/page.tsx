@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import {
   Network,
@@ -24,12 +25,14 @@ import GlassCard from "@/components/ui/GlassCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
+import { createClient } from "@/lib/supabase/client";
+import type { TeamMember } from "@/lib/supabase/types";
 
-const leadershipTeam = [
-  { name: "Ilene Harper, Ph.D.", role: "Founder & Executive Director", bio: "Dr. Harper founded FLCRC in 2013. She brings 29 years in education and has presented at a Congressional Briefing on School Discipline in Washington, DC." },
-  { name: "Denise Bean", role: "Project & Volunteer Manager", bio: "A retired State of Texas Social Worker with 27 years advocating for children. Denise leads projects and volunteers at FLCRC." },
-  { name: "Sharon Delesbore, Ph.D.", role: "Program Coordinator", bio: "Dr. Delesbore brings 30 years in public education leadership, serving as teacher, principal, and dean of instruction." },
-  { name: "Cleo Wadley, Ed.D.", role: "Board President", bio: "Dr. Wadley brings 30+ years in public education. He serves as Officer of Leadership Development for Harris County Dept. of Education." },
+const fallbackTeam: TeamMember[] = [
+  { id: "1", name: "Ilene Harper, Ph.D.", role: "Founder & Executive Director", bio: "Dr. Harper founded FLCRC in 2013. She brings 29 years in education and has presented at a Congressional Briefing on School Discipline in Washington, DC.", category: "leadership", sort_order: 0, created_at: "" },
+  { id: "2", name: "Denise Bean", role: "Project & Volunteer Manager", bio: "A retired State of Texas Social Worker with 27 years advocating for children. Denise leads projects and volunteers at FLCRC.", category: "staff", sort_order: 1, created_at: "" },
+  { id: "3", name: "Sharon Delesbore, Ph.D.", role: "Program Coordinator", bio: "Dr. Delesbore brings 30 years in public education leadership, serving as teacher, principal, and dean of instruction.", category: "staff", sort_order: 2, created_at: "" },
+  { id: "4", name: "Cleo Wadley, Ed.D.", role: "Board President", bio: "Dr. Wadley brings 30+ years in public education. He serves as Officer of Leadership Development for Harris County Dept. of Education.", category: "board", sort_order: 3, created_at: "" },
 ];
 
 const coreCompetencies = [
@@ -51,6 +54,18 @@ const strategicPlan = [
 
 export default function AboutPage() {
   const [showDonate, setShowDonate] = useState(false);
+  const [leadershipTeam, setLeadershipTeam] = useState<TeamMember[]>(fallbackTeam);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .from("team_members")
+      .select("*")
+      .order("sort_order", { ascending: true })
+      .then(({ data }: { data: TeamMember[] | null }) => {
+        if (data && data.length > 0) setLeadershipTeam(data);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col relative text-luminous-text">

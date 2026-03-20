@@ -24,6 +24,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
+import { createClient } from "@/lib/supabase/client";
 
 // All 15 facility images
 const facilityImages = Array.from({ length: 15 }, (_, i) => ({
@@ -171,6 +172,51 @@ export default function FacilityRentalsPage() {
   const [showDonate, setShowDonate] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [rentalForm, setRentalForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    eventDate: "",
+    eventType: "",
+    guests: "",
+    hours: "",
+    alcohol: "No",
+    addons: [] as string[],
+    notes: "",
+  });
+
+  const toggleAddon = (addon: string) => {
+    setRentalForm((prev) => ({
+      ...prev,
+      addons: prev.addons.includes(addon)
+        ? prev.addons.filter((a) => a !== addon)
+        : [...prev.addons, addon],
+    }));
+  };
+
+  const handleRentalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    const supabase = createClient();
+    await supabase.from("form_submissions").insert({
+      type: "rental",
+      name: rentalForm.name,
+      email: rentalForm.email,
+      phone: rentalForm.phone || null,
+      message: rentalForm.notes || null,
+      metadata: {
+        event_date: rentalForm.eventDate,
+        event_type: rentalForm.eventType,
+        estimated_guests: rentalForm.guests,
+        hours_needed: rentalForm.hours,
+        alcohol: rentalForm.alcohol,
+        addons: rentalForm.addons,
+      },
+    });
+    setSubmitting(false);
+    setFormSubmitted(true);
+  };
 
   const openGallery = (i: number) => setGalleryIndex(i);
   const closeGallery = () => setGalleryIndex(null);
@@ -383,10 +429,7 @@ export default function FacilityRentalsPage() {
             ) : (
               <ScrollReveal>
                 <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setFormSubmitted(true);
-                  }}
+                  onSubmit={handleRentalSubmit}
                   className="bg-slate-50 border border-slate-200 rounded-2xl p-8 md:p-12 space-y-6"
                 >
                   <div className="grid md:grid-cols-2 gap-6">
@@ -397,6 +440,8 @@ export default function FacilityRentalsPage() {
                       <input
                         type="text"
                         required
+                        value={rentalForm.name}
+                        onChange={(e) => setRentalForm({ ...rentalForm, name: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                         placeholder="John Smith"
                       />
@@ -408,6 +453,8 @@ export default function FacilityRentalsPage() {
                       <input
                         type="email"
                         required
+                        value={rentalForm.email}
+                        onChange={(e) => setRentalForm({ ...rentalForm, email: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                         placeholder="john@example.com"
                       />
@@ -422,6 +469,8 @@ export default function FacilityRentalsPage() {
                       <input
                         type="tel"
                         required
+                        value={rentalForm.phone}
+                        onChange={(e) => setRentalForm({ ...rentalForm, phone: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                         placeholder="(555) 123-4567"
                       />
@@ -433,6 +482,8 @@ export default function FacilityRentalsPage() {
                       <input
                         type="date"
                         required
+                        value={rentalForm.eventDate}
+                        onChange={(e) => setRentalForm({ ...rentalForm, eventDate: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                       />
                     </div>
@@ -445,6 +496,8 @@ export default function FacilityRentalsPage() {
                       </label>
                       <select
                         required
+                        value={rentalForm.eventType}
+                        onChange={(e) => setRentalForm({ ...rentalForm, eventType: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                       >
                         <option value="">Select event type</option>
@@ -466,6 +519,8 @@ export default function FacilityRentalsPage() {
                         type="number"
                         required
                         max={128}
+                        value={rentalForm.guests}
+                        onChange={(e) => setRentalForm({ ...rentalForm, guests: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                         placeholder="e.g. 100"
                       />
@@ -479,6 +534,8 @@ export default function FacilityRentalsPage() {
                       </label>
                       <select
                         required
+                        value={rentalForm.hours}
+                        onChange={(e) => setRentalForm({ ...rentalForm, hours: e.target.value })}
                         className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                       >
                         <option value="">Select duration</option>
@@ -493,7 +550,11 @@ export default function FacilityRentalsPage() {
                       <label className="block text-sm font-bold text-slate-700 mb-2">
                         Will alcohol be served?
                       </label>
-                      <select className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                      <select
+                        value={rentalForm.alcohol}
+                        onChange={(e) => setRentalForm({ ...rentalForm, alcohol: e.target.value })}
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                      >
                         <option>No</option>
                         <option>Yes</option>
                       </select>
@@ -518,6 +579,8 @@ export default function FacilityRentalsPage() {
                         >
                           <input
                             type="checkbox"
+                            checked={rentalForm.addons.includes(addon)}
+                            onChange={() => toggleAddon(addon)}
                             className="w-4 h-4 accent-blue-600"
                           />
                           <span className="text-sm text-slate-700">
@@ -534,6 +597,8 @@ export default function FacilityRentalsPage() {
                     </label>
                     <textarea
                       rows={4}
+                      value={rentalForm.notes}
+                      onChange={(e) => setRentalForm({ ...rentalForm, notes: e.target.value })}
                       className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
                       placeholder="Any specific requirements, setup preferences, or questions..."
                     />
@@ -541,10 +606,11 @@ export default function FacilityRentalsPage() {
 
                   <button
                     type="submit"
-                    className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer"
+                    disabled={submitting}
+                    className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer disabled:opacity-50"
                   >
                     <Send size={16} />
-                    Submit Rental Request
+                    {submitting ? "Submitting..." : "Submit Rental Request"}
                   </button>
                 </form>
               </ScrollReveal>

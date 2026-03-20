@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -36,6 +36,8 @@ import GlassCard from "@/components/ui/GlassCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Modal from "@/components/ui/Modal";
 import { HERO_IMAGES } from "@/lib/images";
+import { createClient } from "@/lib/supabase/client";
+import type { Event, Program } from "@/lib/supabase/types";
 
 // ───── FAQ Data ─────
 const faqs = [
@@ -90,6 +92,50 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function HomePage() {
   const [showDonate, setShowDonate] = useState(false);
+
+  // Dynamic events from Supabase
+  const [dbEvents, setDbEvents] = useState<Event[] | null>(null);
+  // Dynamic featured programs from Supabase
+  const [dbPrograms, setDbPrograms] = useState<Program[] | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    // Fetch upcoming events
+    supabase
+      .from("events")
+      .select("*")
+      .gte("date", new Date().toISOString().split("T")[0])
+      .order("date", { ascending: true })
+      .limit(4)
+      .then(({ data }: { data: Event[] | null }) => {
+        if (data && data.length > 0) setDbEvents(data);
+      });
+    // Fetch featured programs
+    supabase
+      .from("programs")
+      .select("*")
+      .eq("is_featured", true)
+      .order("sort_order", { ascending: true })
+      .limit(3)
+      .then(({ data }: { data: Program[] | null }) => {
+        if (data && data.length > 0) setDbPrograms(data);
+      });
+  }, []);
+
+  // Icon mapping for programs from Supabase
+  const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+    GraduationCap, RefreshCw, MessageCircle, Zap, Shield, BookOpen,
+    Network, HeartHandshake, Users, Heart,
+  };
+
+  // Format Supabase date to day/month
+  const fmtDate = (dateStr: string) => {
+    const d = new Date(dateStr + "T00:00:00");
+    return {
+      d: d.getDate().toString().padStart(2, "0"),
+      m: d.toLocaleString("en-US", { month: "short" }).toUpperCase(),
+    };
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative text-luminous-text">
@@ -447,36 +493,38 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
             <div className="grid md:grid-cols-3 gap-8">
-              {[
+              {(dbPrograms ? dbPrograms : [
                 {
                   title: "Y.A.L.E. Program",
-                  desc: "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
-                  icon: GraduationCap,
+                  description: "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
+                  icon: "GraduationCap",
                   color: "bg-blue-600",
                   tag: "Youth",
                 },
                 {
                   title: "GRIT / Victim Services",
-                  desc: "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
-                  icon: Zap,
+                  description: "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
+                  icon: "Zap",
                   color: "bg-purple-600",
                   tag: "Community",
                 },
                 {
                   title: "RPYL Program",
-                  desc: "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
-                  icon: RefreshCw,
+                  description: "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
+                  icon: "RefreshCw",
                   color: "bg-emerald-600",
                   tag: "Education",
                 },
-              ].map((prog, i) => (
+              ] as Array<{ title: string; description: string | null; icon: string | null; color: string | null; tag: string | null }>).map((prog, i) => {
+                const IconComp = iconMap[prog.icon || ""] || GraduationCap;
+                return (
                 <ScrollReveal key={i} delay={i * 100}>
                   <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group h-full flex flex-col">
                     <div className="flex justify-between items-start mb-6">
                       <div
-                        className={`w-14 h-14 ${prog.color} rounded-xl flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform`}
+                        className={`w-14 h-14 ${prog.color || "bg-blue-600"} rounded-xl flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform`}
                       >
-                        <prog.icon size={28} />
+                        <IconComp size={28} />
                       </div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
                         {prog.tag}
@@ -486,7 +534,7 @@ export default function HomePage() {
                       {prog.title}
                     </h3>
                     <p className="text-slate-500 leading-relaxed mb-6 flex-grow">
-                      {prog.desc}
+                      {prog.description}
                     </p>
                     <Link
                       href="/programs"
@@ -496,7 +544,8 @@ export default function HomePage() {
                     </Link>
                   </div>
                 </ScrollReveal>
-              ))}
+              );
+              })}
             </div>
             <ScrollReveal>
               <div className="text-center mt-12">
@@ -529,40 +578,15 @@ export default function HomePage() {
             </ScrollReveal>
 
             <div className="space-y-4">
-              {[
-                {
-                  d: "02",
-                  m: "AUG",
-                  title: "Back-to-School Parent Chat",
-                  loc: "FLCRC Main Hall",
-                  time: "TBA",
-                  color: "from-cyan-500 to-blue-500",
-                },
-                {
-                  d: "27",
-                  m: "SEP",
-                  title: "Senior Social Mixer",
-                  loc: "FLCRC Main Hall",
-                  time: "TBA",
-                  color: "from-violet-500 to-purple-500",
-                },
-                {
-                  d: "15",
-                  m: "NOV",
-                  title: "Dakota Merriweather 5K Walk/Run",
-                  loc: "Community Park",
-                  time: "8:00 AM",
-                  color: "from-amber-400 to-rose-500",
-                },
-                {
-                  d: "06",
-                  m: "DEC",
-                  title: "9th Annual Banquet",
-                  loc: "FLCRC Grand Hall",
-                  time: "6:00 PM",
-                  color: "from-emerald-500 to-teal-500",
-                },
-              ].map((evt, i) => (
+              {(dbEvents ? dbEvents.map(evt => {
+                const { d: day, m: month } = fmtDate(evt.date);
+                return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
+              }) : [
+                { d: "02", m: "AUG", title: "Back-to-School Parent Chat", loc: "FLCRC Main Hall", time: "TBA", color: "from-cyan-500 to-blue-500" },
+                { d: "27", m: "SEP", title: "Senior Social Mixer", loc: "FLCRC Main Hall", time: "TBA", color: "from-violet-500 to-purple-500" },
+                { d: "15", m: "NOV", title: "Dakota Merriweather 5K Walk/Run", loc: "Community Park", time: "8:00 AM", color: "from-amber-400 to-rose-500" },
+                { d: "06", m: "DEC", title: "9th Annual Banquet", loc: "FLCRC Grand Hall", time: "6:00 PM", color: "from-emerald-500 to-teal-500" },
+              ]).map((evt, i) => (
                 <ScrollReveal key={i} delay={i * 100}>
                   <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all group">
                     <div
