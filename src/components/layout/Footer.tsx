@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, Phone, Mail, Facebook, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="relative border-t border-white/10 bg-black/50 backdrop-blur-xl pt-20 pb-10 px-6 z-10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
         {/* Brand */}
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <div className="flex items-center gap-3 mb-6 text-white">
             <div className="w-10 h-10 rounded-lg overflow-hidden">
               <Image
@@ -26,6 +27,33 @@ export default function Footer() {
           </p>
         </div>
 
+        {/* Explore Links */}
+        <div>
+          <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
+            About Us
+          </h4>
+          <ul className="space-y-3 text-luminous-muted text-sm">
+            <li><Link href="/about/mission-vision" className="hover:text-luminous-cyan transition-colors">Mission & Vision</Link></li>
+            <li><Link href="/about/team" className="hover:text-luminous-cyan transition-colors">Our Team</Link></li>
+            <li><Link href="/about/financials" className="hover:text-luminous-cyan transition-colors">Our Financials</Link></li>
+            <li><Link href="/about/strategic-plan" className="hover:text-luminous-cyan transition-colors">Strategic Plan</Link></li>
+            <li><Link href="/facility-rentals" className="hover:text-luminous-cyan transition-colors">Facility Rentals</Link></li>
+          </ul>
+        </div>
+
+        {/* Get Involved */}
+        <div>
+          <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
+            Get Involved
+          </h4>
+          <ul className="space-y-3 text-luminous-muted text-sm">
+            <li><Link href="/donate" className="hover:text-luminous-fuchsia transition-colors">Donate Now</Link></li>
+            <li><Link href="/sponsorship" className="hover:text-luminous-fuchsia transition-colors">Sponsorship</Link></li>
+            <li><Link href="/volunteer" className="hover:text-luminous-fuchsia transition-colors">Volunteer</Link></li>
+            <li><Link href="/campaign" className="hover:text-luminous-fuchsia transition-colors">Capital Campaign</Link></li>
+          </ul>
+        </div>
+
         {/* Contact */}
         <div>
           <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
@@ -43,14 +71,8 @@ export default function Footer() {
               <Mail size={16} /> info@familylifecrc.org
             </li>
           </ul>
-        </div>
-
-        {/* Social */}
-        <div>
-          <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">
-            Social
-          </h4>
-          <div className="flex gap-4">
+          
+          <div className="flex gap-4 mt-6">
             {[
               { icon: Facebook, href: "https://www.facebook.com/FLCRCRichmond/" },
               { icon: Twitter, href: "https://twitter.com/flcrc" },

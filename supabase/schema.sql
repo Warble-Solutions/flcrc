@@ -104,10 +104,22 @@ INSERT INTO programs (title, description, tag, icon, color, is_featured, sort_or
 
 -- Seed Team Members
 INSERT INTO team_members (name, role, bio, category, sort_order) VALUES
-  ('Ilene Harper, Ph.D.', 'Founder & Executive Director', 'Dr. Harper founded FLCRC in 2013. She brings 29 years in education and has presented at a Congressional Briefing on School Discipline in Washington, DC.', 'leadership', 1),
-  ('Denise Bean', 'Project & Volunteer Manager', 'A retired State of Texas Social Worker with 27 years advocating for children. Denise leads projects and volunteers at FLCRC.', 'staff', 2),
-  ('Sharon Delesbore, Ph.D.', 'Program Coordinator', 'Dr. Delesbore brings 30 years in public education leadership, serving as teacher, principal, and dean of instruction.', 'staff', 3),
-  ('Cleo Wadley, Ed.D.', 'Board President', 'Dr. Wadley brings 30+ years in public education. He serves as Officer of Leadership Development for Harris County Dept. of Education.', 'board', 1),
+  ('Cleo Wadley, Ed.D.', 'President', 'Dr. Wadley brings 30+ years in public education. He serves as Officer of Leadership Development for Harris County Dept. of Education.', 'board', 1),
   ('Millie Chatham', 'Vice President', 'Employed with Texas Health & Human Services for 24 years. Currently serves as Paraprofessional at Lamar CISD and has been with FLCRC since inception.', 'board', 2),
   ('Lacarria Green', 'Treasurer', 'A passionate volunteer recognized as the 2019 Clayton Home Owners Association Volunteer of the Year. Serves with her children to give back to the community.', 'board', 3),
-  ('Sharon Tanner', 'Secretary', 'Graduated from The Ohio State University with a BS in Computer Science. Worked in Fort Bend ISD for 11 years and has been a part of Children Services Volunteer Program for 20+ years.', 'board', 4);
+  ('Sharon Tanner', 'Secretary', 'Graduated from The Ohio State University with a BS in Computer Science. Worked in Fort Bend ISD for 11 years and has been a part of Children Services Volunteer Program for 20+ years.', 'board', 4),
+  ('Mary Sias', 'Parliamentarian', '', 'board', 5),
+  ('Kendon Thibodeaux', 'Youth Advisor', '', 'board', 6),
+  ('Ilene Harper, Ph.D.', 'Executive Director', 'Dr. Harper founded FLCRC in 2013. She brings 29 years in education and has presented at a Congressional Briefing on School Discipline in Washington, DC.', 'leadership', 7),
+  ('Denise Bean', 'Project and Volunteer Manager', 'A retired State of Texas Social Worker with 27 years advocating for children. Denise leads projects and volunteers at FLCRC.', 'staff', 8),
+  ('Sharon Delesbore, Ph.D.', 'Program Coordinator', 'Dr. Delesbore brings 30 years in public education leadership, serving as teacher, principal, and dean of instruction.', 'staff', 9),
+  ('LaTarsha Brown', 'Program Assistant', '', 'staff', 10),
+  ('Eric Harper', 'Program Assistant', '', 'staff', 11),
+  ('Jo Trahan', 'Administrative Assistant', '', 'staff', 12),
+  ('Wendy Terrell', 'Certified Public Accountant', '', 'staff', 13),
+  ('Oscar White', 'Project and Vendor Coordinator', '', 'staff', 14),
+  ('Sunday Price-Johnson, Ph.D., M.Ed', 'Educational Specialist', '', 'staff', 15),
+  ('Janice Little, Ph.D.', 'Volunteer Licensed Master Social Worker', '', 'staff', 16),
+  ('Jackie Thomas, BSN, RN', 'Registered Nurse', '', 'staff', 17),
+  ('Kenae Thibodeaux', 'Education Specialist', '', 'staff', 18),
+  ('Abby Santiago', 'Graphic and Technology Designer', '', 'staff', 19);

@@ -92,6 +92,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function HomePage() {
   const [showDonate, setShowDonate] = useState(false);
+  const [heroIdx, setHeroIdx] = useState(0);
 
   // Dynamic events from Supabase
   const [dbEvents, setDbEvents] = useState<Event[] | null>(null);
@@ -99,6 +100,10 @@ export default function HomePage() {
   const [dbPrograms, setDbPrograms] = useState<Program[] | null>(null);
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIdx((prev) => (prev + 1) % Object.values(HERO_IMAGES).length);
+    }, 6000);
+
     const supabase = createClient();
     // Fetch upcoming events
     supabase
@@ -144,236 +149,92 @@ export default function HomePage() {
 
       <main className="flex-grow z-10">
         {/* ╔═══════════════════════════════════════════════════╗
-           ║  HERO CAROUSEL — 3 Unique Slides from 3 Designs  ║
+           ║  PREMIUM HERO SECTION                            ║
            ╚═══════════════════════════════════════════════════╝ */}
-        <HeroCarousel>
-          {/* ── SLIDE 1: Design 3 style — Floating Cards ── */}
-          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900">
-            <div className="absolute top-32 left-10 w-32 h-32 bg-luminous-cyan rounded-full blur-3xl opacity-30 animate-float -z-10" />
-            <div className="absolute bottom-20 right-10 w-48 h-48 bg-luminous-fuchsia rounded-full blur-3xl opacity-20 animate-float-delayed -z-10" />
-
-            <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8 z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-luminous-cyan/30 bg-luminous-cyan/10 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-4 animate-pulse-slow">
-                  <span className="w-2 h-2 rounded-full bg-luminous-cyan" />
-                  Empowering Families Since 2013
-                </div>
-
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight">
-                  Build. <br />
-                  <span className="text-gradient">Grow.</span> <br />
-                  Thrive.
-                </h1>
-
-                <p className="text-xl text-luminous-muted max-w-lg leading-relaxed font-light mt-6">
-                  FLCRC is the catalyst for change in Fort Bend County. We
-                  provide the tools, resources, and support families need to
-                  navigate the challenges of modern life.
-                </p>
-
-                <div className="flex flex-wrap gap-4 pt-6">
-                  <Link href="/programs">
-                    <Button variant="primary" className="px-8 py-4">
-                      Explore Programs <ArrowRight size={16} />
-                    </Button>
-                  </Link>
-                  <Link href="/about">
-                    <Button variant="glow" className="px-8 py-4">
-                      Our Story
-                    </Button>
-                  </Link>
-                </div>
-
-                {/* Trust Badge */}
-                <div className="flex items-center gap-4 pt-8 border-t border-white/10">
-                  <div className="flex gap-6">
-                    {[
-                      { num: "8", label: "Programs" },
-                      { num: "150+", label: "Years Experience" },
-                    ].map((stat, i) => (
-                      <div key={i} className="text-center">
-                        <div className="text-2xl font-bold text-luminous-cyan">{stat.num}</div>
-                        <div className="text-[10px] text-luminous-muted uppercase tracking-widest">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Cards */}
-              <div className="relative h-[500px] flex items-center justify-center hidden lg:flex">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-96 bg-gradient-to-br from-luminous-cyan to-luminous-violet rounded-3xl blur-2xl opacity-30 animate-pulse" />
-
-                <div className="absolute top-10 right-10 w-64 h-80 glass rounded-2xl overflow-hidden shadow-2xl transform rotate-6 animate-float-delayed z-10">
-                  <Image
-                    src={HERO_IMAGES[1]}
-                    className="w-full h-full object-cover opacity-80"
-                    alt="Youth Leadership"
-                    width={400}
-                    height={500}
-                    unoptimized
-                  />
-                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent">
-                    <p className="text-sm font-bold">Youth Leadership</p>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-20 left-10 w-72 h-60 glass rounded-2xl overflow-hidden shadow-2xl transform -rotate-3 animate-float z-20">
-                  <Image
-                    src={HERO_IMAGES[2]}
-                    className="w-full h-full object-cover opacity-80"
-                    alt="Community Joy"
-                    width={450}
-                    height={350}
-                    unoptimized
-                  />
-                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent">
-                    <p className="text-sm font-bold">Community Joy</p>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4 bg-black/80 backdrop-blur-xl p-5 rounded-2xl shadow-xl border border-white/10 max-w-[200px] animate-float-delayed z-30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-luminous-cyan rounded-full animate-ping absolute" />
-                    <div className="w-3 h-3 bg-luminous-cyan rounded-full" />
-                    <span className="text-xs font-bold text-luminous-muted uppercase ml-2">
-                      Active Now
-                    </span>
-                  </div>
-                  <p className="font-bold text-white leading-tight text-sm">
-                    Youth Leadership Workshop
-                  </p>
-                </div>
-              </div>
+        <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
+          {/* Background Image Effect */}
+          {Object.values(HERO_IMAGES).map((img, idx) => (
+            <div 
+              key={idx}
+              className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
+                idx === heroIdx ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={img} 
+                alt={`FLCRC Hero ${idx + 1}`}
+                fill
+                className={`object-cover opacity-30 transform transition-transform duration-[10s] ease-out ${
+                  idx === heroIdx ? 'scale-110' : 'scale-100'
+                }`}
+                quality={100}
+                priority={idx === 0}
+                unoptimized
+              />
             </div>
-          </section>
+          ))}
+          {/* Cinematic Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.1)_0%,transparent_60%)] z-10 pointer-events-none" />
 
-          {/* ── SLIDE 2: Design 1 style — Bold dark with text focus ── */}
-          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.08)_0%,transparent_70%)]" />
-
-            <div className="max-w-5xl mx-auto text-center relative z-10">
-              <div className="inline-block mb-6 px-4 py-2 rounded-full border border-luminous-violet/30 bg-luminous-violet/10 text-luminous-violet text-xs font-bold uppercase tracking-widest">
+          <div className="max-w-7xl mx-auto px-4 relative z-20 flex flex-col items-center text-center mt-10">
+            <ScrollReveal>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md shadow-2xl">
+                <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
                 Building Better Communities
               </div>
+            </ScrollReveal>
 
-              <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white leading-[0.95] tracking-tight mb-8">
-                Igniting <span className="text-gradient">Hope</span>,<br />
+            <ScrollReveal delay={100}>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[1.05] tracking-tight mb-8">
+                Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia drop-shadow-2xl">Hope</span>,<br />
                 One Family at a Time
               </h1>
+            </ScrollReveal>
 
-              <p className="text-xl md:text-2xl text-luminous-muted max-w-2xl mx-auto leading-relaxed font-light mb-12">
-                For over a decade, we&apos;ve been the bridge between families in
-                crisis and the communities that support them.
+            <ScrollReveal delay={200}>
+              <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14 drop-shadow-md">
+                For over a decade, FLCRC has been the catalyst for change in Fort Bend County. We provide the tools, resources, and support families need to thrive.
               </p>
+            </ScrollReveal>
 
-              <div className="flex flex-wrap justify-center gap-6">
-                <Link href="/about">
-                  <Button variant="primary" className="px-10 py-5 text-sm">
-                    Discover Our Mission <ArrowRight size={16} />
+            <ScrollReveal delay={300}>
+              <div className="flex flex-col md:flex-row items-center gap-6 justify-center w-full md:w-auto">
+                <Link href="/programs">
+                  <Button variant="primary" className="px-12 py-5 text-sm w-full md:w-auto shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    Discover Our Programs <ArrowRight size={18} />
                   </Button>
                 </Link>
                 <Button
                   variant="glow"
-                  className="px-10 py-5 text-sm"
+                  className="px-12 py-5 text-sm w-full md:w-auto bg-black/40 backdrop-blur-md"
                   onClick={() => setShowDonate(true)}
                 >
-                  Support Our Cause
+                  <HandHeart size={18} /> Make a Donation
                 </Button>
               </div>
+            </ScrollReveal>
 
-              {/* Floating Stats */}
-              <div className="flex flex-wrap justify-center gap-12 mt-20 opacity-80">
+            {/* Quick Stats Glass Bar */}
+            <ScrollReveal delay={400}>
+              <div className="mt-24 glass rounded-3xl md:rounded-full px-8 py-8 border border-white/10 flex flex-col md:flex-row flex-wrap justify-center gap-8 md:gap-16 backdrop-blur-xl shadow-2xl">
                 {[
                   { num: "8", label: "Programs & Services" },
-                  { num: "150+", label: "Years Combined Experience" },
+                  { num: "150+", label: "Years Experience" },
                   { num: "5", label: "Core Competencies" },
                 ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-4xl font-bold text-gradient">
-                      {stat.num}
-                    </div>
-                    <div className="text-xs text-luminous-muted uppercase tracking-widest mt-2">
+                  <div key={i} className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                    <span className="text-4xl md:text-3xl font-black text-white">{stat.num}</span>
+                    <span className="text-[10px] md:text-xs text-luminous-muted uppercase tracking-widest font-bold text-center md:text-left max-w-[120px] leading-tight">
                       {stat.label}
-                    </div>
+                    </span>
+                    {i !== 2 && <div className="hidden md:block w-px h-10 bg-white/10 shadow-sm" />}
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
-
-          {/* ── SLIDE 3: Design 2 style — Image-focused, lighter feel ── */}
-          <section className="relative pt-32 pb-20 px-4 min-h-screen flex items-center bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(232,121,249,0.1)_0%,transparent_60%)]" />
-
-            <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
-              {/* Image side */}
-              <div className="relative hidden lg:block">
-                <div className="absolute inset-0 bg-gradient-to-r from-luminous-fuchsia to-luminous-cyan rounded-[3rem] blur-3xl opacity-20" />
-                <div className="bg-white/5 backdrop-blur-sm p-3 rounded-[3rem] border border-white/10">
-                  <Image
-                    src={HERO_IMAGES[3]}
-                    alt="Community Growth"
-                    className="w-full h-[500px] object-cover rounded-[2.5rem]"
-                    width={800}
-                    height={500}
-                    unoptimized
-                  />
-                </div>
-                {/* Overlay card */}
-                <div className="absolute -bottom-6 -right-6 bg-white text-black p-6 rounded-2xl shadow-2xl max-w-[240px]">
-                  <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-                    10+ Years
-                  </div>
-                  <p className="text-sm text-gray-600 mt-1 font-medium">
-                    Of Community Transformation
-                  </p>
-                </div>
-              </div>
-
-              {/* Text side */}
-              <div className="space-y-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-luminous-fuchsia/30 bg-luminous-fuchsia/10 text-luminous-fuchsia text-xs font-bold uppercase tracking-widest">
-                  <Heart size={14} />
-                  Empowering Our Future
-                </div>
-
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.95]">
-                  Where <span className="text-gradient">Community</span> Comes
-                  Together
-                </h1>
-
-                <p className="text-lg text-luminous-muted leading-relaxed">
-                  From youth leadership programs to family counseling, FLCRC is
-                  the heart of positive change in Fort Bend County.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { icon: GraduationCap, label: "Youth Programs" },
-                    { icon: HeartHandshake, label: "Family Services" },
-                    { icon: RefreshCw, label: "Restorative Justice" },
-                    { icon: MessageCircle, label: "Community Support" },
-                  ].map(({ icon: Icon, label }, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10"
-                    >
-                      <Icon size={20} className="text-luminous-fuchsia" />
-                      <span className="text-sm font-medium">{label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link href="/programs">
-                  <Button variant="primary" className="px-10 py-5 mt-4">
-                    View All Programs <ArrowRight size={16} />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </section>
-        </HeroCarousel>
+            </ScrollReveal>
+          </div>
+        </section>
 
         {/* ╔═══════════════════════════════════╗
            ║  IMPACT NUMBERS — Light Section    ║
