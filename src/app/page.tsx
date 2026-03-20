@@ -88,7 +88,6 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function HomePage() {
   const { openDonate } = useDonate();
-  const [heroIdx, setHeroIdx] = useState(0);
 
   // Dynamic events from Supabase
   const [dbEvents, setDbEvents] = useState<Event[] | null>(null);
@@ -120,10 +119,6 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroIdx((prev) => (prev + 1) % Object.values(HERO_IMAGES).length);
-    }, 6000);
-
     const supabase = createClient();
     // Fetch upcoming events
     supabase
@@ -147,8 +142,6 @@ export default function HomePage() {
         if (data && data.length > 0) setDbPrograms(data);
       })
       .catch((err: unknown) => console.error("Programs fetch error:", err));
-
-    return () => clearInterval(timer);
   }, []);
 
   // Format Supabase date to day/month
@@ -163,91 +156,100 @@ export default function HomePage() {
   return (
     <>
       {/* ╔═══════════════════════════════════════════════════╗
-         ║  PREMIUM HERO SECTION                            ║
+         ║  HERO CAROUSEL — 3 Scroll Banners                ║
          ╚═══════════════════════════════════════════════════╝ */}
-      <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Background Image Effect */}
-        {Object.values(HERO_IMAGES).map((img, idx) => (
-          <div 
-            key={idx}
-            className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
-              idx === heroIdx ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <Image
-              src={img} 
-              alt={`FLCRC Hero ${idx + 1}`}
-              fill
-              className={`object-cover opacity-30 transform transition-transform duration-[10s] ease-out ${
-                idx === heroIdx ? 'scale-110' : 'scale-100'
-              }`}
-              quality={100}
-              priority={idx === 0}
-            />
-          </div>
-        ))}
-        {/* Cinematic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.1)_0%,transparent_60%)] z-10 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 relative z-20 flex flex-col items-center text-center mt-10">
-          <ScrollReveal>
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md shadow-2xl">
+      <HeroCarousel autoPlayInterval={7000}>
+        {/* ── Slide 1: Main Hero ── */}
+        <div className="relative w-full min-h-screen flex items-center justify-center">
+          <Image src={HERO_IMAGES[1]} alt="Community gathering" fill className="object-cover" quality={90} priority />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/60 to-slate-950/90" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08)_0%,transparent_60%)]" />
+          <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
               Building Better Communities
             </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={100}>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia drop-shadow-2xl">Hope</span>,<br />
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
+              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia">Hope</span>,<br />
               One Family at a Time
             </h1>
-          </ScrollReveal>
-
-          <ScrollReveal delay={200}>
-            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14 drop-shadow-md">
-              For over a decade, FLCRC has been the catalyst for change in Fort Bend County. We provide the tools, resources, and support families need to thrive.
+            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+              For over a decade, FLCRC has been the catalyst for change in Fort Bend County — providing tools, resources, and support families need to thrive.
             </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={300}>
-            <div className="flex flex-col md:flex-row items-center gap-6 justify-center w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-5">
               <Link href="/programs">
-                <Button variant="primary" className="px-12 py-5 text-sm w-full md:w-auto shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                <Button variant="primary" className="px-12 py-5 text-sm shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                   Discover Our Programs <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button
-                variant="glow"
-                className="px-12 py-5 text-sm w-full md:w-auto bg-black/40 backdrop-blur-md"
-                onClick={openDonate}
-              >
+              <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md" onClick={openDonate}>
                 <HandHeart size={18} /> Make a Donation
               </Button>
             </div>
-          </ScrollReveal>
-
-          {/* Quick Stats Glass Bar */}
-          <ScrollReveal delay={400}>
-            <div className="mt-24 glass rounded-3xl md:rounded-full px-8 py-8 border border-white/10 flex flex-col md:flex-row flex-wrap justify-center gap-8 md:gap-16 backdrop-blur-xl shadow-2xl">
-              {[
-                { num: "8", label: "Programs & Services" },
-                { num: "150+", label: "Years Experience" },
-                { num: "5", label: "Core Competencies" },
-              ].map((stat, i) => (
-                <div key={i} className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-                  <span className="text-4xl md:text-3xl font-black text-white">{stat.num}</span>
-                  <span className="text-[10px] md:text-xs text-luminous-muted uppercase tracking-widest font-bold text-center md:text-left max-w-[120px] leading-tight">
-                    {stat.label}
-                  </span>
-                  {i !== 2 && <div className="hidden md:block w-px h-10 bg-white/10 shadow-sm" />}
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
+          </div>
         </div>
-      </section>
+
+        {/* ── Slide 2: Programs & Youth ── */}
+        <div className="relative w-full min-h-screen flex items-center justify-center">
+          <Image src={HERO_IMAGES[2]} alt="Youth programs" fill className="object-cover" quality={90} />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-indigo-950/60 to-slate-950/90" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.1)_0%,transparent_60%)]" />
+          <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-violet/30 bg-black/40 text-luminous-violet text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
+              <GraduationCap size={14} />
+              Youth Ambassador Program
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
+              Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-violet to-purple-400">Next Generation</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+              Through Y.A.L.E., GRIT, and Summer Enrichment — we equip young leaders with the confidence, skills, and vision to transform their communities.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-5">
+              <Link href="/programs">
+                <Button variant="primary" className="px-12 py-5 text-sm shadow-[0_0_30px_rgba(139,92,246,0.3)]">
+                  Explore Programs <ArrowRight size={18} />
+                </Button>
+              </Link>
+              <Link href="/volunteer">
+                <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md">
+                  <HeartHandshake size={18} /> Volunteer With Us
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Slide 3: Capital Campaign ── */}
+        <div className="relative w-full min-h-screen flex items-center justify-center">
+          <Image src={HERO_IMAGES[3]} alt="Community support" fill className="object-cover" quality={90} />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-emerald-950/50 to-slate-950/90" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(52,211,153,0.08)_0%,transparent_60%)]" />
+          <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-400/30 bg-black/40 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
+              <Heart size={14} />
+              2025–2026 Capital Campaign
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
+              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">New Generation</span><br />
+              of Leaders
+            </h1>
+            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+              Help us raise $200,000 to expand our Y.A.L.E. Summer Enrichment Experience — immersing students in STEM, entrepreneurship, and leadership.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-5">
+              <Link href="/campaign">
+                <Button variant="primary" className="px-12 py-5 text-sm shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+                  Learn About the Campaign <ArrowRight size={18} />
+                </Button>
+              </Link>
+              <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md" onClick={openDonate}>
+                <HandHeart size={18} /> Donate Now
+              </Button>
+            </div>
+          </div>
+        </div>
+      </HeroCarousel>
 
       {/* ╔═══════════════════════════════════╗
          ║  IMPACT NUMBERS — Light Section    ║
