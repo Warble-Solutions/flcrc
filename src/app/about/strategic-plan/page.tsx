@@ -1,8 +1,5 @@
 "use client";
 
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
@@ -19,83 +16,73 @@ const fiveCs = [
 
 export default function StrategicPlanPage() {
   return (
-    <div className="min-h-screen flex flex-col relative text-luminous-text">
-      <AnimatedBackground />
-      <Navigation onDonate={() => {}} />
-
-      <main className="flex-grow z-10 pt-32 pb-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <Compass size={48} className="text-luminous-cyan mx-auto mb-6" />
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-                Strategic Planning
-              </h1>
-              <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-                FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={100}>
-            <div className="mb-20">
-              <h2 className="text-3xl font-bold text-center text-white mb-10">The Five C&apos;s</h2>
-              <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-                {fiveCs.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <GlassCard key={i} className="text-center p-6 border border-white/5 hover:border-white/20 transition-all">
-                      <Icon size={32} className={`mx-auto mb-4 ${item.color}`} />
-                      <h4 className="font-bold text-white text-sm">{item.name}</h4>
-                    </GlassCard>
-                  );
-                })}
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid md:grid-cols-2 gap-8 items-stretch mb-16">
-            <ScrollReveal delay={200}>
-              <div className="glass h-full p-10 rounded-3xl border border-white/10 relative overflow-hidden flex flex-col justify-between">
-                <div className="absolute inset-0 bg-gradient-to-br from-luminous-cyan/10 to-transparent pointer-events-none" />
-                <div className="relative z-10 mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">Looking Ahead</h3>
-                  <p className="text-luminous-muted">
-                    We will be sharing our 2025-2030 Strategic Plan soon. Stay tuned for our future community roadmap.
-                  </p>
-                </div>
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-4">Capital Campaign</h3>
-                  <p className="text-luminous-muted mb-6">
-                    Learn about our current 2025-2026 Capital Campaign aimed at building a new generation of leaders.
-                  </p>
-                  <Link href="/campaign" className="w-full block">
-                    <Button variant="primary" className="w-full">
-                      View Campaign
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <div className="glass h-full p-10 rounded-3xl border border-white/10 relative overflow-hidden flex flex-col">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                <div className="relative z-10 flex-grow">
-                  <h3 className="text-2xl font-bold text-white mb-6">Past Strategic Plans</h3>
-                  <div className="bg-white/5 rounded-xl p-4 flex items-center justify-between border border-white/10 hover:bg-white/10 transition-colors mb-4">
-                    <span className="text-white font-medium">2020-2024 Strategic Plan</span>
-                    <Button variant="outline" onClick={() => alert("This document is currently unavailable due to hosting issues. Please contact info@familylifecrc.org for a copy.")}>Download PDF</Button>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+    <div className="pt-32 pb-20 px-4">
+      <div className="max-w-6xl mx-auto">
+        <ScrollReveal>
+          <div className="text-center mb-16">
+            <Compass size={48} className="text-luminous-cyan mx-auto mb-6" />
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
+              Strategic Planning
+            </h1>
+            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
+              FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization.
+            </p>
           </div>
+        </ScrollReveal>
 
+        <ScrollReveal delay={100}>
+          <div className="mb-20">
+            <h2 className="text-3xl font-bold text-center text-white mb-10">The Five C&apos;s</h2>
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {fiveCs.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <GlassCard key={i} className="text-center p-6 border border-white/5 hover:border-white/20 transition-all">
+                    <Icon size={32} className={`mx-auto mb-4 ${item.color}`} />
+                    <h4 className="font-bold text-white text-sm">{item.name}</h4>
+                  </GlassCard>
+                );
+              })}
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid md:grid-cols-2 gap-8 items-stretch mb-16">
+          <ScrollReveal delay={200}>
+            <div className="glass h-full p-10 rounded-3xl border border-white/10 relative overflow-hidden flex flex-col justify-between">
+              <div className="absolute inset-0 bg-gradient-to-br from-luminous-cyan/10 to-transparent pointer-events-none" />
+              <div className="relative z-10 mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4">Looking Ahead</h3>
+                <p className="text-luminous-muted">
+                  We will be sharing our 2025-2030 Strategic Plan soon. Stay tuned for our future community roadmap.
+                </p>
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-white mb-4">Capital Campaign</h3>
+                <p className="text-luminous-muted mb-6">
+                  Learn about our current 2025-2026 Capital Campaign aimed at building a new generation of leaders.
+                </p>
+                <Link href="/campaign" className="w-full block">
+                  <Button variant="primary" className="w-full">View Campaign</Button>
+                </Link>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={300}>
+            <div className="glass h-full p-10 rounded-3xl border border-white/10 relative overflow-hidden flex flex-col">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+              <div className="relative z-10 flex-grow">
+                <h3 className="text-2xl font-bold text-white mb-6">Past Strategic Plans</h3>
+                <div className="bg-white/5 rounded-xl p-4 flex items-center justify-between border border-white/10 hover:bg-white/10 transition-colors mb-4">
+                  <span className="text-white font-medium">2020-2024 Strategic Plan</span>
+                  <Button variant="outline" onClick={() => alert("This document is currently unavailable due to hosting issues. Please contact info@familylifecrc.org for a copy.")}>Download PDF</Button>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
-      </main>
-
-      <Footer />
+      </div>
     </div>
   );
 }

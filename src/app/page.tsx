@@ -7,7 +7,6 @@ import {
   Network,
   Zap,
   HeartHandshake,
-
   ArrowRight,
   Users,
   Calendar,
@@ -21,22 +20,19 @@ import {
   Megaphone,
   Briefcase,
   GraduationCap,
-  RefreshCw,
-  MessageCircle,
   Shield,
   BookOpen,
 } from "lucide-react";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import GlassCard from "@/components/ui/GlassCard";
 import SectionTitle from "@/components/ui/SectionTitle";
-import Modal from "@/components/ui/Modal";
 import { HERO_IMAGES } from "@/lib/images";
 import { createClient } from "@/lib/supabase/client";
+import { iconMap } from "@/lib/icons";
+import { fallbackEvents, fallbackFeaturedPrograms } from "@/lib/fallback-data";
+import { useDonate } from "@/components/layout/DonateProvider";
 import type { Event, Program } from "@/lib/supabase/types";
 
 // ───── FAQ Data ─────
@@ -91,13 +87,37 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function HomePage() {
-  const [showDonate, setShowDonate] = useState(false);
+  const { openDonate } = useDonate();
   const [heroIdx, setHeroIdx] = useState(0);
 
   // Dynamic events from Supabase
   const [dbEvents, setDbEvents] = useState<Event[] | null>(null);
   // Dynamic featured programs from Supabase
   const [dbPrograms, setDbPrograms] = useState<Program[] | null>(null);
+
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
+
+  const handleNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    setNewsletterSubmitting(true);
+    try {
+      const supabase = createClient();
+      await supabase.from("form_submissions").insert({
+        type: "newsletter",
+        name: "Newsletter Subscriber",
+        email: newsletterEmail,
+        message: "Newsletter signup from homepage",
+      });
+    } catch (err) {
+      console.error("Newsletter signup error:", err);
+    }
+    setNewsletterSubmitting(false);
+    setNewsletterSubmitted(true);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -114,7 +134,8 @@ export default function HomePage() {
       .limit(4)
       .then(({ data }: { data: Event[] | null }) => {
         if (data && data.length > 0) setDbEvents(data);
-      });
+      })
+      .catch((err: unknown) => console.error("Events fetch error:", err));
     // Fetch featured programs
     supabase
       .from("programs")
@@ -124,14 +145,11 @@ export default function HomePage() {
       .limit(3)
       .then(({ data }: { data: Program[] | null }) => {
         if (data && data.length > 0) setDbPrograms(data);
-      });
-  }, []);
+      })
+      .catch((err: unknown) => console.error("Programs fetch error:", err));
 
-  // Icon mapping for programs from Supabase
-  const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-    GraduationCap, RefreshCw, MessageCircle, Zap, Shield, BookOpen,
-    Network, HeartHandshake, Users, Heart,
-  };
+    return () => clearInterval(timer);
+  }, []);
 
   // Format Supabase date to day/month
   const fmtDate = (dateStr: string) => {
@@ -143,569 +161,531 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative text-luminous-text">
-      <AnimatedBackground />
-      <Navigation onDonate={() => setShowDonate(true)} />
-
-      <main className="flex-grow z-10">
-        {/* ╔═══════════════════════════════════════════════════╗
-           ║  PREMIUM HERO SECTION                            ║
-           ╚═══════════════════════════════════════════════════╝ */}
-        <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
-          {/* Background Image Effect */}
-          {Object.values(HERO_IMAGES).map((img, idx) => (
-            <div 
-              key={idx}
-              className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
-                idx === heroIdx ? "opacity-100" : "opacity-0"
+    <>
+      {/* ╔═══════════════════════════════════════════════════╗
+         ║  PREMIUM HERO SECTION                            ║
+         ╚═══════════════════════════════════════════════════╝ */}
+      <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        {/* Background Image Effect */}
+        {Object.values(HERO_IMAGES).map((img, idx) => (
+          <div 
+            key={idx}
+            className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
+              idx === heroIdx ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={img} 
+              alt={`FLCRC Hero ${idx + 1}`}
+              fill
+              className={`object-cover opacity-30 transform transition-transform duration-[10s] ease-out ${
+                idx === heroIdx ? 'scale-110' : 'scale-100'
               }`}
-            >
-              <Image
-                src={img} 
-                alt={`FLCRC Hero ${idx + 1}`}
-                fill
-                className={`object-cover opacity-30 transform transition-transform duration-[10s] ease-out ${
-                  idx === heroIdx ? 'scale-110' : 'scale-100'
-                }`}
-                quality={100}
-                priority={idx === 0}
-                unoptimized
-              />
-            </div>
-          ))}
-          {/* Cinematic Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950 z-10 pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.1)_0%,transparent_60%)] z-10 pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto px-4 relative z-20 flex flex-col items-center text-center mt-10">
-            <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md shadow-2xl">
-                <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
-                Building Better Communities
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={100}>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[1.05] tracking-tight mb-8">
-                Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia drop-shadow-2xl">Hope</span>,<br />
-                One Family at a Time
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14 drop-shadow-md">
-                For over a decade, FLCRC has been the catalyst for change in Fort Bend County. We provide the tools, resources, and support families need to thrive.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300}>
-              <div className="flex flex-col md:flex-row items-center gap-6 justify-center w-full md:w-auto">
-                <Link href="/programs">
-                  <Button variant="primary" className="px-12 py-5 text-sm w-full md:w-auto shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    Discover Our Programs <ArrowRight size={18} />
-                  </Button>
-                </Link>
-                <Button
-                  variant="glow"
-                  className="px-12 py-5 text-sm w-full md:w-auto bg-black/40 backdrop-blur-md"
-                  onClick={() => setShowDonate(true)}
-                >
-                  <HandHeart size={18} /> Make a Donation
-                </Button>
-              </div>
-            </ScrollReveal>
-
-            {/* Quick Stats Glass Bar */}
-            <ScrollReveal delay={400}>
-              <div className="mt-24 glass rounded-3xl md:rounded-full px-8 py-8 border border-white/10 flex flex-col md:flex-row flex-wrap justify-center gap-8 md:gap-16 backdrop-blur-xl shadow-2xl">
-                {[
-                  { num: "8", label: "Programs & Services" },
-                  { num: "150+", label: "Years Experience" },
-                  { num: "5", label: "Core Competencies" },
-                ].map((stat, i) => (
-                  <div key={i} className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-                    <span className="text-4xl md:text-3xl font-black text-white">{stat.num}</span>
-                    <span className="text-[10px] md:text-xs text-luminous-muted uppercase tracking-widest font-bold text-center md:text-left max-w-[120px] leading-tight">
-                      {stat.label}
-                    </span>
-                    {i !== 2 && <div className="hidden md:block w-px h-10 bg-white/10 shadow-sm" />}
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
+              quality={100}
+              priority={idx === 0}
+            />
           </div>
-        </section>
+        ))}
+        {/* Cinematic Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-900/60 to-slate-950 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.1)_0%,transparent_60%)] z-10 pointer-events-none" />
 
-        {/* ╔═══════════════════════════════════╗
-           ║  IMPACT NUMBERS — Light Section    ║
-           ╚═══════════════════════════════════╝ */}
-        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
-          <div className="max-w-7xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
-                  Our Impact
-                </p>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                  Numbers That Tell Our Story
-                </h2>
-              </div>
-            </ScrollReveal>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { icon: Users, num: "150+", label: "Years Combined Experience", color: "text-blue-600" },
-                { icon: Calendar, num: "8", label: "Programs & Services", color: "text-purple-600" },
-                { icon: Trophy, num: "5", label: "Core Competencies", color: "text-emerald-600" },
-                { icon: Heart, num: "10+", label: "Years of Service", color: "text-rose-600" },
-              ].map((stat, i) => (
-                <ScrollReveal key={i} delay={i * 100}>
-                  <div className="text-center group">
-                    <div
-                      className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center ${stat.color} group-hover:scale-110 transition-transform`}
-                    >
-                      <stat.icon size={28} />
-                    </div>
-                    <div className="text-4xl md:text-5xl font-black mb-2">
-                      {stat.num}
-                    </div>
-                    <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
-                      {stat.label}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
+        <div className="max-w-7xl mx-auto px-4 relative z-20 flex flex-col items-center text-center mt-10">
+          <ScrollReveal>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md shadow-2xl">
+              <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
+              Building Better Communities
             </div>
-          </div>
-        </section>
+          </ScrollReveal>
 
-        {/* ╔═══════════════════════════════════╗
-           ║  CORE COMPETENCIES — Dark Section  ║
-           ╚═══════════════════════════════════╝ */}
-        <section className="relative py-24 px-4 bg-luminous-bg z-10">
-          <div className="max-w-7xl mx-auto">
-            <SectionTitle title="What We Do" />
-            <p className="text-center text-luminous-muted max-w-2xl mx-auto mb-12 -mt-4">
-              Ongoing assistance for crime victims, youth, families, and communities.
+          <ScrollReveal delay={100}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[1.05] tracking-tight mb-8">
+              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia drop-shadow-2xl">Hope</span>,<br />
+              One Family at a Time
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal delay={200}>
+            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14 drop-shadow-md">
+              For over a decade, FLCRC has been the catalyst for change in Fort Bend County. We provide the tools, resources, and support families need to thrive.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          </ScrollReveal>
+
+          <ScrollReveal delay={300}>
+            <div className="flex flex-col md:flex-row items-center gap-6 justify-center w-full md:w-auto">
+              <Link href="/programs">
+                <Button variant="primary" className="px-12 py-5 text-sm w-full md:w-auto shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                  Discover Our Programs <ArrowRight size={18} />
+                </Button>
+              </Link>
+              <Button
+                variant="glow"
+                className="px-12 py-5 text-sm w-full md:w-auto bg-black/40 backdrop-blur-md"
+                onClick={openDonate}
+              >
+                <HandHeart size={18} /> Make a Donation
+              </Button>
+            </div>
+          </ScrollReveal>
+
+          {/* Quick Stats Glass Bar */}
+          <ScrollReveal delay={400}>
+            <div className="mt-24 glass rounded-3xl md:rounded-full px-8 py-8 border border-white/10 flex flex-col md:flex-row flex-wrap justify-center gap-8 md:gap-16 backdrop-blur-xl shadow-2xl">
               {[
-                {
-                  title: "Community Support",
-                  desc: "Linking families with resources and building a culture of respect at all times.",
-                  icon: Network,
-                  gradient: "from-cyan-500 to-blue-500",
-                },
-                {
-                  title: "Crime Victim Services",
-                  desc: "Providing direct services, advocacy, and support for crime victims and their families.",
-                  icon: Shield,
-                  gradient: "from-violet-500 to-purple-500",
-                },
-                {
-                  title: "Stronger Families",
-                  desc: "Equipping individuals and families with resources to build a thriving community.",
-                  icon: HeartHandshake,
-                  gradient: "from-fuchsia-500 to-pink-500",
-                },
-                {
-                  title: "Trainings",
-                  desc: "Education and professional development driving positive change through knowledge.",
-                  icon: BookOpen,
-                  gradient: "from-amber-500 to-orange-500",
-                },
-                {
-                  title: "Youth Services",
-                  desc: "Empowering the next generation through leadership, mentorship, and civic engagement.",
-                  icon: GraduationCap,
-                  gradient: "from-emerald-500 to-teal-500",
-                },
-              ].map((item, i) => (
-                <ScrollReveal key={i} delay={i * 80}>
-                  <GlassCard className="h-full group text-center">
-                    <div
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform mx-auto`}
-                    >
-                      <item.icon size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                    <p className="text-luminous-muted leading-relaxed text-sm">
-                      {item.desc}
-                    </p>
-                  </GlassCard>
-                </ScrollReveal>
+                { num: "8", label: "Programs & Services" },
+                { num: "150+", label: "Years Experience" },
+                { num: "5", label: "Core Competencies" },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                  <span className="text-4xl md:text-3xl font-black text-white">{stat.num}</span>
+                  <span className="text-[10px] md:text-xs text-luminous-muted uppercase tracking-widest font-bold text-center md:text-left max-w-[120px] leading-tight">
+                    {stat.label}
+                  </span>
+                  {i !== 2 && <div className="hidden md:block w-px h-10 bg-white/10 shadow-sm" />}
+                </div>
               ))}
             </div>
-          </div>
-        </section>
+          </ScrollReveal>
+        </div>
+      </section>
 
-        {/* ╔═══════════════════════════════════════╗
-           ║  FEATURED PROGRAMS — Light Section     ║
-           ╚═══════════════════════════════════════╝ */}
-        <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
-          <div className="max-w-7xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
-                  What We Do
-                </p>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                  Featured Programs
-                </h2>
-              </div>
-            </ScrollReveal>
-            <div className="grid md:grid-cols-3 gap-8">
-              {(dbPrograms ? dbPrograms : [
-                {
-                  title: "Y.A.L.E. Program",
-                  description: "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
-                  icon: "GraduationCap",
-                  color: "bg-blue-600",
-                  tag: "Youth",
-                },
-                {
-                  title: "GRIT / Victim Services",
-                  description: "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
-                  icon: "Zap",
-                  color: "bg-purple-600",
-                  tag: "Community",
-                },
-                {
-                  title: "RPYL Program",
-                  description: "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
-                  icon: "RefreshCw",
-                  color: "bg-emerald-600",
-                  tag: "Education",
-                },
-              ] as Array<{ title: string; description: string | null; icon: string | null; color: string | null; tag: string | null }>).map((prog, i) => {
-                const IconComp = iconMap[prog.icon || ""] || GraduationCap;
-                return (
-                <ScrollReveal key={i} delay={i * 100}>
-                  <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group h-full flex flex-col">
-                    <div className="flex justify-between items-start mb-6">
-                      <div
-                        className={`w-14 h-14 ${prog.color || "bg-blue-600"} rounded-xl flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform`}
-                      >
-                        <IconComp size={28} />
-                      </div>
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-                        {prog.tag}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-700 transition-colors">
-                      {prog.title}
-                    </h3>
-                    <p className="text-slate-500 leading-relaxed mb-6 flex-grow">
-                      {prog.description}
-                    </p>
-                    <Link
-                      href="/programs"
-                      className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 uppercase tracking-wider group-hover:gap-3 transition-all"
-                    >
-                      Learn More <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                </ScrollReveal>
-              );
-              })}
+      {/* ╔═══════════════════════════════════╗
+         ║  IMPACT NUMBERS — Light Section    ║
+         ╚═══════════════════════════════════╝ */}
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                Our Impact
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                Numbers That Tell Our Story
+              </h2>
             </div>
-            <ScrollReveal>
-              <div className="text-center mt-12">
-                <Link href="/programs">
-                  <Button variant="primary" className="!bg-slate-900 !text-white hover:!bg-slate-800">
-                    View All Programs <ArrowRight size={16} />
-                  </Button>
-                </Link>
-              </div>
-            </ScrollReveal>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { icon: Users, num: "150+", label: "Years Combined Experience", color: "text-blue-600" },
+              { icon: Calendar, num: "8", label: "Programs & Services", color: "text-purple-600" },
+              { icon: Trophy, num: "5", label: "Core Competencies", color: "text-emerald-600" },
+              { icon: Heart, num: "10+", label: "Years of Service", color: "text-rose-600" },
+            ].map((stat, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="text-center group">
+                  <div
+                    className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-100 flex items-center justify-center ${stat.color} group-hover:scale-110 transition-transform`}
+                  >
+                    <stat.icon size={28} />
+                  </div>
+                  <div className="text-4xl md:text-5xl font-black mb-2">
+                    {stat.num}
+                  </div>
+                  <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
+                    {stat.label}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
+      {/* ╔═══════════════════════════════════╗
+         ║  CORE COMPETENCIES — Dark Section  ║
+         ╚═══════════════════════════════════╝ */}
+      <section className="relative py-24 px-4 bg-luminous-bg z-10">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle title="What We Do" />
+          <p className="text-center text-luminous-muted max-w-2xl mx-auto mb-12 -mt-4">
+            Ongoing assistance for crime victims, youth, families, and communities.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[
+              {
+                title: "Community Support",
+                desc: "Linking families with resources and building a culture of respect at all times.",
+                icon: Network,
+                gradient: "from-cyan-500 to-blue-500",
+              },
+              {
+                title: "Crime Victim Services",
+                desc: "Providing direct services, advocacy, and support for crime victims and their families.",
+                icon: Shield,
+                gradient: "from-violet-500 to-purple-500",
+              },
+              {
+                title: "Stronger Families",
+                desc: "Equipping individuals and families with resources to build a thriving community.",
+                icon: HeartHandshake,
+                gradient: "from-fuchsia-500 to-pink-500",
+              },
+              {
+                title: "Trainings",
+                desc: "Education and professional development driving positive change through knowledge.",
+                icon: BookOpen,
+                gradient: "from-amber-500 to-orange-500",
+              },
+              {
+                title: "Youth Services",
+                desc: "Empowering the next generation through leadership, mentorship, and civic engagement.",
+                icon: GraduationCap,
+                gradient: "from-emerald-500 to-teal-500",
+              },
+            ].map((item, i) => (
+              <ScrollReveal key={i} delay={i * 80}>
+                <GlassCard className="h-full group text-center">
+                  <div
+                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform mx-auto`}
+                  >
+                    <item.icon size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                  <p className="text-luminous-muted leading-relaxed text-sm">
+                    {item.desc}
+                  </p>
+                </GlassCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
-
-        {/* ╔═══════════════════════════════════════════╗
-           ║  UPCOMING EVENTS — Light Section           ║
-           ╚═══════════════════════════════════════════╝ */}
-        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-emerald-600 mb-3">
-                  Mark Your Calendar
-                </p>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                  Upcoming Events
-                </h2>
-              </div>
-            </ScrollReveal>
-
-            <div className="space-y-4">
-              {(dbEvents ? dbEvents.map(evt => {
-                const { d: day, m: month } = fmtDate(evt.date);
-                return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
-              }) : [
-                { d: "02", m: "AUG", title: "Back-to-School Parent Chat", loc: "FLCRC Main Hall", time: "TBA", color: "from-cyan-500 to-blue-500" },
-                { d: "27", m: "SEP", title: "Senior Social Mixer", loc: "FLCRC Main Hall", time: "TBA", color: "from-violet-500 to-purple-500" },
-                { d: "15", m: "NOV", title: "Dakota Merriweather 5K Walk/Run", loc: "Community Park", time: "8:00 AM", color: "from-amber-400 to-rose-500" },
-                { d: "06", m: "DEC", title: "9th Annual Banquet", loc: "FLCRC Grand Hall", time: "6:00 PM", color: "from-emerald-500 to-teal-500" },
-              ]).map((evt, i) => (
-                <ScrollReveal key={i} delay={i * 100}>
-                  <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all group">
+      {/* ╔═══════════════════════════════════════╗
+         ║  FEATURED PROGRAMS — Light Section     ║
+         ╚═══════════════════════════════════════╝ */}
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+                What We Do
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                Featured Programs
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="grid md:grid-cols-3 gap-8">
+            {(dbPrograms ? dbPrograms : fallbackFeaturedPrograms).map((prog, i) => {
+              const IconComp = iconMap[prog.icon || ""] || GraduationCap;
+              return (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-slate-100 group h-full flex flex-col">
+                  <div className="flex justify-between items-start mb-6">
                     <div
-                      className={`w-20 h-20 rounded-xl bg-gradient-to-br ${evt.color} flex flex-col items-center justify-center shrink-0 shadow-lg text-white group-hover:scale-105 transition-transform`}
+                      className={`w-14 h-14 ${prog.color || "bg-blue-600"} rounded-xl flex items-center justify-center shadow-lg text-white group-hover:scale-110 transition-transform`}
                     >
-                      <span className="text-2xl font-bold">{evt.d}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
-                        {evt.m}
+                      <IconComp size={28} />
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
+                      {prog.tag}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-700 transition-colors">
+                    {prog.title}
+                  </h3>
+                  <p className="text-slate-500 leading-relaxed mb-6 flex-grow">
+                    {prog.description}
+                  </p>
+                  <Link
+                    href="/programs"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 uppercase tracking-wider group-hover:gap-3 transition-all"
+                  >
+                    Learn More <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </ScrollReveal>
+            );
+            })}
+          </div>
+          <ScrollReveal>
+            <div className="text-center mt-12">
+              <Link href="/programs">
+                <Button variant="primary" className="!bg-slate-900 !text-white hover:!bg-slate-800">
+                  View All Programs <ArrowRight size={16} />
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+
+
+      {/* ╔═══════════════════════════════════════════╗
+         ║  UPCOMING EVENTS — Light Section           ║
+         ╚═══════════════════════════════════════════╝ */}
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-emerald-600 mb-3">
+                Mark Your Calendar
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                Upcoming Events
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="space-y-4">
+            {(dbEvents ? dbEvents.map(evt => {
+              const { d: day, m: month } = fmtDate(evt.date);
+              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
+            }) : fallbackEvents.map(evt => {
+              const { d: day, m: month } = fmtDate(evt.date);
+              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
+            })).map((evt, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all group">
+                  <div
+                    className={`w-20 h-20 rounded-xl bg-gradient-to-br ${evt.color} flex flex-col items-center justify-center shrink-0 shadow-lg text-white group-hover:scale-105 transition-transform`}
+                  >
+                    <span className="text-2xl font-bold">{evt.d}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                      {evt.m}
+                    </span>
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">
+                      {evt.title}
+                    </h3>
+                    <div className="flex items-center justify-center md:justify-start gap-4 text-sm text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <MapPin size={14} /> {evt.loc}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock size={14} /> {evt.time}
                       </span>
                     </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <h3 className="text-xl font-bold text-slate-900 mb-1">
-                        {evt.title}
-                      </h3>
-                      <div className="flex items-center justify-center md:justify-start gap-4 text-sm text-slate-500">
-                        <span className="flex items-center gap-1">
-                          <MapPin size={14} /> {evt.loc}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={14} /> {evt.time}
-                        </span>
-                      </div>
-                    </div>
-                    <Link href="/events">
-                      <button className="px-6 py-2.5 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
-                        Register
+                  </div>
+                  <Link href="/events">
+                    <button className="px-6 py-2.5 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
+                      Register
+                    </button>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal>
+            <div className="text-center mt-12">
+              <Link href="/events">
+                <button className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-slate-700 transition-all cursor-pointer inline-flex items-center gap-2">
+                  View All Events <ArrowRight size={14} />
+                </button>
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+
+
+      {/* ╔══════════════════════════════════════════╗
+         ║  HOW TO GET INVOLVED — Light Section      ║
+         ╚══════════════════════════════════════════╝ */}
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-rose-600 mb-3">
+                Make a Difference
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                How to Get Involved
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: HandHeart,
+                title: "Volunteer",
+                desc: "Donate your time and talent. Mentor youth, assist at events, or support our administrative team.",
+                color: "bg-emerald-600",
+                cta: "Apply to Volunteer",
+                href: "/volunteer",
+              },
+              {
+                icon: Megaphone,
+                title: "Sponsor",
+                desc: "Partner with us as a corporate or community sponsor. Your brand helps families and builds trust.",
+                color: "bg-purple-600",
+                cta: "Become a Sponsor",
+                href: "/sponsorship",
+              },
+              {
+                icon: Briefcase,
+                title: "Donate",
+                desc: "Every dollar directly funds programs for at-risk youth and families in crisis. 85% goes to services.",
+                color: "bg-rose-600",
+                cta: "Make a Donation",
+                href: null,
+              },
+            ].map((card, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center group hover:shadow-xl transition-all h-full flex flex-col">
+                  <div
+                    className={`w-16 h-16 ${card.color} text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}
+                  >
+                    <card.icon size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
+                  <p className="text-slate-500 leading-relaxed flex-grow mb-6">
+                    {card.desc}
+                  </p>
+                  {card.href ? (
+                    <Link href={card.href}>
+                      <button className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
+                        {card.cta}
                       </button>
                     </Link>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-
-            <ScrollReveal>
-              <div className="text-center mt-12">
-                <Link href="/events">
-                  <button className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-slate-700 transition-all cursor-pointer inline-flex items-center gap-2">
-                    View All Events <ArrowRight size={14} />
-                  </button>
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-
-
-        {/* ╔══════════════════════════════════════════╗
-           ║  HOW TO GET INVOLVED — Light Section      ║
-           ╚══════════════════════════════════════════╝ */}
-        <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
-          <div className="max-w-7xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-rose-600 mb-3">
-                  Make a Difference
-                </p>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                  How to Get Involved
-                </h2>
-              </div>
-            </ScrollReveal>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: HandHeart,
-                  title: "Volunteer",
-                  desc: "Donate your time and talent. Mentor youth, assist at events, or support our administrative team.",
-                  color: "bg-emerald-600",
-                  cta: "Apply to Volunteer",
-                },
-                {
-                  icon: Megaphone,
-                  title: "Sponsor",
-                  desc: "Partner with us as a corporate or community sponsor. Your brand helps families and builds trust.",
-                  color: "bg-purple-600",
-                  cta: "Become a Sponsor",
-                },
-                {
-                  icon: Briefcase,
-                  title: "Donate",
-                  desc: "Every dollar directly funds programs for at-risk youth and families in crisis. 85% goes to services.",
-                  color: "bg-rose-600",
-                  cta: "Make a Donation",
-                },
-              ].map((card, i) => (
-                <ScrollReveal key={i} delay={i * 100}>
-                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 text-center group hover:shadow-xl transition-all h-full flex flex-col">
-                    <div
-                      className={`w-16 h-16 ${card.color} text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}
-                    >
-                      <card.icon size={32} />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
-                    <p className="text-slate-500 leading-relaxed flex-grow mb-6">
-                      {card.desc}
-                    </p>
+                  ) : (
                     <button
-                      onClick={() => card.title === "Donate" && setShowDonate(true)}
+                      onClick={openDonate}
                       className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer"
                     >
                       {card.cta}
                     </button>
-                  </div>
-                </ScrollReveal>
+                  )}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ╔══════════════════════════════════════════╗
+         ║  SPONSORSHIP — Dark Section                ║
+         ╚══════════════════════════════════════════╝ */}
+      <section className="relative py-24 px-4 bg-luminous-bg z-10">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <p className="text-sm font-bold uppercase tracking-widest text-luminous-cyan mb-3">
+                Support Our Mission
+              </p>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                Become a Sponsor
+              </h2>
+              <p className="text-luminous-muted max-w-2xl mx-auto text-sm leading-relaxed">
+                Your sponsorship directly fuels our mission to impact thousands of children and
+                families in this community. All sponsors are recognized on our website and in our
+                quarterly newsletter.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              {[
+                { tier: "Elite", amount: "$25,000+", color: "from-amber-400 to-yellow-500", textColor: "text-amber-400" },
+                { tier: "Platinum", amount: "$20,000", color: "from-slate-300 to-slate-400", textColor: "text-slate-300" },
+                { tier: "Gold", amount: "$10,000", color: "from-yellow-500 to-amber-600", textColor: "text-yellow-500" },
+                { tier: "Silver", amount: "$5,000", color: "from-gray-300 to-gray-400", textColor: "text-gray-300" },
+                { tier: "Bronze", amount: "$2,500", color: "from-amber-700 to-orange-800", textColor: "text-amber-600" },
+              ].map((s, i) => (
+                <div
+                  key={i}
+                  className="glass rounded-2xl p-6 text-center min-w-[140px] border border-white/10 hover:border-luminous-cyan/40 transition-all group cursor-default"
+                >
+                  <div className={`w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-br ${s.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                  <div className={`text-lg font-bold ${s.textColor} mb-1`}>{s.tier}</div>
+                  <div className="text-sm text-luminous-muted font-mono">{s.amount}</div>
+                </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* ╔══════════════════════════════════════════╗
-           ║  SPONSORSHIP — Dark Section                ║
-           ╚══════════════════════════════════════════╝ */}
-        <section className="relative py-24 px-4 bg-luminous-bg z-10">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-12">
-                <p className="text-sm font-bold uppercase tracking-widest text-luminous-cyan mb-3">
-                  Support Our Mission
-                </p>
-                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="text-center mt-10">
+              <Link href="/contact">
+                <Button variant="glow" className="px-8 py-4">
                   Become a Sponsor
-                </h2>
-                <p className="text-luminous-muted max-w-2xl mx-auto text-sm leading-relaxed">
-                  Your sponsorship directly fuels our mission to impact thousands of children and
-                  families in this community. All sponsors are recognized on our website and in our
-                  quarterly newsletter.
-                </p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal>
-              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-                {[
-                  { tier: "Elite", amount: "$25,000+", color: "from-amber-400 to-yellow-500", textColor: "text-amber-400" },
-                  { tier: "Platinum", amount: "$20,000", color: "from-slate-300 to-slate-400", textColor: "text-slate-300" },
-                  { tier: "Gold", amount: "$10,000", color: "from-yellow-500 to-amber-600", textColor: "text-yellow-500" },
-                  { tier: "Silver", amount: "$5,000", color: "from-gray-300 to-gray-400", textColor: "text-gray-300" },
-                  { tier: "Bronze", amount: "$2,500", color: "from-amber-700 to-orange-800", textColor: "text-amber-600" },
-                ].map((s, i) => (
-                  <div
-                    key={i}
-                    className="glass rounded-2xl p-6 text-center min-w-[140px] border border-white/10 hover:border-luminous-cyan/40 transition-all group cursor-default"
-                  >
-                    <div className={`w-10 h-10 mx-auto mb-3 rounded-full bg-gradient-to-br ${s.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
-                    <div className={`text-lg font-bold ${s.textColor} mb-1`}>{s.tier}</div>
-                    <div className="text-sm text-luminous-muted font-mono">{s.amount}</div>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-            <ScrollReveal>
-              <div className="text-center mt-10">
-                <Link href="/contact">
-                  <Button variant="glow" className="px-8 py-4">
-                    Become a Sponsor
-                  </Button>
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* ╔══════════════════════════════════════════╗
-           ║  FAQ — Light Section                      ║
-           ╚══════════════════════════════════════════╝ */}
-        <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
-          <div className="max-w-3xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
-                  Questions?
-                </p>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                  Frequently Asked
-                </h2>
-              </div>
-            </ScrollReveal>
-            <div className="space-y-4">
-              {faqs.map((faq, i) => (
-                <ScrollReveal key={i} delay={i * 50}>
-                  <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 transition-colors">
-                    <FAQItem q={faq.q} a={faq.a} />
-                  </div>
-                </ScrollReveal>
-              ))}
+                </Button>
+              </Link>
             </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ╔══════════════════════════════════════════╗
+         ║  FAQ — Light Section                      ║
+         ╚══════════════════════════════════════════╝ */}
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                Questions?
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                Frequently Asked
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <ScrollReveal key={i} delay={i * 50}>
+                <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 transition-colors">
+                  <FAQItem q={faq.q} a={faq.a} />
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ╔══════════════════════════════════════════╗
-           ║  CTA / NEWSLETTER — Dark Section          ║
-           ╚══════════════════════════════════════════╝ */}
-        <section className="relative py-24 px-4 bg-luminous-bg z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <ScrollReveal>
-              <GlassCard className="p-12 md:p-16 !border-luminous-fuchsia/30 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-luminous-violet/10 to-luminous-fuchsia/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      {/* ╔══════════════════════════════════════════╗
+         ║  CTA / NEWSLETTER — Dark Section          ║
+         ╚══════════════════════════════════════════╝ */}
+      <section className="relative py-24 px-4 bg-luminous-bg z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <ScrollReveal>
+            <GlassCard className="p-12 md:p-16 !border-luminous-fuchsia/30 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-luminous-violet/10 to-luminous-fuchsia/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white relative z-10">
-                  Join the Signal
-                </h2>
-                <p className="text-luminous-muted text-lg mb-10 max-w-xl mx-auto relative z-10">
-                  Be the first to know about upcoming workshops, volunteer
-                  opportunities, and community success stories.
-                </p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white relative z-10">
+                Join the Signal
+              </h2>
+              <p className="text-luminous-muted text-lg mb-10 max-w-xl mx-auto relative z-10">
+                Be the first to know about upcoming workshops, volunteer
+                opportunities, and community success stories.
+              </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-10">
+              {newsletterSubmitted ? (
+                <div className="relative z-10 flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  </div>
+                  <p className="text-white font-bold text-lg">You&apos;re Subscribed!</p>
+                  <p className="text-luminous-muted text-sm">Thank you for joining the FLCRC community.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-10">
                   <input
                     type="email"
+                    required
                     placeholder="Enter your email address"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
                     className="flex-1 bg-black/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all"
                   />
                   <Button
                     variant="primary"
+                    type="submit"
                     className="py-4 shadow-lg shadow-luminous-violet/20"
+                    disabled={newsletterSubmitting}
                   >
-                    Subscribe
+                    {newsletterSubmitting ? "Subscribing..." : "Subscribe"}
                   </Button>
-                </div>
-              </GlassCard>
-            </ScrollReveal>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-
-      {/* ===== DONATE MODAL ===== */}
-      <Modal
-        isOpen={showDonate}
-        onClose={() => setShowDonate(false)}
-        title="Support Our Mission"
-      >
-        <div className="space-y-6">
-          <p className="text-luminous-muted text-center">
-            Your generous donation supports programs for at-risk youth and
-            families in crisis.
-          </p>
-          <div className="grid grid-cols-3 gap-4">
-            {[50, 100, 250].map((amt) => (
-              <button
-                key={amt}
-                className="py-3 border border-white/20 rounded-xl font-bold hover:bg-luminous-cyan hover:text-black transition-colors hover:shadow-[0_0_15px_rgba(34,211,238,0.5)] cursor-pointer"
-              >
-                ${amt}
-              </button>
-            ))}
-          </div>
-          <input
-            type="text"
-            placeholder="Card Number"
-            className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white"
-          />
-          <Button variant="primary" className="w-full">
-            Process Secure Donation
-          </Button>
+                </form>
+              )}
+            </GlassCard>
+          </ScrollReveal>
         </div>
-      </Modal>
-    </div>
+      </section>
+    </>
   );
 }

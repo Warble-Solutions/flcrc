@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { useDonate } from "@/components/layout/DonateProvider";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -34,14 +35,11 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-interface NavigationProps {
-  onDonate: () => void;
-}
-
-export default function Navigation({ onDonate }: NavigationProps) {
+export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { openDonate } = useDonate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -71,7 +69,6 @@ export default function Navigation({ onDonate }: NavigationProps) {
                 width={40}
                 height={40}
                 className="w-full h-full object-cover"
-                unoptimized
               />
             </div>
             <span className="font-bold text-2xl tracking-wide text-white">
@@ -116,7 +113,7 @@ export default function Navigation({ onDonate }: NavigationProps) {
                 )}
               </div>
             ))}
-            <Button variant="glow" onClick={onDonate}>
+            <Button variant="glow" onClick={openDonate}>
               Donate
             </Button>
           </div>
@@ -174,7 +171,7 @@ export default function Navigation({ onDonate }: NavigationProps) {
             <Button
               variant="primary"
               onClick={() => {
-                onDonate();
+                openDonate();
                 setMobileOpen(false);
               }}
               className="mt-6 w-full"

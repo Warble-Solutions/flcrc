@@ -4,41 +4,17 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   GraduationCap,
-  RefreshCw,
-  MessageCircle,
-  Zap,
-  Shield,
-  BookOpen,
   ArrowRight,
   Check,
-  Network,
-  HeartHandshake,
-  Users,
-  Heart,
 } from "lucide-react";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
+import { iconMap } from "@/lib/icons";
+import { fallbackPrograms } from "@/lib/fallback-data";
 import type { Program } from "@/lib/supabase/types";
-
-// Icon mapping for programs stored in Supabase
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  GraduationCap,
-  RefreshCw,
-  MessageCircle,
-  Zap,
-  Shield,
-  BookOpen,
-  Network,
-  HeartHandshake,
-  Users,
-  Heart,
-};
 
 // Color mapping for the icon color in the card
 const colorMap: Record<string, string> = {
@@ -50,16 +26,6 @@ const colorMap: Record<string, string> = {
   "bg-red-400": "text-red-400",
 };
 
-// Fallback programs if Supabase is unavailable
-const fallbackPrograms: Program[] = [
-  { id: "1", title: "YALE Leadership", description: "Youth Ambassador Leadership Education — civic engagement & mentorship for tomorrow's leaders.", tag: "Youth", icon: "GraduationCap", color: "bg-blue-600", is_featured: true, sort_order: 0, created_at: "" },
-  { id: "2", title: "Restorative Practices", description: "Conflict resolution training that heals rather than punishes. For schools, workplaces, and homes.", tag: "Community", icon: "RefreshCw", color: "bg-purple-600", is_featured: true, sort_order: 1, created_at: "" },
-  { id: "3", title: "Parent Chat", description: "Support circles where parents connect, share experiences, and learn together.", tag: "Family", icon: "MessageCircle", color: "bg-emerald-600", is_featured: false, sort_order: 2, created_at: "" },
-  { id: "4", title: "GRIT Program", description: "Growth Rewarding Insight Tools — building resilience in at-risk youth.", tag: "Youth", icon: "Zap", color: "bg-yellow-400", is_featured: true, sort_order: 3, created_at: "" },
-  { id: "5", title: "Victim Services", description: "Confidential crisis intervention, counseling, and legal advocacy for crime victims.", tag: "Community", icon: "Shield", color: "bg-rose-600", is_featured: false, sort_order: 4, created_at: "" },
-  { id: "6", title: "Scholarships", description: "Financial aid and awards to support students pursuing higher education.", tag: "Family", icon: "BookOpen", color: "bg-emerald-600", is_featured: false, sort_order: 5, created_at: "" },
-];
-
 const programImages: Record<string, string> = {
   Youth: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80",
   Community: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
@@ -67,7 +33,6 @@ const programImages: Record<string, string> = {
 };
 
 export default function ProgramsPage() {
-  const [showDonate, setShowDonate] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [filter, setFilter] = useState("All");
   const [programs, setPrograms] = useState<Program[]>(fallbackPrograms);
@@ -79,15 +44,19 @@ export default function ProgramsPage() {
     e.preventDefault();
     if (!selectedProgram) return;
     setAppSubmitting(true);
-    const supabase = createClient();
-    await supabase.from("form_submissions").insert({
-      type: "program_application",
-      name: appForm.name,
-      email: appForm.email,
-      phone: appForm.phone || null,
-      message: appForm.reason || null,
-      metadata: { program_title: selectedProgram.title, program_tag: selectedProgram.tag },
-    });
+    try {
+      const supabase = createClient();
+      await supabase.from("form_submissions").insert({
+        type: "program_application",
+        name: appForm.name,
+        email: appForm.email,
+        phone: appForm.phone || null,
+        message: appForm.reason || null,
+        metadata: { program_title: selectedProgram.title, program_tag: selectedProgram.tag },
+      });
+    } catch (err) {
+      console.error("Program application error:", err);
+    }
     setAppSubmitting(false);
     setAppSubmitted(true);
   };
@@ -106,18 +75,16 @@ export default function ProgramsPage() {
       .order("sort_order", { ascending: true })
       .then(({ data }: { data: Program[] | null }) => {
         if (data && data.length > 0) setPrograms(data);
-      });
+      })
+      .catch((err: unknown) => console.error("Programs fetch error:", err));
   }, []);
 
   const allTags = ["All", ...Array.from(new Set(programs.map((p) => p.tag).filter(Boolean)))];
   const filtered = filter === "All" ? programs : programs.filter((p) => p.tag === filter);
 
   return (
-    <div className="min-h-screen flex flex-col relative text-luminous-text">
-      <AnimatedBackground />
-      <Navigation onDonate={() => setShowDonate(true)} />
-
-      <main className="flex-grow z-10 pt-32 pb-20 px-4">
+    <>
+      <div className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -188,9 +155,7 @@ export default function ProgramsPage() {
             })}
           </div>
         </div>
-      </main>
-
-      <Footer />
+      </div>
 
       {/* Program Detail Modal */}
       <Modal
@@ -207,7 +172,6 @@ export default function ProgramsPage() {
                 alt={selectedProgram.title}
                 width={800}
                 height={400}
-                unoptimized
               />
             </div>
             <p className="text-lg text-luminous-muted leading-relaxed">
@@ -248,7 +212,7 @@ export default function ProgramsPage() {
                 <textarea rows={3} placeholder="Why are you interested in this program?" value={appForm.reason}
                   onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
                   className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white resize-none placeholder:text-gray-500" />
-                <Button variant="primary" className="w-full" disabled={appSubmitting}>
+                <Button variant="primary" type="submit" className="w-full" disabled={appSubmitting}>
                   {appSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>
               </form>
@@ -256,19 +220,6 @@ export default function ProgramsPage() {
           </div>
         )}
       </Modal>
-
-      {/* Donate Modal */}
-      <Modal isOpen={showDonate} onClose={() => setShowDonate(false)} title="Support Our Mission">
-        <div className="space-y-6">
-          <p className="text-luminous-muted text-center">Your generous donation supports programs for at-risk youth and families in crisis.</p>
-          <div className="grid grid-cols-3 gap-4">
-            {[50, 100, 250].map((amt) => (
-              <button key={amt} className="py-3 border border-white/20 rounded-xl font-bold hover:bg-luminous-cyan hover:text-black transition-colors cursor-pointer">${amt}</button>
-            ))}
-          </div>
-          <Button variant="primary" className="w-full">Process Secure Donation</Button>
-        </div>
-      </Modal>
-    </div>
+    </>
   );
 }

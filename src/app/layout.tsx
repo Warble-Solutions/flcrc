@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import DonateProvider from "@/components/layout/DonateProvider";
+import AnimatedBackground from "@/components/layout/AnimatedBackground";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,7 +13,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FLCRC — Family Life and Community Resource Center",
+  title: {
+    default: "FLCRC — Family Life and Community Resource Center",
+    template: "%s | FLCRC",
+  },
   description:
     "Building Better Communities by Building Stronger Families. FLCRC provides resources, education, and support for families in Fort Bend County.",
   keywords: [
@@ -21,6 +28,20 @@ export const metadata: Metadata = {
     "youth programs",
     "family support",
   ],
+  openGraph: {
+    title: "FLCRC — Family Life and Community Resource Center",
+    description:
+      "Building Better Communities by Building Stronger Families. FLCRC provides resources, education, and support for families in Fort Bend County.",
+    url: "https://flcrc.netlify.app",
+    siteName: "FLCRC",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FLCRC — Family Life and Community Resource Center",
+    description:
+      "Building Better Communities by Building Stronger Families.",
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +51,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <DonateProvider>
+          <div className="min-h-screen flex flex-col relative text-luminous-text">
+            <AnimatedBackground />
+            <Navigation />
+            <main className="flex-grow z-10">{children}</main>
+            <Footer />
+          </div>
+        </DonateProvider>
+      </body>
     </html>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useDonate } from "@/components/layout/DonateProvider";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import {
@@ -18,9 +20,6 @@ import {
   ChevronRight,
   X,
 } from "lucide-react";
-import AnimatedBackground from "@/components/layout/AnimatedBackground";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
@@ -161,7 +160,7 @@ function VenueCarousel({ onImageClick }: { onImageClick: (i: number) => void }) 
                 </span>
               </div>
             </div>
-          );
+  );
         })}
       </div>
     </div>
@@ -169,8 +168,8 @@ function VenueCarousel({ onImageClick }: { onImageClick: (i: number) => void }) 
 }
 
 export default function FacilityRentalsPage() {
-  const [showDonate, setShowDonate] = useState(false);
-  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
+  const { openDonate } = useDonate();
+const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [rentalForm, setRentalForm] = useState({
@@ -230,11 +229,7 @@ export default function FacilityRentalsPage() {
     );
 
   return (
-    <div className="min-h-screen flex flex-col relative text-luminous-text">
-      <AnimatedBackground />
-      <Navigation onDonate={() => setShowDonate(true)} />
-
-      <main className="flex-grow z-10">
+    <>
         {/* ===== HERO ===== */}
         <section className="relative pt-32 pb-20 px-4 min-h-[60vh] flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900 overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,121,249,0.08)_0%,transparent_60%)]" />
@@ -649,11 +644,7 @@ export default function FacilityRentalsPage() {
             </ScrollReveal>
           </div>
         </section>
-      </main>
-
-      <Footer />
-
-      {/* ===== LIGHTBOX GALLERY ===== */}
+{/* ===== LIGHTBOX GALLERY ===== */}
       {galleryIndex !== null && (
         <div className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-xl flex items-center justify-center">
           <button
@@ -689,33 +680,6 @@ export default function FacilityRentalsPage() {
           </div>
         </div>
       )}
-
-      {/* Donate Modal */}
-      <Modal
-        isOpen={showDonate}
-        onClose={() => setShowDonate(false)}
-        title="Support Our Mission"
-      >
-        <div className="space-y-6">
-          <p className="text-luminous-muted text-center">
-            Your generous donation supports programs for at-risk youth and
-            families in crisis.
-          </p>
-          <div className="grid grid-cols-3 gap-4">
-            {[50, 100, 250].map((amt) => (
-              <button
-                key={amt}
-                className="py-3 border border-white/20 rounded-xl font-bold hover:bg-luminous-cyan hover:text-black transition-colors cursor-pointer"
-              >
-                ${amt}
-              </button>
-            ))}
-          </div>
-          <Button variant="primary" className="w-full">
-            Process Secure Donation
-          </Button>
-        </div>
-      </Modal>
-    </div>
+    </>
   );
 }
