@@ -11,7 +11,7 @@ const newsArticles = [
     categories: ["Annual Banquet", "Bullying Awareness", "Insights Newsletter", "Y.A.L.E."],
     excerpt:
       "In this issue: Annual Banquet, 2025 Community Survey feedback, and more!",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2026/03/12035-FLCRC.Winter.2026.Newsletter-BlogThumb.jpg",
     link: "https://familylifecrc.org/flcrc-insights-winter-2025-26/",
     featured: true,
   },
@@ -21,7 +21,7 @@ const newsArticles = [
     categories: ["Community"],
     excerpt:
       "We conducted our annual community survey this winter. 45 respondents shared helpful insights into 2025 programs and services.",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2026/03/community-survey-2.jpg",
     link: "https://familylifecrc.org/2025survey/",
   },
   {
@@ -30,7 +30,7 @@ const newsArticles = [
     categories: ["Annual Banquet", "FLCRC", "Y.A.L.E."],
     excerpt:
       "On Saturday, December 6, 2025, 140 staff, volunteers, supporters and friends of FLCRC gathered to celebrate another year of growth and impact in Fort Bend County.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/12/9th-banquet-feat-img.jpg",
     link: "https://familylifecrc.org/an-evening-of-celebration-and-gratitude/",
   },
   {
@@ -39,7 +39,7 @@ const newsArticles = [
     categories: ["FLCRC"],
     excerpt:
       "We are pleased to announce the FLCRC 2025 Volunteer of the Year, Mrs. Loretta Butler. This award honors a very service-oriented volunteer.",
-    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/12/loretta-butler-feat-img.jpg",
     link: "https://familylifecrc.org/2025-volunteer-of-the-year/",
   },
   {
@@ -48,7 +48,7 @@ const newsArticles = [
     categories: ["Back-2-School Parent Chat", "Insights Newsletter", "Y.A.L.E."],
     excerpt:
       "In this issue: Back-to-School Parent Chat, Y.A.L.E. Volunteerism and more!",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/11/12013-FLCRC.Fall_.2025.Newsletter-FeatImg.jpg",
     link: "https://familylifecrc.org/flcrc-insights-fall-2025/",
   },
   {
@@ -57,7 +57,7 @@ const newsArticles = [
     categories: ["Back-2-School Parent Chat", "Community Resources", "Education"],
     excerpt:
       "We hosted our 21st Annual Back-to-School Parent Chat July 30-August 2, 2025, offering both in-person and virtual sessions and distributing over 150 backpacks with essential school supplies to students.",
-    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/10/chat-3.jpg",
     link: "https://familylifecrc.org/back-to-school-parent-chat-2025/",
   },
   {
@@ -66,7 +66,7 @@ const newsArticles = [
     categories: ["Insights Newsletter", "Y.A.L.E."],
     excerpt:
       "In this issue: Hat & Tea Soirée, Summer Enrichment Camp and more!",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/07/1980-FLCRC.Summer.2025.Newsletter-Feat-Img.jpg",
     link: "https://familylifecrc.org/flcrc-insights-summer-2025/",
   },
   {
@@ -75,7 +75,7 @@ const newsArticles = [
     categories: ["Education", "Summer Enrichment Camp", "Y.A.L.E."],
     excerpt:
       "Twenty-five students enjoyed a fun and interactive week at our Summer Enrichment Camp, 'Camp with FLCRC,' June 16-20.",
-    image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/06/feat-image.jpg",
     link: "https://familylifecrc.org/camp-with-y-a-l-e-2025-a-week-of-fun-and-learning/",
   },
   {
@@ -84,7 +84,7 @@ const newsArticles = [
     categories: ["Insights Newsletter", "Y.A.L.E."],
     excerpt:
       "In this issue: Y.A.L.E. Members Leading and Shining in 2025, Black History Month Celebration, and more!",
-    image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2025/05/1952-FLCRC.Spring.2025.Newsletter-FeatImg.jpg",
     link: "https://familylifecrc.org/flcrc-insights-spring-2025/",
   },
   {
@@ -93,7 +93,7 @@ const newsArticles = [
     categories: ["Entrepreneurship"],
     excerpt:
       "On May 3rd, 2025, we hosted the 2nd annual FLCRC Hat & Tea Soirée, Girls with Pearls: Women Leading & Soaring. Guests were inspired by a panel discussion with four 'women in business.'",
-    image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80",
+    image: "https://familylifecrc.org/wp-content/uploads/2026/03/soiree6-900x550.jpg",
     link: "https://familylifecrc.org/girls-with-pearls-women-leading-soaring/",
   },
 ];
