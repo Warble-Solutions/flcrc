@@ -55,7 +55,7 @@ export const fallbackFeaturedPrograms: Array<{ title: string; description: strin
     description:
       "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
     icon: "GraduationCap",
-    color: "bg-blue-600",
+    color: "bg-[#8cb6ec]",
     tag: "Youth",
   },
   {
@@ -63,7 +63,7 @@ export const fallbackFeaturedPrograms: Array<{ title: string; description: strin
     description:
       "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
     icon: "Zap",
-    color: "bg-purple-600",
+    color: "bg-[#eed02e]",
     tag: "Community",
   },
   {
@@ -71,7 +71,7 @@ export const fallbackFeaturedPrograms: Array<{ title: string; description: strin
     description:
       "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
     icon: "RefreshCw",
-    color: "bg-emerald-600",
+    color: "bg-[#b2c84e]",
     tag: "Education",
   },
 ];

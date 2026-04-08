@@ -360,7 +360,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+              <p className="text-sm font-bold uppercase tracking-widest text-[#eed02e] mb-3">
                 What We Do
               </p>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900">
