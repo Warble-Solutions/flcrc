@@ -5,6 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { Compass, Users, Link as LinkIcon, Handshake, Shield, Globe } from "lucide-react";
+import PageBanner from "@/components/layout/PageBanner";
 
 const fiveCs = [
   { name: "Community Outreach", icon: Globe, color: "text-blue-400" },
@@ -16,19 +17,14 @@ const fiveCs = [
 
 export default function StrategicPlanPage() {
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <Compass size={48} className="text-luminous-cyan mx-auto mb-6" />
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Strategic Planning
-            </h1>
-            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-              FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Strategic Planning" 
+        subtitle="FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization." 
+        imageSrc="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-6xl mx-auto">
 
         <ScrollReveal delay={100}>
           <div className="mb-20">
@@ -84,5 +80,6 @@ export default function StrategicPlanPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

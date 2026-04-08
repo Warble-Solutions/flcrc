@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { HeartHandshake, Check } from "lucide-react";
+import PageBanner from "@/components/layout/PageBanner";
 
 const opportunities = [
   "Annual Banquet",
@@ -42,19 +43,14 @@ export default function VolunteerPage() {
   };
 
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <HeartHandshake size={48} className="text-luminous-cyan mx-auto mb-6" />
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Become a Volunteer
-            </h1>
-            <p className="text-luminous-muted max-w-2xl mx-auto text-lg leading-relaxed">
-              Join the mission of FLCRC and help us build leaders, strengthen families, and transform communities. Your time, talent, and passion can make a lasting impact.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Become a Volunteer" 
+        subtitle="Join the mission of FLCRC and help us build leaders, strengthen families, and transform communities. Your time, talent, and passion can make a lasting impact." 
+        imageSrc="https://images.unsplash.com/photo-1593113565637-5271ef0740c8?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-6xl mx-auto">
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <ScrollReveal delay={100}>
@@ -122,5 +118,6 @@ export default function VolunteerPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

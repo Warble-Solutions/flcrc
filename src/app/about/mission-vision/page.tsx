@@ -5,6 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import { Check, Target, Heart, Shield, Users, BookOpen } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import PageBanner from "@/components/layout/PageBanner";
 
 const competencies = [
   { name: "Community Support", icon: Users },
@@ -25,21 +26,14 @@ const strategicPlan = [
 
 export default function MissionVisionPage() {
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <span className="text-luminous-fuchsia font-bold uppercase tracking-widest text-sm mb-4 block">
-              Who We Are
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Our Mission &amp; Vision
-            </h1>
-            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-              The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community through education, training, partnerships, collaboration, support, health and wellness. Equipping individuals, families, and schools with resources to build a thriving community is FLCRC&apos;s goal.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Our Mission & Vision" 
+        subtitle="The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community." 
+        imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-6xl mx-auto">
 
         <div className="grid md:grid-cols-2 gap-12 items-start mb-20">
           <ScrollReveal delay={100}>
@@ -105,5 +99,6 @@ export default function MissionVisionPage() {
         </ScrollReveal>
       </div>
     </div>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { Shield, Hexagon, CircleDot, Triangle } from "lucide-react";
 import { useDonate } from "@/components/layout/DonateProvider";
+import PageBanner from "@/components/layout/PageBanner";
 
 function CrownIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -26,21 +27,14 @@ export default function SponsorshipPage() {
   const { openDonate } = useDonate();
 
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <span className="text-luminous-cyan font-bold uppercase tracking-widest text-sm mb-4 block">
-              Family First: New Triumphs
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Capital Campaign Sponsorship
-            </h1>
-            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-              Your sponsorship will support FLCRC&apos;s new building. As a Campaign Sponsor, you will be recognized on our website and in our quarterly newsletter. As a nonprofit, FLCRC depends primarily on sponsorships to fuel our mission to impact thousands of children and families.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Capital Campaign Sponsorship" 
+        subtitle="Your sponsorship will support FLCRC's new building. As a Campaign Sponsor, you will be recognized on our website and in our quarterly newsletter." 
+        imageSrc="https://images.unsplash.com/photo-1556761175-5973e0f9b69b?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-6xl mx-auto">
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {sponsors.map((tier, i) => {
@@ -84,5 +78,6 @@ export default function SponsorshipPage() {
         </ScrollReveal>
       </div>
     </div>
+    </>
   );
 }

@@ -16,6 +16,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { useDonate } from "@/components/layout/DonateProvider";
+import PageBanner from "@/components/layout/PageBanner";
 
 export default function ContactPage() {
   const { openDonate } = useDonate();
@@ -51,24 +52,11 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* ===== HERO ===== */}
-      <section className="relative pt-32 pb-20 px-4 min-h-[50vh] flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.06)_0%,transparent_60%)]" />
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-luminous-cyan/30 bg-luminous-cyan/10 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-8">
-            <Mail size={14} />
-            Get In Touch
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-            Contact <span className="text-gradient">Us</span>
-          </h1>
-          <p className="text-lg md:text-xl text-luminous-muted max-w-2xl mx-auto leading-relaxed">
-            We&apos;d love to hear from you. Whether you have a question about
-            our programs, events, or anything else — our team is ready to
-            help.
-          </p>
-        </div>
-      </section>
+      <PageBanner 
+        title="Contact Us" 
+        subtitle="We'd love to hear from you. Whether you have a question about our programs, events, or anything else — our team is ready to help." 
+        imageSrc="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1600&q=80"
+      />
 
       {/* ===== CONTACT INFO CARDS — Light Section ===== */}
       <section className="bg-white text-slate-900 py-24 px-4 z-10 relative">

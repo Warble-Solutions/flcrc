@@ -4,25 +4,20 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { FileText, ExternalLink, LineChart } from "lucide-react";
+import PageBanner from "@/components/layout/PageBanner";
 
 const forms = ["2018-19", "2017-18", "2016-17", "2015-16", "2014-15"];
 
 export default function FinancialsPage() {
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <LineChart size={48} className="text-emerald-400 mx-auto mb-6" />
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Our Financials
-            </h1>
-            <p className="text-luminous-muted text-lg">
-              The Family Life and Community Resource Center is a 501(c)(3) non-profit.<br />
-              Transparency is a fundamental value of our organization.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Our Financials" 
+        subtitle="The Family Life and Community Resource Center is a 501(c)(3) non-profit. Transparency is a fundamental value of our organization." 
+        imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-4xl mx-auto">
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <ScrollReveal delay={100}>
@@ -68,5 +63,6 @@ export default function FinancialsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

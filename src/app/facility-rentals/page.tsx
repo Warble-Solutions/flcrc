@@ -24,6 +24,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import { createClient } from "@/lib/supabase/client";
+import PageBanner from "@/components/layout/PageBanner";
 
 // All 15 facility images
 const facilityImages = Array.from({ length: 15 }, (_, i) => ({
@@ -230,36 +231,11 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
 
   return (
     <>
-        {/* ===== HERO ===== */}
-        <section className="relative pt-32 pb-20 px-4 min-h-[60vh] flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,121,249,0.08)_0%,transparent_60%)]" />
-
-          {/* Hero background image */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/facility rental/1.jpg"
-              alt="FLCRC Facility"
-              fill
-              className="object-cover opacity-20"
-              unoptimized
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-luminous-bg via-luminous-bg/80 to-luminous-bg" />
-          </div>
-
-          <div className="max-w-5xl mx-auto text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-luminous-fuchsia/30 bg-luminous-fuchsia/10 text-luminous-fuchsia text-xs font-bold uppercase tracking-widest mb-8">
-              <MapPin size={14} />
-              Richmond, TX
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-              FLCRC <span className="text-gradient">Facility</span> Rentals
-            </h1>
-            <p className="text-lg md:text-xl text-luminous-muted max-w-2xl mx-auto leading-relaxed">
-              Host your next event in our stunning, fully-equipped venue. From
-              elegant galas to corporate workshops — we have the perfect space.
-            </p>
-          </div>
-        </section>
+      <PageBanner 
+        title="Facility Rentals" 
+        subtitle="Host your next event in our stunning, fully-equipped venue. From elegant galas to corporate workshops — we have the perfect space." 
+        imageSrc="https://images.unsplash.com/photo-1519167758481-83f51080bd1c?w=1600&q=80"
+      />
 
         {/* ===== VENUE CAROUSEL — Light Section ===== */}
         <section className="bg-white py-20 z-10 relative">

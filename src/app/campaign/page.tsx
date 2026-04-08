@@ -4,6 +4,7 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import { useDonate } from "@/components/layout/DonateProvider";
+import PageBanner from "@/components/layout/PageBanner";
 
 const goal = 200000;
 const raised = 15000;
@@ -13,21 +14,14 @@ export default function CampaignPage() {
   const { openDonate } = useDonate();
 
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-5xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <span className="text-luminous-cyan font-bold uppercase tracking-widest text-sm mb-4 block">
-              2025-2026 Capital Campaign
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-              Building a New Generation of Leaders
-            </h1>
-            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-              Our FY2025-26 Capital Campaign is a key component of our strategic growth plan for the next five years. Our goal is to raise <strong>$200,000</strong> to support the expansion of our Youth Ambassador Leadership Education (Y.A.L.E.) program.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Building a New Generation of Leaders" 
+        subtitle="Our FY2025-26 Capital Campaign is a key component of our strategic growth plan for the next five years. Our goal is to raise $200,000 to support the expansion of our Youth Ambassador Leadership Education (Y.A.L.E.) program." 
+        imageSrc="https://images.unsplash.com/photo-1517048676732-d68078c807eb?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-5xl mx-auto">
 
         {/* Progress Section */}
         <ScrollReveal delay={100}>
@@ -97,5 +91,6 @@ export default function CampaignPage() {
         </ScrollReveal>
       </div>
     </div>
+    </>
   );
 }

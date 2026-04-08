@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { fallbackEvents } from "@/lib/fallback-data";
 import type { Event } from "@/lib/supabase/types";
+import PageBanner from "@/components/layout/PageBanner";
 
 // Color palette for event cards
 const colorPalette = [
@@ -92,16 +93,13 @@ export default function EventsPage() {
 
   return (
     <>
-      <div className="pt-32 pb-20 px-4">
+      <PageBanner 
+        title="Event Horizon" 
+        subtitle="Explore our upcoming schedule and register for community events." 
+        imageSrc="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
         <div className="max-w-5xl mx-auto">
-          <ScrollReveal>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
-              <h1 className="text-5xl font-bold">Event Horizon</h1>
-              <p className="text-luminous-cyan font-bold uppercase tracking-widest text-sm animate-pulse">
-                {new Date().getFullYear()} Schedule Active
-              </p>
-            </div>
-          </ScrollReveal>
 
           <div className="space-y-4">
             {events.map((evt, i) => {

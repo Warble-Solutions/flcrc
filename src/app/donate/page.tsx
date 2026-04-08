@@ -5,6 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { Heart, Star, Award, Crown, Check } from "lucide-react";
 import { useDonate } from "@/components/layout/DonateProvider";
+import PageBanner from "@/components/layout/PageBanner";
 
 const tiers = [
   {
@@ -56,16 +57,14 @@ export default function DonatePage() {
   const { openDonate } = useDonate();
 
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">Become a Member</h1>
-            <p className="text-luminous-muted max-w-2xl mx-auto text-lg leading-relaxed">
-              By joining FLCRC as a valued member, you secure important funding for our programs and services while receiving special benefits. Through this philanthropic commitment, you have a direct impact on our community!
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Become a Member" 
+        subtitle="By joining FLCRC as a valued member, you secure important funding for our programs and services while receiving special benefits. Through this philanthropic commitment, you have a direct impact on our community!" 
+        imageSrc="https://images.unsplash.com/photo-1532629345422-7515f3d16bb0?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-7xl mx-auto">
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {tiers.map((tier, i) => {
@@ -119,5 +118,6 @@ export default function DonatePage() {
         </ScrollReveal>
       </div>
     </div>
+    </>
   );
 }

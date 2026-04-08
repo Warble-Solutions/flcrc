@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import { createClient } from "@/lib/supabase/client";
 import { Users } from "lucide-react";
+import PageBanner from "@/components/layout/PageBanner";
 
 type TeamMember = {
   id: string;
@@ -119,17 +120,14 @@ export default function TeamPage() {
   const staff = team.filter((m) => m.category !== "board");
 
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-20">
-            <Users size={48} className="text-luminous-cyan mx-auto mb-6" />
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">Our Team</h1>
-            <p className="text-luminous-muted max-w-3xl mx-auto text-lg leading-relaxed">
-              Meet the dedicated leadership, staff, and board members driving the mission of FLCRC. We are committed to building better communities by empowering families.
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Our Team" 
+        subtitle="Meet the dedicated leadership, staff, and board members driving the mission of FLCRC. We are committed to building better communities by empowering families." 
+        imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-6xl mx-auto">
 
         <div className="mb-24">
           <ScrollReveal>
@@ -158,5 +156,6 @@ export default function TeamPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

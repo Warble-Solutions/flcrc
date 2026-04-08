@@ -15,6 +15,7 @@ import { createClient } from "@/lib/supabase/client";
 import { iconMap } from "@/lib/icons";
 import { fallbackPrograms } from "@/lib/fallback-data";
 import type { Program } from "@/lib/supabase/types";
+import PageBanner from "@/components/layout/PageBanner";
 
 // Color mapping for the icon color in the card
 const colorMap: Record<string, string> = {
@@ -84,19 +85,13 @@ export default function ProgramsPage() {
 
   return (
     <>
-      <div className="pt-32 pb-20 px-4">
+      <PageBanner 
+        title="Our Programs" 
+        subtitle="Targeted initiatives designed for community health and family stability. Free, effective, and proven." 
+        imageSrc="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
         <div className="max-w-7xl mx-auto">
-          <ScrollReveal>
-            <div className="text-center mb-12">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gradient">
-                Our Programs
-              </h1>
-              <p className="text-luminous-muted max-w-2xl mx-auto text-lg">
-                Targeted initiatives designed for community health and family stability.
-                Free, effective, and proven.
-              </p>
-            </div>
-          </ScrollReveal>
 
           {/* Filter Chips */}
           <ScrollReveal>

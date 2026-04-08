@@ -4,25 +4,18 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { Briefcase, CheckCircle2, Link as LinkIcon, Download } from "lucide-react";
+import PageBanner from "@/components/layout/PageBanner";
 
 export default function ProgramCoordinatorPage() {
   return (
-    <div className="pt-32 pb-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <span className="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-4 block">
-              Now Hiring
-            </span>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-              Program Coordinator
-            </h1>
-            <p className="text-emerald-400 font-medium text-lg flex items-center justify-center gap-2">
-              <Briefcase size={20} />
-              Full-Time Position • Richmond, TX
-            </p>
-          </div>
-        </ScrollReveal>
+    <>
+      <PageBanner 
+        title="Program Coordinator" 
+        subtitle="Now Hiring Full-Time Position • Richmond, TX" 
+        imageSrc="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1600&q=80"
+      />
+      <div className="pb-20 px-4 pt-16">
+        <div className="max-w-4xl mx-auto">
 
         <ScrollReveal delay={100}>
           <GlassCard className="p-8 md:p-12 mb-12 border border-emerald-500/20">
@@ -91,5 +84,6 @@ export default function ProgramCoordinatorPage() {
         </ScrollReveal>
       </div>
     </div>
+    </>
   );
 }

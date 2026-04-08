@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Calendar, Tag, ArrowRight, Newspaper } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import PageBanner from "@/components/layout/PageBanner";
 
 const newsArticles = [
   {
@@ -105,22 +106,11 @@ export default function NewsPage() {
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative pt-32 pb-20 px-4 min-h-[50vh] flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.06)_0%,transparent_60%)]" />
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-luminous-cyan/30 bg-luminous-cyan/10 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-8">
-            <Newspaper size={14} />
-            Latest Updates
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-            FLCRC <span className="text-gradient">News</span>
-          </h1>
-          <p className="text-lg md:text-xl text-luminous-muted max-w-2xl mx-auto leading-relaxed">
-            Stay up to date with our latest programs, events, community
-            initiatives, and quarterly Insights newsletters.
-          </p>
-        </div>
-      </section>
+      <PageBanner 
+        title="FLCRC News" 
+        subtitle="Stay up to date with our latest programs, events, community initiatives, and quarterly Insights newsletters." 
+        imageSrc="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80"
+      />
 
       {/* ===== FEATURED ARTICLE — Light Section ===== */}
       <section className="bg-white text-slate-900 py-24 px-4 z-10 relative">
