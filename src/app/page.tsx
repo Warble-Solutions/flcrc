@@ -162,7 +162,7 @@ export default function HomePage() {
         {/* ── Slide 1: Main Hero ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[1]} alt="Community gathering" fill className="object-cover" quality={90} priority />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/60 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
@@ -192,7 +192,7 @@ export default function HomePage() {
         {/* ── Slide 2: Programs & Youth ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[2]} alt="Youth programs" fill className="object-cover" quality={90} />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-indigo-950/60 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-950/30 to-black/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.1)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-violet/30 bg-black/40 text-luminous-violet text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
@@ -223,7 +223,7 @@ export default function HomePage() {
         {/* ── Slide 3: Capital Campaign ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[3]} alt="Community support" fill className="object-cover" quality={90} />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-emerald-950/50 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-emerald-950/30 to-black/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(52,211,153,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-400/30 bg-black/40 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
