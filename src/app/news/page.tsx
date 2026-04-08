@@ -107,9 +107,9 @@ export default function NewsPage() {
     <>
       {/* ===== HERO ===== */}
       <PageBanner 
-        title="FLCRC News" 
-        subtitle="Stay up to date with our latest programs, events, community initiatives, and quarterly Insights newsletters." 
-        imageSrc="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80"
+        title="News & Press" 
+        subtitle="Stay updated with the latest announcements, newsletters, and media coverage from FLCRC." 
+        imageSrc="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=1600&q=80"
       />
 
       {/* ===== FEATURED ARTICLE — Light Section ===== */}

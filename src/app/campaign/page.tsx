@@ -18,7 +18,7 @@ export default function CampaignPage() {
       <PageBanner 
         title="Building a New Generation of Leaders" 
         subtitle="Our FY2025-26 Capital Campaign is a key component of our strategic growth plan for the next five years. Our goal is to raise $200,000 to support the expansion of our Youth Ambassador Leadership Education (Y.A.L.E.) program." 
-        imageSrc="https://images.unsplash.com/photo-1517048676732-d68078c807eb?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1526328828355-69bfae662326?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-5xl mx-auto">

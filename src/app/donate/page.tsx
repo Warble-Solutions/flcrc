@@ -61,7 +61,7 @@ export default function DonatePage() {
       <PageBanner 
         title="Become a Member" 
         subtitle="By joining FLCRC as a valued member, you secure important funding for our programs and services while receiving special benefits. Through this philanthropic commitment, you have a direct impact on our community!" 
-        imageSrc="https://images.unsplash.com/photo-1532629345422-7515f3d16bb0?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1555866160-5a8222b4eb11?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-7xl mx-auto">

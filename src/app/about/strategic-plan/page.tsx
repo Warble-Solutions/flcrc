@@ -21,7 +21,7 @@ export default function StrategicPlanPage() {
       <PageBanner 
         title="Strategic Planning" 
         subtitle="FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization." 
-        imageSrc="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1507567087642-7efc9213fb46?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-6xl mx-auto">

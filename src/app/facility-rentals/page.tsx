@@ -233,8 +233,8 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
     <>
       <PageBanner 
         title="Facility Rentals" 
-        subtitle="Host your next event in our stunning, fully-equipped venue. From elegant galas to corporate workshops — we have the perfect space." 
-        imageSrc="https://images.unsplash.com/photo-1519167758481-83f51080bd1c?w=1600&q=80"
+        subtitle="Host your next event, banquet, or conference at our beautiful, modern venue." 
+        imageSrc="https://images.unsplash.com/photo-1519167758488-643f8ab3aabe?w=1600&q=80"
       />
 
         {/* ===== VENUE CAROUSEL — Light Section ===== */}

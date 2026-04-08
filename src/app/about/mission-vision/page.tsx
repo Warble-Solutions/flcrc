@@ -30,7 +30,7 @@ export default function MissionVisionPage() {
       <PageBanner 
         title="Our Mission & Vision" 
         subtitle="The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community." 
-        imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-6xl mx-auto">

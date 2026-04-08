@@ -31,7 +31,7 @@ export default function SponsorshipPage() {
       <PageBanner 
         title="Capital Campaign Sponsorship" 
         subtitle="Your sponsorship will support FLCRC's new building. As a Campaign Sponsor, you will be recognized on our website and in our quarterly newsletter." 
-        imageSrc="https://images.unsplash.com/photo-1556761175-5973e0f9b69b?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-6xl mx-auto">

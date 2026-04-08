@@ -124,7 +124,7 @@ export default function TeamPage() {
       <PageBanner 
         title="Our Team" 
         subtitle="Meet the dedicated leadership, staff, and board members driving the mission of FLCRC. We are committed to building better communities by empowering families." 
-        imageSrc="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-6xl mx-auto">

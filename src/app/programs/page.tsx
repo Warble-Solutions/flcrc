@@ -87,8 +87,8 @@ export default function ProgramsPage() {
     <>
       <PageBanner 
         title="Our Programs" 
-        subtitle="Targeted initiatives designed for community health and family stability. Free, effective, and proven." 
-        imageSrc="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80"
+        subtitle="Empowering youth and families through comprehensive educational, leadership, and wellness programs designed to build a thriving community." 
+        imageSrc="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-7xl mx-auto">

@@ -15,7 +15,7 @@ export default function PageBanner({
         src={imageSrc}
         alt={title}
         fill
-        className="object-cover"
+        className="object-cover object-[center_35%]"
         quality={90}
         priority
       />

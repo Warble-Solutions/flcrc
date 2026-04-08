@@ -94,9 +94,9 @@ export default function EventsPage() {
   return (
     <>
       <PageBanner 
-        title="Event Horizon" 
-        subtitle="Explore our upcoming schedule and register for community events." 
-        imageSrc="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1600&q=80"
+        title="Events & Conferences" 
+        subtitle="Join us at our upcoming banquets, townhalls, and community gatherings. Connect, learn, and grow with FLCRC." 
+        imageSrc="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-5xl mx-auto">

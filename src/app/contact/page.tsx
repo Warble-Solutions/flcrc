@@ -55,7 +55,7 @@ export default function ContactPage() {
       <PageBanner 
         title="Contact Us" 
         subtitle="We'd love to hear from you. Whether you have a question about our programs, events, or anything else — our team is ready to help." 
-        imageSrc="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&q=80"
       />
 
       {/* ===== CONTACT INFO CARDS — Light Section ===== */}

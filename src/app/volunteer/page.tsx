@@ -47,7 +47,7 @@ export default function VolunteerPage() {
       <PageBanner 
         title="Become a Volunteer" 
         subtitle="Join the mission of FLCRC and help us build leaders, strengthen families, and transform communities. Your time, talent, and passion can make a lasting impact." 
-        imageSrc="https://images.unsplash.com/photo-1593113565637-5271ef0740c8?w=1600&q=80"
+        imageSrc="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1600&q=80"
       />
       <div className="pb-20 px-4 pt-16">
         <div className="max-w-6xl mx-auto">
