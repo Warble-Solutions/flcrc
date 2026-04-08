@@ -16,26 +16,25 @@ export default function FinancialsPage() {
         subtitle="The Family Life and Community Resource Center is a 501(c)(3) non-profit. Transparency is a fundamental value of our organization." 
         imageSrc="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-4xl mx-auto">
-
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <ScrollReveal delay={100}>
-            <GlassCard className="h-full p-8 text-center flex flex-col justify-center items-center border border-white/10 hover:border-emerald-500/50 transition-colors">
-              <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6 text-emerald-400">
-                <ExternalLink size={24} />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Guidestar Profile</h3>
-              <p className="text-luminous-muted mb-8">
-                View our Guidestar profile for independent financial verification and organizational details.
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h1 className="text-4xl md:text-5xl font-black mb-6 text-slate-900">
+                Independent Verification
+              </h1>
+              <p className="text-slate-600 text-lg">
+                We believe in providing full visibility into how your contributions impact the community.
               </p>
-              <Button variant="primary" onClick={() => alert("This link is currently unavailable.")}>
-                View Profile on Guidestar
-              </Button>
-            </GlassCard>
+            </div>
           </ScrollReveal>
+        </div>
+      </section>
 
-          <ScrollReveal delay={200}>
+      <section className="relative bg-luminous-bg text-white py-24 px-4 z-10">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
             <GlassCard className="h-full p-8 border border-white/10">
               <div className="flex items-center gap-3 mb-6">
                 <FileText className="text-white" size={24} />
@@ -61,8 +60,7 @@ export default function FinancialsPage() {
             </GlassCard>
           </ScrollReveal>
         </div>
-      </div>
-    </div>
+      </section>
     </>
   );
 }

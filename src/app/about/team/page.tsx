@@ -65,7 +65,7 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
   const imagePath = getImageForMember(member.name);
   return (
     <ScrollReveal delay={index * 100}>
-      <GlassCard className="h-full border border-white/5 hover:border-luminous-cyan/40 transition-all group overflow-hidden flex flex-col">
+      <div className="h-full rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl hover:border-luminous-cyan/40 transition-all group overflow-hidden flex flex-col bg-slate-50">
         <div className="h-64 bg-white/5 relative overflow-hidden">
           <img
             src={imagePath}
@@ -77,16 +77,16 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
             }}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] via-transparent to-transparent opacity-90" />
           <div className="absolute bottom-4 left-4 right-4">
-            <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-            <p className="text-luminous-cyan text-sm font-bold uppercase tracking-wider">{member.role}</p>
+            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-luminous-cyan transition-colors">{member.name}</h3>
+            <p className="text-white/80 text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">{member.role}</p>
           </div>
         </div>
-        <div className="p-6 flex-grow">
-          <p className="text-luminous-muted text-sm leading-relaxed">{member.bio}</p>
+        <div className="p-6 flex-grow bg-white group-hover:bg-slate-50 transition-colors">
+          <p className="text-slate-600 text-sm leading-relaxed">{member.bio || "Bringing years of dedicated service and community expertise to our organization's mission."}</p>
         </div>
-      </GlassCard>
+      </div>
     </ScrollReveal>
   );
 }
@@ -126,23 +126,33 @@ export default function TeamPage() {
         subtitle="Meet the dedicated leadership, staff, and board members driving the mission of FLCRC. We are committed to building better communities by empowering families." 
         imageSrc="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
-        <div className="max-w-6xl mx-auto">
 
-        <div className="mb-24">
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
+        <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl font-bold text-white mb-10 text-center">Leadership &amp; Staff</h2>
+            <div className="text-center mb-16">
+              <span className="text-blue-600 font-bold uppercase tracking-widest text-sm mb-4 block">
+                The People Behind the Mission
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 text-slate-900">Leadership & Staff</h2>
+              <p className="text-slate-600 max-w-3xl mx-auto text-lg leading-relaxed mb-4">
+                Our talented staff brings decades of combined experience across education, psychology, nursing, social work, and community outreach. Daily operations and program execution are managed closely by this dedicated team.
+              </p>
+            </div>
           </ScrollReveal>
+
           {loading ? (
-            <div className="text-center py-12 text-luminous-muted">Loading team...</div>
+            <div className="text-center py-12 text-slate-500">Loading team...</div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {staff.map((m, i) => <MemberCard key={m.id} member={m} index={i} />)}
             </div>
           )}
         </div>
+      </section>
 
-        <div>
+      <section className="relative bg-luminous-bg text-white py-24 px-4 z-10">
+        <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl font-bold text-white mb-10 text-center">Board of Directors</h2>
           </ScrollReveal>
@@ -154,8 +164,7 @@ export default function TeamPage() {
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </section>
     </>
   );
 }

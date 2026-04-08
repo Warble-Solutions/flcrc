@@ -32,51 +32,65 @@ export default function MissionVisionPage() {
         subtitle="The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community." 
         imageSrc="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <span className="text-emerald-600 font-bold uppercase tracking-widest text-sm mb-4 block">
+                Who We Are
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 text-slate-900">Core Focus</h2>
+              <p className="text-slate-600 max-w-3xl mx-auto text-lg leading-relaxed mb-4">
+                Our organization is guided by a strong commitment to uplifting the community through targeted competencies and strategic frameworks.
+              </p>
+            </div>
+          </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start mb-20">
-          <ScrollReveal delay={100}>
-            <GlassCard className="h-full p-8 border border-white/10 relative overflow-hidden group hover:border-luminous-cyan/50 transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-luminous-cyan/5 to-transparent pointer-events-none" />
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-6">Core Competencies</h3>
+          <div className="grid md:grid-cols-2 gap-12 items-start mb-12">
+            <ScrollReveal delay={100}>
+              <div className="h-full p-8 border border-slate-200 rounded-2xl bg-slate-50 relative overflow-hidden group hover:border-luminous-cyan/40 hover:shadow-xl transition-all">
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-6">Core Competencies</h3>
                 <div className="space-y-4">
                   {competencies.map((comp, i) => {
                     const Icon = comp.icon;
                     return (
-                      <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl">
-                        <div className="bg-luminous-cyan/10 p-2 rounded-lg text-luminous-cyan">
+                      <div key={i} className="flex items-center gap-4 bg-white border border-slate-100 shadow-sm p-4 rounded-xl">
+                        <div className="bg-luminous-cyan/10 p-2 rounded-lg text-blue-600">
                           <Icon size={20} />
                         </div>
-                        <span className="text-white font-medium">{comp.name}</span>
+                        <span className="text-slate-800 font-medium">{comp.name}</span>
                       </div>
                     );
                   })}
                 </div>
               </div>
-            </GlassCard>
+            </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={200}>
-            <GlassCard className="h-full p-8 border border-white/10 relative overflow-hidden group hover:border-luminous-fuchsia/50 transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-luminous-fuchsia/5 to-transparent pointer-events-none" />
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-6">Strategic Community Plan</h3>
+            <ScrollReveal delay={200}>
+              <div className="h-full p-8 border border-slate-200 rounded-2xl bg-slate-50 relative overflow-hidden group hover:border-purple-400 hover:shadow-xl transition-all">
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-6">Strategic Community Plan</h3>
                 <div className="space-y-4">
                   {strategicPlan.map((item, i) => (
                     <div key={i} className="flex items-start gap-4 p-2">
-                      <div className="text-luminous-fuchsia shrink-0 mt-1">
+                      <div className="text-purple-500 shrink-0 mt-1">
                         <Check size={20} />
                       </div>
-                      <span className="text-luminous-muted">{item}</span>
+                      <span className="text-slate-600 font-medium">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </div>
           </ScrollReveal>
         </div>
+      </div>
+      </section>
+
+      <section className="relative bg-luminous-bg text-white py-24 px-4 z-10">
+        <div className="max-w-6xl mx-auto">
 
         <ScrollReveal delay={300}>
           <div className="glass p-10 rounded-3xl border border-white/10 text-center relative overflow-hidden">
@@ -97,8 +111,8 @@ export default function MissionVisionPage() {
             </div>
           </div>
         </ScrollReveal>
-      </div>
-    </div>
+        </div>
+      </section>
     </>
   );
 }

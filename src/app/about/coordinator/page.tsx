@@ -14,44 +14,48 @@ export default function ProgramCoordinatorPage() {
         subtitle="Now Hiring Full-Time Position • Richmond, TX" 
         imageSrc="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
         <div className="max-w-4xl mx-auto">
-
-        <ScrollReveal delay={100}>
-          <GlassCard className="p-8 md:p-12 mb-12 border border-emerald-500/20">
-            <h2 className="text-2xl font-bold text-white mb-6">Job Description</h2>
-            <p className="text-luminous-muted leading-relaxed mb-6">
+          <ScrollReveal delay={100}>
+            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12 mb-12 border border-slate-200">
+              <h2 className="text-3xl font-black text-slate-900 mb-6">Job Description</h2>
+              <p className="text-slate-600 leading-relaxed mb-6 text-lg">
               Reporting directly to the Executive Director, the Program Coordinator will plan and coordinate programs for the Family Life and Community Resource Center (FLCRC). This individual is responsible for overseeing the functioning of programs service delivery, ensuring compliance, and maintaining positive working relationships with clients, community organizations, schools, churches, and business partners.
             </p>
-            <p className="text-luminous-muted leading-relaxed">
-              In addition, this individual is responsible for case management supervision, direct services, training, and monitoring program outputs and outcomes. The Program Coordinator also works with clients/families to establish and accomplish goals, provide advocacy support, and promote empowerment to crime survivors.
-            </p>
-          </GlassCard>
-        </ScrollReveal>
-
-        <ScrollReveal delay={200}>
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-6 px-4">Qualifications &amp; Requirements</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                "Bachelor's degree from an accredited College or University is required.",
-                "Master's degree in social work, psychology, counseling or related field is preferred.",
-                "Minimum of five years experience in social work, case management, counseling, and community outreach.",
-                "Experience with Crime Survivors and Trauma-related mental health case management preferred.",
-                "Excellent interpersonal, written, verbal, and multidisciplinary project skills.",
-                "Proficient in MS Office and data management systems.",
-                "Action-oriented, adaptable, and innovative approach.",
-                "Passion, integrity, positive attitude, mission-driven, and self-directed.",
-                "Bilingual preferred (ability to understand and communicate with Spanish-speaking individuals).",
-              ].map((req, i) => (
-                <div key={i} className="glass p-5 rounded-2xl flex items-start gap-4 border border-white/5">
-                  <CheckCircle2 size={24} className="text-emerald-400 shrink-0" />
-                  <span className="text-luminous-muted text-sm leading-relaxed">{req}</span>
-                </div>
-              ))}
+              <p className="text-slate-600 leading-relaxed text-lg">
+                In addition, this individual is responsible for case management supervision, direct services, training, and monitoring program outputs and outcomes. The Program Coordinator also works with clients/families to establish and accomplish goals, provide advocacy support, and promote empowerment to crime survivors.
+              </p>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+
+          <ScrollReveal delay={200}>
+            <div className="mb-12">
+              <h2 className="text-3xl font-black text-slate-900 mb-8 px-4 text-center">Qualifications &amp; Requirements</h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  "Bachelor's degree from an accredited College or University is required.",
+                  "Master's degree in social work, psychology, counseling or related field is preferred.",
+                  "Minimum of five years experience in social work, case management, counseling, and community outreach.",
+                  "Experience with Crime Survivors and Trauma-related mental health case management preferred.",
+                  "Excellent interpersonal, written, verbal, and multidisciplinary project skills.",
+                  "Proficient in MS Office and data management systems.",
+                  "Action-oriented, adaptable, and innovative approach.",
+                  "Passion, integrity, positive attitude, mission-driven, and self-directed.",
+                  "Bilingual preferred (ability to understand and communicate with Spanish-speaking individuals).",
+                ].map((req, i) => (
+                  <div key={i} className="bg-white shadow-sm p-6 rounded-2xl flex items-start gap-4 border border-slate-200">
+                    <CheckCircle2 size={24} className="text-emerald-500 shrink-0" />
+                    <span className="text-slate-700 font-medium leading-relaxed">{req}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="relative bg-luminous-bg text-white py-24 px-4 z-10">
+        <div className="max-w-4xl mx-auto">
 
         <ScrollReveal delay={300}>
           <div className="glass p-10 rounded-3xl border border-emerald-500/30 bg-emerald-500/5 text-center relative overflow-hidden">
@@ -82,8 +86,8 @@ export default function ProgramCoordinatorPage() {
             </div>
           </div>
         </ScrollReveal>
-      </div>
-    </div>
+        </div>
+      </section>
     </>
   );
 }

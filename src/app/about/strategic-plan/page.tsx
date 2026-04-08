@@ -23,25 +23,29 @@ export default function StrategicPlanPage() {
         subtitle="FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization." 
         imageSrc="https://images.unsplash.com/photo-1507567087642-7efc9213fb46?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-6xl mx-auto">
-
-        <ScrollReveal delay={100}>
-          <div className="mb-20">
-            <h2 className="text-3xl font-bold text-center text-white mb-10">The Five C&apos;s</h2>
+          <ScrollReveal delay={100}>
+            <div className="mb-20">
+              <h2 className="text-3xl font-bold text-center text-slate-900 mb-10">The Five C&apos;s</h2>
             <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
               {fiveCs.map((item, i) => {
                 const Icon = item.icon;
                 return (
-                  <GlassCard key={i} className="text-center p-6 border border-white/5 hover:border-white/20 transition-all">
-                    <Icon size={32} className={`mx-auto mb-4 ${item.color}`} />
-                    <h4 className="font-bold text-white text-sm">{item.name}</h4>
-                  </GlassCard>
+                  <div key={i} className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-blue-400 transition-all">
+                    <Icon size={32} className={`mx-auto mb-4 ${item.color.replace('text-white', 'text-slate-600')}`} />
+                    <h4 className="font-bold text-slate-800 text-sm">{item.name}</h4>
+                  </div>
                 );
               })}
             </div>
           </div>
         </ScrollReveal>
+      </div>
+      </section>
+
+      <section className="relative bg-luminous-bg text-white py-24 px-4 z-10">
+        <div className="max-w-6xl mx-auto">
 
         <div className="grid md:grid-cols-2 gap-8 items-stretch mb-16">
           <ScrollReveal delay={200}>
@@ -78,8 +82,8 @@ export default function StrategicPlanPage() {
             </div>
           </ScrollReveal>
         </div>
-      </div>
-    </div>
+        </div>
+      </section>
     </>
   );
 }

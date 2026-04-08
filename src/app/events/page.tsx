@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, Clock, CreditCard, Lock, Check } from "lucide-react";
+import { MapPin, Clock, CreditCard, Lock, Check, Calendar } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
@@ -98,7 +98,7 @@ export default function EventsPage() {
         subtitle="Join us at our upcoming banquets, townhalls, and community gatherings. Connect, learn, and grow with FLCRC." 
         imageSrc="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-5xl mx-auto">
 
           <div className="space-y-4">
@@ -107,34 +107,34 @@ export default function EventsPage() {
               const color = evt.color || colorPalette[i % colorPalette.length];
               return (
                 <ScrollReveal key={evt.id} delay={i * 100}>
-                  <div className="group glass rounded-2xl p-6 flex flex-col md:flex-row items-center gap-8 hover:bg-white/5 transition-all border border-white/5 hover:border-luminous-cyan/30">
+                  <div className="group bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-8 hover:shadow-xl hover:border-blue-400 transition-all">
                     <div
                       className={`w-24 h-24 rounded-xl bg-gradient-to-br ${color} flex flex-col items-center justify-center shrink-0 shadow-lg group-hover:scale-105 transition-transform`}
                     >
-                      <span className="text-3xl font-bold text-white">{d}</span>
-                      <span className="text-xs font-bold text-white/80 uppercase tracking-widest">{m}</span>
+                      <span className="text-3xl font-black text-white">{d}</span>
+                      <span className="text-xs font-bold text-white/90 uppercase tracking-widest">{m}</span>
                     </div>
                     <div className="flex-1 text-center md:text-left">
-                      <h3 className="text-xl font-bold text-white mb-2">{evt.title}</h3>
-                      <div className="flex items-center justify-center md:justify-start gap-4 text-sm text-luminous-muted">
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">{evt.title}</h3>
+                      <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-slate-500 font-medium tracking-tight">
                         {evt.location && (
-                          <span className="flex items-center gap-2">
-                            <MapPin size={14} /> {evt.location}
+                          <span className="flex items-center gap-1.5">
+                            <MapPin size={14} className="text-blue-500" /> {evt.location}
                           </span>
                         )}
                         {evt.time && (
-                          <span className="flex items-center gap-2">
-                            <Clock size={14} /> {evt.time}
+                          <span className="flex items-center gap-1.5">
+                            <Clock size={14} className="text-blue-500" /> {evt.time}
                           </span>
                         )}
                       </div>
                     </div>
                     {evt.is_sold_out ? (
-                      <span className="px-6 py-2.5 rounded-full bg-red-600/20 text-red-400 font-bold text-xs uppercase tracking-wider border border-red-500/30">
+                      <span className="px-6 py-2.5 rounded-full bg-red-50 text-red-600 font-bold text-xs uppercase tracking-wider border border-red-200">
                         Sold Out
                       </span>
                     ) : (
-                      <Button variant="outline" onClick={() => setSelectedEvent(evt)}>
+                      <Button variant="primary" onClick={() => setSelectedEvent(evt)}>
                         Register
                       </Button>
                     )}
@@ -144,7 +144,26 @@ export default function EventsPage() {
             })}
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="relative py-24 px-4 bg-luminous-bg text-white z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <ScrollReveal>
+            <Calendar className="w-12 h-12 text-luminous-cyan mx-auto mb-6" />
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
+              Full Calendar View
+            </h2>
+            <p className="text-luminous-muted text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+              Want to see all of our upcoming events for the entire year? Connect with us on social media for real-time announcements.
+            </p>
+            <div className="flex justify-center gap-4">
+              <Button variant="outline" onClick={() => window.location.href = '/contact'}>
+                Contact Us
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* Event Registration Modal */}
       <Modal

@@ -90,7 +90,7 @@ export default function ProgramsPage() {
         subtitle="Empowering youth and families through comprehensive educational, leadership, and wellness programs designed to build a thriving community." 
         imageSrc="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=80"
       />
-      <div className="pb-20 px-4 pt-16">
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
         <div className="max-w-7xl mx-auto">
 
           {/* Filter Chips */}
@@ -102,8 +102,8 @@ export default function ProgramsPage() {
                   onClick={() => setFilter(cat!)}
                   className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     filter === cat
-                      ? "bg-white text-black shadow-lg scale-105"
-                      : "glass text-luminous-muted hover:text-white hover:bg-white/10"
+                      ? "bg-blue-600 text-white shadow-lg scale-105"
+                      : "bg-white border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-300"
                   }`}
                 >
                   {cat}
@@ -118,39 +118,58 @@ export default function ProgramsPage() {
               const IconComp = iconMap[prog.icon || ""] || GraduationCap;
               const iconColor = colorMap[prog.color || ""] || "text-luminous-cyan";
               return (
-                <ScrollReveal key={prog.id} delay={i * 50}>
-                  <GlassCard
-                    className="cursor-pointer group relative overflow-hidden h-full"
-                    hoverEffect={true}
+                <ScrollReveal key={prog.id} delay={i * 50} className="h-full">
+                  <div
+                    className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all cursor-pointer group flex flex-col relative overflow-hidden"
+                    onClick={() => setSelectedProgram(prog)}
                   >
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br from-luminous-cyan to-luminous-fuchsia" />
-                    <div
-                      onClick={() => setSelectedProgram(prog)}
-                      className="relative z-10"
-                    >
+                    <div className="relative z-10 flex-grow">
                       <div className="flex justify-between items-start mb-8">
-                        <IconComp size={32} className={iconColor} />
+                        <IconComp size={32} className={`text-opacity-80 ${iconColor.replace('text-', 'text-')}`} />
                         {prog.tag && (
-                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/10 bg-white/5 text-luminous-muted">
+                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-100 bg-blue-50 text-blue-600">
                             {prog.tag}
                           </span>
                         )}
                       </div>
-                      <h3 className="text-2xl font-bold mb-3 group-hover:text-luminous-cyan transition-colors">
+                      <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors">
                         {prog.title}
                       </h3>
-                      <p className="text-luminous-muted mb-8">{prog.description}</p>
-                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white/70 group-hover:text-white group-hover:gap-4 transition-all">
+                      <p className="text-slate-600 mb-8 leading-relaxed flex-grow">{prog.description}</p>
+                    </div>
+                    <div className="relative z-10 mt-auto">
+                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-blue-600 group-hover:gap-4 transition-all w-max py-2">
                         Explore <ArrowRight size={16} />
                       </div>
                     </div>
-                  </GlassCard>
+                  </div>
                 </ScrollReveal>
               );
             })}
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="relative py-24 px-4 bg-luminous-bg z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <ScrollReveal>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+              Empower the Future
+            </h2>
+            <p className="text-luminous-muted text-lg mb-10 leading-relaxed text-center">
+              Our programs thrive on the support of volunteers, donors, and community leaders. If you are passionate about changing lives, consider getting involved today.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="primary" onClick={() => window.location.href = '/volunteer'}>
+                Volunteer Now
+              </Button>
+              <Button variant="outline" onClick={() => window.location.href = '/donate'}>
+                Make a Donation
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* Program Detail Modal */}
       <Modal
