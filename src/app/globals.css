@@ -7,15 +7,29 @@
   --font-sans: var(--font-inter);
 
   /* Luminous Dark Palette */
-  --color-luminous-bg: #020617;
-  --color-luminous-card: rgba(255, 255, 255, 0.03);
-  --color-luminous-card-hover: rgba(255, 255, 255, 0.08);
-  --color-luminous-border: rgba(255, 255, 255, 0.1);
-  --color-luminous-cyan: #22d3ee;
-  --color-luminous-violet: #a78bfa;
-  --color-luminous-fuchsia: #e879f9;
-  --color-luminous-text: #f8fafc;
-  --color-luminous-muted: #94a3b8;
+  /* Tailwind Base Color Overrides for Light Mode mapping */
+  --color-slate-900: #1b2847;
+  --color-slate-800: #293d60;
+  --color-slate-500: #62748e;
+  --color-slate-100: #e2e8f0;
+  --color-slate-50: #f1f5f9;
+
+  --color-blue-600: #94cdff;
+  --color-blue-700: #8cb6ec;
+  --color-emerald-600: #beda5b;
+  --color-purple-600: #ffe453;
+  --color-rose-600: #ff9664;
+
+  /* Luminous Dark Palette Overrides */
+  --color-luminous-bg: #1b2847;
+  --color-luminous-card: rgba(255, 255, 255, 0.05);
+  --color-luminous-card-hover: rgba(255, 255, 255, 0.1);
+  --color-luminous-border: rgba(255, 255, 255, 0.2);
+  --color-luminous-cyan: #94cdff;
+  --color-luminous-violet: #beda5b;
+  --color-luminous-fuchsia: #ffe453;
+  --color-luminous-text: #ffffff;
+  --color-luminous-muted: #c8c7c7;
 
   /* Animations */
   --animate-blob: blob 10s infinite;
@@ -61,15 +75,15 @@
 /* ===== Base Styles ===== */
 
 body {
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: #1b2847;
+  color: #ffffff;
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background-color: #22d3ee;
-  color: #000;
+  background-color: #ffe453;
+  color: #1b2847;
 }
 
 /* ===== Glassmorphism Utilities ===== */
@@ -88,14 +102,14 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #e879f9 100%);
+  background: linear-gradient(135deg, #ff9664 0%, #ffe453 33%, #beda5b 66%, #94cdff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .bg-gradient-glow {
-  background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 50%, #e879f9 100%);
+  background: linear-gradient(135deg, #ff9664 0%, #ffe453 33%, #beda5b 66%, #94cdff 100%);
 }
 
 /* ===== Scrollbar ===== */
