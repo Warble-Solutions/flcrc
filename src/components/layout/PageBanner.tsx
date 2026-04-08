@@ -19,7 +19,7 @@ export default function PageBanner({
         quality={90}
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,205,255,0.08)_0%,transparent_60%)]" />
 
       <div className="relative z-20 max-w-5xl mx-auto px-4 text-center mt-12 md:mt-20">

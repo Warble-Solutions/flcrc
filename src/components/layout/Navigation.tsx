@@ -20,7 +20,13 @@ const navLinks = [
       { href: "/about/coordinator", label: "Program Coordinator" },
     ]
   },
-  { href: "/programs", label: "Programs" },
+  { 
+    label: "Programs", 
+    subLinks: [
+      { href: "/programs", label: "Overview" },
+      { href: "/camp", label: "Summer Camp" },
+    ]
+  },
   { href: "/events", label: "Events" },
   { href: "/news", label: "News" },
   { href: "/facility-rentals", label: "Rentals" },
@@ -53,7 +59,7 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-black/80 backdrop-blur-xl border-b border-white/10 py-3"
+            ? "bg-slate-900/80 backdrop-blur-xl border-b border-white/10 py-3"
             : "bg-transparent py-6"
         }`}
       >
@@ -94,7 +100,7 @@ export default function Navigation() {
                   <div className="cursor-pointer flex items-center gap-1 text-sm font-bold tracking-widest uppercase text-luminous-muted hover:text-luminous-cyan transition-all duration-300 py-4">
                     {link.label} <ChevronDown size={14} />
                     <div className="absolute top-full left-0 mt-0 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-2xl flex flex-col gap-2 relative">
+                      <div className="bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-xl p-3 shadow-2xl flex flex-col gap-2 relative">
                         {/* Invisible bridge to prevent hover loss */}
                         <div className="absolute -top-4 left-0 w-full h-4" />
                         {link.subLinks?.map((sub) => (
@@ -131,7 +137,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-12 px-8 overflow-y-auto">
+        <div className="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-xl flex flex-col pt-24 pb-12 px-8 overflow-y-auto">
           <button
             className="absolute top-6 right-6 p-2 rounded-full border border-white/20 text-white cursor-pointer"
             onClick={() => setMobileOpen(false)}

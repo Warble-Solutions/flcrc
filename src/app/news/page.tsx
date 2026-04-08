@@ -127,7 +127,7 @@ export default function NewsPage() {
               rel="noopener noreferrer"
               className="block group"
             >
-              <div className="grid lg:grid-cols-2 gap-10 items-center bg-slate-50 rounded-3xl border border-slate-200 overflow-hidden hover:shadow-xl transition-all">
+              <div className="grid lg:grid-cols-2 gap-10 items-center bg-gradient-to-br from-rose-600 to-purple-600 rounded-3xl border border-rose-400 overflow-hidden hover:shadow-2xl hover:shadow-rose-600/20 transition-all">
                 <div className="h-72 lg:h-full overflow-hidden">
                   <img
                     src={featured.image}
@@ -135,28 +135,28 @@ export default function NewsPage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="p-8 lg:p-12">
-                  <div className="flex items-center gap-3 text-sm text-slate-500 mb-4">
+                <div className="p-8 lg:p-12 relative z-10">
+                  <div className="flex items-center gap-3 text-sm text-yellow-100 font-bold uppercase tracking-widest mb-4">
                     <Calendar size={14} />
                     {featured.date}
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-3xl md:text-4xl font-black text-white drop-shadow-sm mb-4">
                     {featured.title}
                   </h2>
-                  <p className="text-slate-600 leading-relaxed text-lg mb-6">
+                  <p className="text-white/90 leading-relaxed text-lg mb-6 font-medium">
                     {featured.excerpt}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {featured.categories.map((cat) => (
                       <span
                         key={cat}
-                        className="text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
+                        className="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-sm text-white border border-white/20 px-3 py-1 rounded-full"
                       >
                         {cat}
                       </span>
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 uppercase tracking-wider group-hover:gap-3 transition-all">
+                  <span className="inline-flex items-center gap-2 text-sm font-bold text-white uppercase tracking-wider group-hover:gap-3 transition-all drop-shadow-md">
                     Read Full Article <ArrowRight size={14} />
                   </span>
                 </div>

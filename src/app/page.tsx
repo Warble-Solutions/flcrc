@@ -162,18 +162,18 @@ export default function HomePage() {
         {/* ── Slide 1: Main Hero ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[1]} alt="Community gathering" fill className="object-cover" quality={90} priority />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-black/40 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-slate-900/50 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
               Building Better Communities
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-cyan via-blue-400 to-luminous-fuchsia">Hope</span>,<br />
+              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-purple-600">Hope</span>,<br />
               One Family at a Time
             </h1>
-            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+            <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
               For over a decade, FLCRC has been the catalyst for change in Fort Bend County — providing tools, resources, and support families need to thrive.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -182,7 +182,7 @@ export default function HomePage() {
                   Discover Our Programs <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md" onClick={openDonate}>
+              <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md" onClick={openDonate}>
                 <HandHeart size={18} /> Make a Donation
               </Button>
             </div>
@@ -192,17 +192,17 @@ export default function HomePage() {
         {/* ── Slide 2: Programs & Youth ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[2]} alt="Youth programs" fill className="object-cover" quality={90} />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-950/30 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.1)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-violet/30 bg-black/40 text-luminous-violet text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-violet/30 bg-slate-900/50 text-luminous-violet text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
               <GraduationCap size={14} />
               Youth Ambassador Program
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-luminous-violet to-purple-400">Next Generation</span>
+              Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-emerald-600">Next Generation</span>
             </h1>
-            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+            <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
               Through Y.A.L.E., GRIT, and Summer Enrichment — we equip young leaders with the confidence, skills, and vision to transform their communities.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -212,7 +212,7 @@ export default function HomePage() {
                 </Button>
               </Link>
               <Link href="/volunteer">
-                <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md">
+                <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md">
                   <HeartHandshake size={18} /> Volunteer With Us
                 </Button>
               </Link>
@@ -223,18 +223,18 @@ export default function HomePage() {
         {/* ── Slide 3: Capital Campaign ── */}
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[3]} alt="Community support" fill className="object-cover" quality={90} />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-emerald-950/30 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(52,211,153,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-400/30 bg-black/40 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-emerald-400/30 bg-slate-900/50 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
               <Heart size={14} />
               2025–2026 Capital Campaign
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">New Generation</span><br />
+              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">New Generation</span><br />
               of Leaders
             </h1>
-            <p className="text-xl md:text-2xl text-luminous-muted max-w-3xl mx-auto leading-relaxed font-light mb-14">
+            <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
               Help us raise $200,000 to expand our Y.A.L.E. Summer Enrichment Experience — immersing students in STEM, entrepreneurship, and leadership.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -243,7 +243,7 @@ export default function HomePage() {
                   Learn About the Campaign <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button variant="glow" className="px-12 py-5 text-sm bg-black/40 backdrop-blur-md" onClick={openDonate}>
+              <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md" onClick={openDonate}>
                 <HandHeart size={18} /> Donate Now
               </Button>
             </div>
