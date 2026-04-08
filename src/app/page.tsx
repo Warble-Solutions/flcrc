@@ -170,7 +170,7 @@ export default function HomePage() {
               Building Better Communities
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-purple-600">Hope</span>,<br />
+              Igniting <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff9664] to-[#ffe453]">Hope</span>,<br />
               One Family at a Time
             </h1>
             <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
@@ -200,7 +200,7 @@ export default function HomePage() {
               Youth Ambassador Program
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-emerald-600">Next Generation</span>
+              Empowering the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#beda5b] to-[#94cdff]">Next Generation</span>
             </h1>
             <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
               Through Y.A.L.E., GRIT, and Summer Enrichment — we equip young leaders with the confidence, skills, and vision to transform their communities.
@@ -231,7 +231,7 @@ export default function HomePage() {
               2025–2026 Capital Campaign
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">New Generation</span><br />
+              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#beda5b] to-[#94cdff]">New Generation</span><br />
               of Leaders
             </h1>
             <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">

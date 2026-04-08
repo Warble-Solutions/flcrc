@@ -12,14 +12,14 @@ const tiers = [
     name: "Tier 1",
     price: "$25",
     icon: Heart,
-    color: "from-blue-400 to-blue-600",
+    color: "from-[#94cdff] to-[#8cb6ec]",
     features: ["Annual Membership Card", "Digital Membership Scroll"],
   },
   {
     name: "Tier 2",
     price: "$60",
     icon: Star,
-    color: "from-purple-400 to-purple-600",
+    color: "from-[#beda5b] to-[#b2c84e]",
     features: [
       "Annual Membership Card and Certificate",
       "Digital Membership Scroll",
@@ -30,7 +30,7 @@ const tiers = [
     name: "Tier 3",
     price: "$75",
     icon: Award,
-    color: "from-pink-400 to-rose-600",
+    color: "from-[#ff9664] to-[#f08855]",
     features: [
       "Annual Membership Card and Certificate",
       "T-shirt included",
@@ -42,7 +42,7 @@ const tiers = [
     name: "Tier 4 (Institutional)",
     price: "$1,000",
     icon: Crown,
-    color: "from-yellow-400 to-amber-600",
+    color: "from-[#ffe453] to-[#eed02e]",
     features: [
       "Institutional Annual Membership Card",
       "Digital Membership Scroll",

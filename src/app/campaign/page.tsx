@@ -36,7 +36,7 @@ export default function CampaignPage() {
                 </div>
                 <div className="h-6 w-full bg-white rounded-full overflow-hidden border border-slate-200 mb-6 shadow-inner">
                   <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-1000 ease-out relative"
+                    className="h-full bg-gradient-to-r from-[#ff9664] to-[#ffe453] transition-all duration-1000 ease-out relative"
                     style={{ width: `${percent}%` }}
                   >
                     <div className="absolute inset-0 bg-white/20 animate-pulse" />

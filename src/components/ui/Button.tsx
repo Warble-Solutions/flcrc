@@ -39,7 +39,7 @@ export default function Button({
         {children}
       </span>
       {variant === "primary" && (
-        <div className="absolute inset-0 bg-gradient-to-r from-luminous-cyan via-luminous-violet to-luminous-fuchsia opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#ff9664] to-[#ffe453] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       )}
       {variant === "glow" && (
         <div className="absolute inset-0 bg-luminous-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
