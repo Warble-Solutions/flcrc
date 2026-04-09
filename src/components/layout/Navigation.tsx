@@ -27,7 +27,13 @@ const navLinks = [
       { href: "/camp", label: "Summer Camp" },
     ]
   },
-  { href: "/events", label: "Events" },
+  { 
+    label: "Events", 
+    subLinks: [
+      { href: "/events", label: "All Events" },
+      { href: "/banquet", label: "2026 Banquet" },
+    ]
+  },
   { href: "/news", label: "News" },
   { href: "/facility-rentals", label: "Rentals" },
   { 
