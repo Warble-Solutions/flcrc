@@ -21,25 +21,29 @@ export default function VolunteerPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", interests: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setFormError(false);
     try {
       const supabase = createClient();
-      await supabase.from("form_submissions").insert({
+      const { error } = await supabase.from("form_submissions").insert({
         type: "volunteer",
         name: form.name,
         email: form.email,
         phone: form.phone || null,
         message: form.interests || null,
       });
+      if (error) throw error;
+      setSubmitted(true);
+      setForm({ name: "", email: "", phone: "", interests: "" });
     } catch (err) {
       console.error("Volunteer form error:", err);
+      setFormError(true);
     }
     setSubmitting(false);
-    setSubmitted(true);
-    setForm({ name: "", email: "", phone: "", interests: "" });
   };
 
   return (
@@ -107,6 +111,11 @@ export default function VolunteerPage() {
                   <textarea rows={4} required placeholder="Which events or areas are you interested in?" value={form.interests}
                     onChange={(e) => setForm({ ...form, interests: e.target.value })}
                     className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 placeholder:text-slate-400 resize-none" />
+                  {formError && (
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm text-center">
+                      Something went wrong. Please try again or contact us directly.
+                    </div>
+                  )}
                   <button type="submit" disabled={submitting} className="w-full py-4 bg-slate-900 text-white font-bold rounded-xl text-lg hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm">
                     {submitting ? "Sending..." : "Submit Volunteer Form"}
                   </button>

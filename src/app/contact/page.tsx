@@ -21,6 +21,7 @@ import PageBanner from "@/components/layout/PageBanner";
 export default function ContactPage() {
   const { openDonate } = useDonate();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -33,9 +34,10 @@ export default function ContactPage() {
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setFormError(false);
     try {
       const supabase = createClient();
-      await supabase.from("form_submissions").insert({
+      const { error } = await supabase.from("form_submissions").insert({
         type: "contact",
         name: contactForm.name,
         email: contactForm.email,
@@ -43,11 +45,13 @@ export default function ContactPage() {
         message: contactForm.message,
         metadata: { subject: contactForm.subject },
       });
+      if (error) throw error;
+      setFormSubmitted(true);
     } catch (err) {
       console.error("Contact form error:", err);
+      setFormError(true);
     }
     setSubmitting(false);
-    setFormSubmitted(true);
   };
 
   return (
@@ -243,6 +247,12 @@ export default function ContactPage() {
                         placeholder="How can we help you?"
                       />
                     </div>
+
+                    {formError && (
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm text-center">
+                        Something went wrong. Please try again or email us directly at info@familylifecrc.org.
+                      </div>
+                    )}
 
                     <button
                       type="submit"
