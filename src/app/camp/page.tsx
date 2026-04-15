@@ -94,7 +94,7 @@ export default function CampPage() {
                   </div>
                   <input type="text" required placeholder="Student Name(s) & Grade(s)"
                     className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 placeholder:text-slate-400" />
-                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#ff9664] to-[#ffe453] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-orange-500/20">
+                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#ff9664] to-[#ffe453] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-[#ff9664]/20">
                     Apply for Camp
                   </button>
                 </form>

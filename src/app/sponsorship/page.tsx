@@ -16,11 +16,11 @@ function CrownIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const sponsors = [
-  { name: "Elite Sponsor", price: "$25,000+", icon: CrownIcon, color: "text-luminous-cyan", bg: "from-cyan-500/20 to-blue-500/20" },
-  { name: "Platinum Sponsor", price: "$20,000", icon: Hexagon, color: "text-gray-300", bg: "from-gray-300/20 to-gray-500/20" },
-  { name: "Gold Sponsor", price: "$10,000", icon: CircleDot, color: "text-yellow-400", bg: "from-yellow-400/20 to-yellow-600/20" },
-  { name: "Silver Sponsor", price: "$5,000", icon: Shield, color: "text-gray-400", bg: "from-gray-400/20 to-gray-600/20" },
-  { name: "Bronze Sponsor", price: "$2,500", icon: Triangle, color: "text-amber-600", bg: "from-amber-600/20 to-amber-800/20" },
+  { name: "Elite Sponsor", price: "$25,000+", icon: CrownIcon, color: "text-[#94cdff]", bg: "from-[#94cdff]/20 to-[#8cb6ec]/20" },
+  { name: "Platinum Sponsor", price: "$20,000", icon: Hexagon, color: "text-slate-400", bg: "from-slate-300/20 to-slate-500/20" },
+  { name: "Gold Sponsor", price: "$10,000", icon: CircleDot, color: "text-[#eed02e]", bg: "from-[#ffe453]/20 to-[#eed02e]/20" },
+  { name: "Silver Sponsor", price: "$5,000", icon: Shield, color: "text-slate-500", bg: "from-slate-400/20 to-slate-600/20" },
+  { name: "Bronze Sponsor", price: "$2,500", icon: Triangle, color: "text-[#f08855]", bg: "from-[#ff9664]/20 to-[#f08855]/20" },
 ];
 
 export default function SponsorshipPage() {
@@ -44,9 +44,9 @@ export default function SponsorshipPage() {
                 <div className={`h-full text-center p-10 bg-slate-50 border border-slate-200 rounded-3xl shadow-sm hover:shadow-2xl transition-all relative overflow-hidden group hover:border-blue-300 ${i === 0 ? "lg:col-span-3" : ""}`}>
                   <div className={`absolute inset-0 bg-gradient-to-br ${tier.bg.replace('/20', '/10').replace('/20', '/10')} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   <div className="relative z-10">
-                    <Icon size={56} className={`mx-auto mb-6 ${tier.color.replace('text-gray-300', 'text-slate-400').replace('text-gray-400', 'text-slate-500').replace('text-amber-600', 'text-orange-600')}`} />
+                    <Icon size={56} className={`mx-auto mb-6 ${tier.color}`} />
                     <h3 className="text-2xl font-black text-slate-900 mb-2">{tier.name}</h3>
-                    <p className={`text-4xl font-black mb-8 ${tier.color.replace('text-gray-300', 'text-slate-400').replace('text-gray-400', 'text-slate-500').replace('text-amber-600', 'text-orange-600')} bg-clip-text text-transparent bg-gradient-to-r`}>{tier.price}</p>
+                    <p className={`text-4xl font-black mb-8 ${tier.color}`}>{tier.price}</p>
                     <button className="px-8 py-3 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-all uppercase tracking-widest text-xs" onClick={openDonate}>
                       Become a Sponsor
                     </button>

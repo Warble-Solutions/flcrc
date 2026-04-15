@@ -172,6 +172,7 @@ export default function FacilityRentalsPage() {
   const { openDonate } = useDonate();
 const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [rentalForm, setRentalForm] = useState({
     name: "",
@@ -198,24 +199,31 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const handleRentalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const supabase = createClient();
-    await supabase.from("form_submissions").insert({
-      type: "rental",
-      name: rentalForm.name,
-      email: rentalForm.email,
-      phone: rentalForm.phone || null,
-      message: rentalForm.notes || null,
-      metadata: {
-        event_date: rentalForm.eventDate,
-        event_type: rentalForm.eventType,
-        estimated_guests: rentalForm.guests,
-        hours_needed: rentalForm.hours,
-        alcohol: rentalForm.alcohol,
-        addons: rentalForm.addons,
-      },
-    });
+    setFormError(false);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from("form_submissions").insert({
+        type: "rental",
+        name: rentalForm.name,
+        email: rentalForm.email,
+        phone: rentalForm.phone || null,
+        message: rentalForm.notes || null,
+        metadata: {
+          event_date: rentalForm.eventDate,
+          event_type: rentalForm.eventType,
+          estimated_guests: rentalForm.guests,
+          hours_needed: rentalForm.hours,
+          alcohol: rentalForm.alcohol,
+          addons: rentalForm.addons,
+        },
+      });
+      if (error) throw error;
+      setFormSubmitted(true);
+    } catch (err) {
+      console.error("Rental form error:", err);
+      setFormError(true);
+    }
     setSubmitting(false);
-    setFormSubmitted(true);
   };
 
   const openGallery = (i: number) => setGalleryIndex(i);
@@ -274,7 +282,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                   <div
                     className={`rounded-2xl p-8 backdrop-blur-xl border transition-all h-full flex flex-col ${
                       item.highlight
-                        ? "bg-gradient-to-b from-luminous-cyan/10 to-transparent border-luminous-cyan/30 shadow-[0_0_30px_rgba(34,211,238,0.1)]"
+                        ? "bg-gradient-to-b from-luminous-cyan/10 to-transparent border-luminous-cyan/30 shadow-[0_0_30px_rgba(148,205,255,0.1)]"
                         : "bg-white/5 border-white/10 hover:border-white/20"
                     }`}
                   >
@@ -413,7 +421,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.name}
                         onChange={(e) => setRentalForm({ ...rentalForm, name: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                         placeholder="John Smith"
                       />
                     </div>
@@ -426,7 +434,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.email}
                         onChange={(e) => setRentalForm({ ...rentalForm, email: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -442,7 +450,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.phone}
                         onChange={(e) => setRentalForm({ ...rentalForm, phone: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                         placeholder="(555) 123-4567"
                       />
                     </div>
@@ -455,7 +463,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.eventDate}
                         onChange={(e) => setRentalForm({ ...rentalForm, eventDate: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                       />
                     </div>
                   </div>
@@ -469,7 +477,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.eventType}
                         onChange={(e) => setRentalForm({ ...rentalForm, eventType: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                       >
                         <option value="">Select event type</option>
                         <option>Wedding Reception</option>
@@ -492,7 +500,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         max={128}
                         value={rentalForm.guests}
                         onChange={(e) => setRentalForm({ ...rentalForm, guests: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                         placeholder="e.g. 100"
                       />
                     </div>
@@ -507,7 +515,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.hours}
                         onChange={(e) => setRentalForm({ ...rentalForm, hours: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                       >
                         <option value="">Select duration</option>
                         <option>4 hours (minimum)</option>
@@ -524,7 +532,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       <select
                         value={rentalForm.alcohol}
                         onChange={(e) => setRentalForm({ ...rentalForm, alcohol: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
                       >
                         <option>No</option>
                         <option>Yes</option>
@@ -546,13 +554,13 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       ].map((addon, i) => (
                         <label
                           key={i}
-                          className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors"
+                          className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-[#8cb6ec] transition-colors"
                         >
                           <input
                             type="checkbox"
                             checked={rentalForm.addons.includes(addon)}
                             onChange={() => toggleAddon(addon)}
-                            className="w-4 h-4 accent-blue-600"
+                            className="w-4 h-4 accent-[#8cb6ec]"
                           />
                           <span className="text-sm text-slate-700">
                             {addon}
@@ -570,10 +578,16 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       rows={4}
                       value={rentalForm.notes}
                       onChange={(e) => setRentalForm({ ...rentalForm, notes: e.target.value })}
-                      className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
+                      className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all resize-none"
                       placeholder="Any specific requirements, setup preferences, or questions..."
                     />
                   </div>
+
+                  {formError && (
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm text-center">
+                      Something went wrong. Please try again or email us at info@familylifecrc.org.
+                    </div>
+                  )}
 
                   <button
                     type="submit"

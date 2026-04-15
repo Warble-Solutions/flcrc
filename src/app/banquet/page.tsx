@@ -9,10 +9,11 @@ import { useState } from "react";
 export default function BanquetPage() {
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [selectedTier, setSelectedTier] = useState("individual");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Payment & Registration flow will be connected to Stripe/backend shortly!");
+    setSubmitted(true);
   };
 
   return (
@@ -99,12 +100,12 @@ export default function BanquetPage() {
                 </div>
 
                 <div 
-                  className={`border-2 rounded-2xl p-6 cursor-pointer transition-all ${selectedTier === 'vip' ? 'border-amber-500 bg-amber-50' : 'border-slate-200 bg-white hover:border-amber-300'}`}
+                  className={`border-2 rounded-2xl p-6 cursor-pointer transition-all ${selectedTier === 'vip' ? 'border-[#eed02e] bg-[#ffe453]/10' : 'border-slate-200 bg-white hover:border-[#eed02e]/50'}`}
                   onClick={() => setSelectedTier('vip')}
                 >
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-3">
-                      <Star size={24} className="text-amber-500" />
+                      <Star size={24} className="text-[#eed02e]" />
                       <h3 className="text-xl font-black text-slate-900">VIP / Sponsor Table</h3>
                     </div>
                     <span className="text-2xl font-black text-slate-900">$1,500</span>
@@ -149,10 +150,22 @@ export default function BanquetPage() {
                     className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-slate-900 placeholder:text-slate-400 min-h-[100px]"
                   ></textarea>
 
-                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#ff9664] to-[#ffe453] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-orange-500/20 mt-4">
-                    Proceed to Payment {"->"}
-                  </button>
-                  <p className="text-center text-xs text-slate-400 mt-4">Payments are processed securely. You will receive an email confirmation containing your ticket details.</p>
+                  {submitted ? (
+                    <div className="text-center py-8 bg-emerald-50 border border-emerald-200 rounded-2xl mt-4">
+                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Check size={32} className="text-emerald-600" />
+                      </div>
+                      <h4 className="text-xl font-bold text-emerald-800 mb-2">Registration Received!</h4>
+                      <p className="text-emerald-600 text-sm max-w-sm mx-auto">Thank you for your interest. Our team will contact you with payment details and event confirmation shortly.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#ff9664] to-[#ffe453] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-[#ff9664]/20 mt-4">
+                        Register {"->"}
+                      </button>
+                      <p className="text-center text-xs text-slate-400 mt-4">Online payment is coming soon. Upon registering, our team will reach out to confirm your reservation and arrange payment.</p>
+                    </>
+                  )}
                 </form>
               </div>
             </ScrollReveal>

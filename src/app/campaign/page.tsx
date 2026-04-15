@@ -26,12 +26,12 @@ export default function CampaignPage() {
         {/* Progress Section */}
         <ScrollReveal delay={100}>
           <div className="bg-slate-50 p-12 md:p-16 rounded-3xl border border-slate-200 shadow-xl text-center mb-24 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-50/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#94cdff]/10 to-transparent" />
             <div className="relative z-10">
               <h3 className="text-3xl font-black text-slate-900 mb-8">Campaign Progress</h3>
               <div className="max-w-3xl mx-auto">
                 <div className="flex justify-between text-sm font-bold uppercase tracking-wider mb-3">
-                  <span className="text-blue-600">Raised: ${raised.toLocaleString()}</span>
+                  <span className="text-[#8cb6ec]">Raised: ${raised.toLocaleString()}</span>
                   <span className="text-slate-500">Goal: ${goal.toLocaleString()}</span>
                 </div>
                 <div className="h-6 w-full bg-white rounded-full overflow-hidden border border-slate-200 mb-6 shadow-inner">

@@ -25,11 +25,11 @@ import { useDonate } from "@/components/layout/DonateProvider";
 import type { TeamMember } from "@/lib/supabase/types";
 
 const coreCompetencies = [
-  { title: "Community Support", icon: Network, gradient: "from-cyan-500 to-blue-500" },
-  { title: "Crime Victim Services", icon: Shield, gradient: "from-violet-500 to-purple-500" },
-  { title: "Stronger Families", icon: HeartHandshake, gradient: "from-fuchsia-500 to-pink-500" },
-  { title: "Trainings", icon: BookOpen, gradient: "from-amber-500 to-orange-500" },
-  { title: "Youth Services", icon: GraduationCap, gradient: "from-emerald-500 to-teal-500" },
+  { title: "Community Support", icon: Network, gradient: "from-[#94cdff] to-[#8cb6ec]" },
+  { title: "Crime Victim Services", icon: Shield, gradient: "from-[#ff9664] to-[#ffe453]" },
+  { title: "Stronger Families", icon: HeartHandshake, gradient: "from-[#ffe453] to-[#beda5b]" },
+  { title: "Trainings", icon: BookOpen, gradient: "from-[#beda5b] to-[#94cdff]" },
+  { title: "Youth Services", icon: GraduationCap, gradient: "from-[#ffe453] to-[#eed02e]" },
 ];
 
 const strategicPlan = [
@@ -61,7 +61,7 @@ export default function AboutPage() {
     <>
       {/* ===== HERO ===== */}
       <section className="relative pt-32 pb-20 px-4 min-h-[55vh] flex items-center bg-gradient-to-b from-luminous-bg via-luminous-bg to-slate-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.06)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(148,205,255,0.06)_0%,transparent_60%)]" />
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
             Our <span className="text-gradient">Mission</span> & Vision

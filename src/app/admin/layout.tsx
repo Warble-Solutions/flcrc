@@ -38,9 +38,13 @@ export default function AdminLayout({
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data }: { data: { user: { email?: string } | null } }) => {
-      setUserEmail(data.user?.email ?? null);
+      if (!data.user && pathname !== "/admin/login") {
+        router.push("/admin/login");
+      } else {
+        setUserEmail(data.user?.email ?? null);
+      }
     });
-  }, []);
+  }, [pathname, router]);
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -99,7 +103,7 @@ export default function AdminLayout({
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                   isActive
-                    ? "bg-cyan-500/10 text-cyan-400"
+                    ? "bg-[#94cdff]/10 text-[#94cdff]"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -145,7 +149,7 @@ export default function AdminLayout({
           </h1>
           <Link
             href="/"
-            className="ml-auto text-xs text-gray-500 hover:text-cyan-400 transition-colors"
+            className="ml-auto text-xs text-gray-500 hover:text-[#94cdff] transition-colors"
           >
             View Site →
           </Link>
@@ -157,3 +161,4 @@ export default function AdminLayout({
     </div>
   );
 }
+

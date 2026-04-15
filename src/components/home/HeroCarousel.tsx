@@ -69,7 +69,7 @@ export default function HeroCarousel({
             onClick={() => setCurrent(i)}
             className={`transition-all duration-300 rounded-full cursor-pointer ${
               i === current
-                ? "w-10 h-3 bg-luminous-cyan shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+                ? "w-10 h-3 bg-luminous-cyan shadow-[0_0_10px_rgba(148,205,255,0.5)]"
                 : "w-3 h-3 bg-white/30 hover:bg-white/50"
             }`}
           />

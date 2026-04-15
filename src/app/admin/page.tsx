@@ -22,32 +22,32 @@ export default async function AdminDashboard() {
       label: "Events",
       count: eventsRes.count ?? 0,
       icon: Calendar,
-      color: "text-cyan-400",
-      bg: "bg-cyan-500/10",
+      color: "text-[#94cdff]",
+      bg: "bg-[#94cdff]/10",
       href: "/admin/events",
     },
     {
       label: "Programs",
       count: programsRes.count ?? 0,
       icon: BookOpen,
-      color: "text-purple-400",
-      bg: "bg-purple-500/10",
+      color: "text-[#ffe453]",
+      bg: "bg-[#ffe453]/10",
       href: "/admin/programs",
     },
     {
       label: "Team Members",
       count: teamRes.count ?? 0,
       icon: Users,
-      color: "text-emerald-400",
-      bg: "bg-emerald-500/10",
+      color: "text-[#beda5b]",
+      bg: "bg-[#beda5b]/10",
       href: "/admin/team",
     },
     {
       label: "Unread Messages",
       count: submissionsRes.count ?? 0,
       icon: Inbox,
-      color: "text-amber-400",
-      bg: "bg-amber-500/10",
+      color: "text-[#ff9664]",
+      bg: "bg-[#ff9664]/10",
       href: "/admin/submissions",
     },
   ];
@@ -98,7 +98,7 @@ export default async function AdminDashboard() {
               >
                 <div
                   className={`w-2 h-2 rounded-full ${
-                    sub.is_read ? "bg-gray-500" : "bg-cyan-400"
+                    sub.is_read ? "bg-gray-500" : "bg-[#94cdff]"
                   }`}
                 />
                 <div className="flex-1 min-w-0">

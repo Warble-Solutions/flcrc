@@ -19,12 +19,12 @@ import PageBanner from "@/components/layout/PageBanner";
 
 // Color mapping for the icon color in the card
 const colorMap: Record<string, string> = {
-  "bg-blue-600": "text-luminous-cyan",
-  "bg-purple-600": "text-luminous-violet",
-  "bg-emerald-600": "text-emerald-400",
-  "bg-rose-600": "text-luminous-fuchsia",
-  "bg-yellow-400": "text-yellow-400",
-  "bg-red-400": "text-red-400",
+  "bg-blue-600": "text-[#94cdff]",
+  "bg-purple-600": "text-[#beda5b]",
+  "bg-emerald-600": "text-[#beda5b]",
+  "bg-rose-600": "text-[#ff9664]",
+  "bg-[#eed02e]": "text-[#eed02e]",
+  "bg-red-400": "text-[#ff9664]",
 };
 
 const programImages: Record<string, string> = {
@@ -102,8 +102,8 @@ export default function ProgramsPage() {
                   onClick={() => setFilter(cat!)}
                   className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     filter === cat
-                      ? "bg-blue-600 text-white shadow-lg scale-105"
-                      : "bg-white border border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-300"
+                      ? "bg-[#1b2847] text-white shadow-lg scale-105"
+                      : "bg-white border border-slate-200 text-slate-500 hover:text-[#8cb6ec] hover:border-[#8cb6ec]"
                   }`}
                 >
                   {cat}
@@ -120,25 +120,25 @@ export default function ProgramsPage() {
               return (
                 <ScrollReveal key={prog.id} delay={i * 50} className="h-full">
                   <div
-                    className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-400 transition-all cursor-pointer group flex flex-col relative overflow-hidden"
+                    className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#8cb6ec] transition-all cursor-pointer group flex flex-col relative overflow-hidden"
                     onClick={() => setSelectedProgram(prog)}
                   >
                     <div className="relative z-10 flex-grow">
                       <div className="flex justify-between items-start mb-8">
                         <IconComp size={32} className={`text-opacity-80 ${iconColor.replace('text-', 'text-')}`} />
                         {prog.tag && (
-                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-100 bg-blue-50 text-blue-600">
+                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-[#8cb6ec]/30 bg-[#94cdff]/10 text-[#8cb6ec]">
                             {prog.tag}
                           </span>
                         )}
                       </div>
-                      <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-[#8cb6ec] transition-colors">
                         {prog.title}
                       </h3>
                       <p className="text-slate-600 mb-8 leading-relaxed flex-grow">{prog.description}</p>
                     </div>
                     <div className="relative z-10 mt-auto">
-                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-blue-600 group-hover:gap-4 transition-all w-max py-2">
+                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#8cb6ec] group-hover:gap-4 transition-all w-max py-2">
                         Explore <ArrowRight size={16} />
                       </div>
                     </div>

@@ -98,24 +98,28 @@ export default function HomePage() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
+  const [newsletterError, setNewsletterError] = useState(false);
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
     setNewsletterSubmitting(true);
+    setNewsletterError(false);
     try {
       const supabase = createClient();
-      await supabase.from("form_submissions").insert({
+      const { error } = await supabase.from("form_submissions").insert({
         type: "newsletter",
         name: "Newsletter Subscriber",
         email: newsletterEmail,
         message: "Newsletter signup from homepage",
       });
+      if (error) throw error;
+      setNewsletterSubmitted(true);
     } catch (err) {
       console.error("Newsletter signup error:", err);
+      setNewsletterError(true);
     }
     setNewsletterSubmitting(false);
-    setNewsletterSubmitted(true);
   };
 
   useEffect(() => {
@@ -163,7 +167,7 @@ export default function HomePage() {
         <div className="relative w-full min-h-screen flex items-center justify-center">
           <Image src={HERO_IMAGES[1]} alt="Community gathering" fill className="object-cover" quality={90} priority />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08)_0%,transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(148,205,255,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-luminous-cyan/20 bg-slate-900/50 text-luminous-cyan text-xs font-bold uppercase tracking-widest mb-10 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-luminous-cyan animate-pulse" />
@@ -308,31 +312,31 @@ export default function HomePage() {
                 title: "Community Support",
                 desc: "Linking families with resources and building a culture of respect at all times.",
                 icon: Network,
-                gradient: "from-cyan-500 to-blue-500",
+                gradient: "from-[#94cdff] to-[#8cb6ec]",
               },
               {
                 title: "Crime Victim Services",
                 desc: "Providing direct services, advocacy, and support for crime victims and their families.",
                 icon: Shield,
-                gradient: "from-violet-500 to-purple-500",
+                gradient: "from-[#ff9664] to-[#ffe453]",
               },
               {
                 title: "Stronger Families",
                 desc: "Equipping individuals and families with resources to build a thriving community.",
                 icon: HeartHandshake,
-                gradient: "from-fuchsia-500 to-pink-500",
+                gradient: "from-[#ffe453] to-[#beda5b]",
               },
               {
                 title: "Trainings",
                 desc: "Education and professional development driving positive change through knowledge.",
                 icon: BookOpen,
-                gradient: "from-amber-500 to-orange-500",
+                gradient: "from-[#beda5b] to-[#94cdff]",
               },
               {
                 title: "Youth Services",
                 desc: "Empowering the next generation through leadership, mentorship, and civic engagement.",
                 icon: GraduationCap,
-                gradient: "from-emerald-500 to-teal-500",
+                gradient: "from-[#ffe453] to-[#eed02e]",
               },
             ].map((item, i) => (
               <ScrollReveal key={i} delay={i * 80}>
@@ -434,10 +438,10 @@ export default function HomePage() {
           <div className="space-y-4">
             {(dbEvents ? dbEvents.map(evt => {
               const { d: day, m: month } = fmtDate(evt.date);
-              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
+              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-[#94cdff] to-[#8cb6ec]" };
             }) : fallbackEvents.map(evt => {
               const { d: day, m: month } = fmtDate(evt.date);
-              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-cyan-500 to-blue-500" };
+              return { d: day, m: month, title: evt.title, loc: evt.location || "TBA", time: evt.time || "TBA", color: evt.color || "from-[#94cdff] to-[#8cb6ec]" };
             })).map((evt, i) => (
               <ScrollReveal key={i} delay={i * 100}>
                 <div className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-lg transition-all group">
@@ -583,11 +587,11 @@ export default function HomePage() {
           <ScrollReveal>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               {[
-                { tier: "Elite", amount: "$25,000+", color: "from-amber-400 to-yellow-500", textColor: "text-amber-400" },
+                { tier: "Elite", amount: "$25,000+", color: "from-[#ff9664] to-[#ffe453]", textColor: "text-[#ff9664]" },
                 { tier: "Platinum", amount: "$20,000", color: "from-slate-300 to-slate-400", textColor: "text-slate-300" },
-                { tier: "Gold", amount: "$10,000", color: "from-yellow-500 to-amber-600", textColor: "text-yellow-500" },
-                { tier: "Silver", amount: "$5,000", color: "from-gray-300 to-gray-400", textColor: "text-gray-300" },
-                { tier: "Bronze", amount: "$2,500", color: "from-amber-700 to-orange-800", textColor: "text-amber-600" },
+                { tier: "Gold", amount: "$10,000", color: "from-[#ffe453] to-[#eed02e]", textColor: "text-[#ffe453]" },
+                { tier: "Silver", amount: "$5,000", color: "from-slate-400 to-slate-500", textColor: "text-slate-400" },
+                { tier: "Bronze", amount: "$2,500", color: "from-[#f08855] to-[#ff9664]", textColor: "text-[#f08855]" },
               ].map((s, i) => (
                 <div
                   key={i}
@@ -630,7 +634,7 @@ export default function HomePage() {
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <ScrollReveal key={i} delay={i * 50}>
-                <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden hover:border-blue-300 transition-colors">
+                <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden">
                   <FAQItem q={faq.q} a={faq.a} />
                 </div>
               </ScrollReveal>
@@ -672,7 +676,7 @@ export default function HomePage() {
                     placeholder="Enter your email address"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    className="flex-1 bg-black/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all"
+                    className="flex-1 bg-black/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(148,205,255,0.3)] transition-all"
                   />
                   <Button
                     variant="primary"
@@ -683,6 +687,9 @@ export default function HomePage() {
                     {newsletterSubmitting ? "Subscribing..." : "Subscribe"}
                   </Button>
                 </form>
+              )}
+              {newsletterError && (
+                <p className="text-red-400 text-sm text-center mt-4 relative z-10">Something went wrong. Please try again later.</p>
               )}
             </GlassCard>
           </ScrollReveal>

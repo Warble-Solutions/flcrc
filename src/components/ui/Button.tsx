@@ -22,7 +22,7 @@ export default function Button({
 
   const variants: Record<string, string> = {
     primary: "text-black bg-white hover:text-white",
-    glow: "text-white border border-luminous-cyan/50 hover:border-luminous-cyan hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]",
+    glow: "text-white border border-luminous-cyan/50 hover:border-luminous-cyan hover:shadow-[0_0_20px_rgba(148,205,255,0.4)]",
     outline:
       "bg-transparent border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40",
     text: "text-luminous-muted hover:text-white",

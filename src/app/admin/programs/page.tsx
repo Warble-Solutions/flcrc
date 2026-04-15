@@ -46,7 +46,7 @@ export default function AdminProgramsPage() {
           <h2 className="text-2xl font-bold text-white">Programs</h2>
           <p className="text-sm text-gray-400 mt-1">{programs.length} program{programs.length !== 1 && "s"}</p>
         </div>
-        <Link href="/admin/programs/new" className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
+        <Link href="/admin/programs/new" className="flex items-center gap-2 bg-[#94cdff] hover:bg-[#8cb6ec] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors">
           <Plus size={16} /> Add Program
         </Link>
       </div>
@@ -81,14 +81,14 @@ export default function AdminProgramsPage() {
                     <td className="px-6 py-4">
                       <button
                         onClick={() => toggleFeatured(prog.id, prog.is_featured)}
-                        className={`cursor-pointer ${prog.is_featured ? "text-amber-400" : "text-gray-600 hover:text-gray-400"}`}
+                        className={`cursor-pointer ${prog.is_featured ? "text-[#ffe453]" : "text-gray-600 hover:text-gray-400"}`}
                       >
                         {prog.is_featured ? <Star size={18} /> : <StarOff size={18} />}
                       </button>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-2">
-                        <Link href={`/admin/programs/${prog.id}/edit`} className="p-2 text-gray-400 hover:text-cyan-400 hover:bg-white/5 rounded-lg transition-all">
+                        <Link href={`/admin/programs/${prog.id}/edit`} className="p-2 text-gray-400 hover:text-[#94cdff] hover:bg-white/5 rounded-lg transition-all">
                           <Pencil size={16} />
                         </Link>
                         <button onClick={() => deleteProgram(prog.id)} className="p-2 text-gray-400 hover:text-red-400 hover:bg-white/5 rounded-lg transition-all cursor-pointer">
@@ -106,3 +106,4 @@ export default function AdminProgramsPage() {
     </div>
   );
 }
+

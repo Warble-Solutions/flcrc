@@ -10,14 +10,14 @@ import { fallbackEvents } from "@/lib/fallback-data";
 import type { Event } from "@/lib/supabase/types";
 import PageBanner from "@/components/layout/PageBanner";
 
-// Color palette for event cards
+// Color palette for event cards — brand gradients only
 const colorPalette = [
-  "from-luminous-cyan to-blue-500",
-  "from-luminous-violet to-purple-500",
-  "from-luminous-fuchsia to-pink-500",
-  "from-yellow-400 to-orange-500",
-  "from-emerald-400 to-teal-500",
-  "from-amber-400 to-red-500",
+  "from-[#94cdff] to-[#8cb6ec]",
+  "from-[#beda5b] to-[#94cdff]",
+  "from-[#ff9664] to-[#ffe453]",
+  "from-[#ffe453] to-[#beda5b]",
+  "from-[#ffe453] to-[#eed02e]",
+  "from-[#f08855] to-[#ff9664]",
 ];
 
 function formatEventDate(dateStr: string) {
@@ -46,15 +46,18 @@ export default function EventsPage() {
     setOrderNum("");
   };
 
+  const [bookingError, setBookingError] = useState(false);
+
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedEvent) return;
     setProcessing(true);
+    setBookingError(false);
     await new Promise((r) => setTimeout(r, 1500));
     try {
       const supabase = createClient();
       const fakeOrder = "FLCRC-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-      await supabase.from("form_submissions").insert({
+      const { error } = await supabase.from("form_submissions").insert({
         type: "event_booking",
         name: bookForm.name,
         email: bookForm.email,
@@ -70,12 +73,14 @@ export default function EventsPage() {
           order_number: fakeOrder,
         },
       });
+      if (error) throw error;
       setOrderNum(fakeOrder);
+      setBookStep(3);
     } catch (err) {
       console.error("Booking error:", err);
+      setBookingError(true);
     }
     setProcessing(false);
-    setBookStep(3);
   };
 
   useEffect(() => {
@@ -273,6 +278,11 @@ export default function EventsPage() {
                     <span className="text-luminous-cyan">$0.00 (Demo)</span>
                   </div>
                 </div>
+                {bookingError && (
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-red-400 text-sm text-center">
+                    Something went wrong. Please try again.
+                  </div>
+                )}
                 <div className="flex gap-3">
                   <Button variant="outline" onClick={() => setBookStep(1)} className="flex-1">Back</Button>
                   <Button variant="primary" type="submit" disabled={processing} className="flex-1">

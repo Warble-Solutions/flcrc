@@ -19,24 +19,33 @@ export default function DonateProvider({ children }: { children: ReactNode }) {
   const [showDonate, setShowDonate] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [donateError, setDonateError] = useState(false);
 
   const handleDonate = async () => {
     if (!selectedAmount) return;
-    const supabase = createClient();
-    await supabase.from("form_submissions").insert({
-      type: "donation_intent",
-      name: "Anonymous",
-      email: "N/A",
-      message: `Donation intent: $${selectedAmount}`,
-      metadata: { amount: selectedAmount },
-    });
-    setSubmitted(true);
+    setDonateError(false);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from("form_submissions").insert({
+        type: "donation_intent",
+        name: "Anonymous",
+        email: "N/A",
+        message: `Donation intent: $${selectedAmount}`,
+        metadata: { amount: selectedAmount },
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Donation error:", err);
+      setDonateError(true);
+    }
   };
 
   const handleClose = () => {
     setShowDonate(false);
     setSubmitted(false);
     setSelectedAmount(null);
+    setDonateError(false);
   };
 
   return (
@@ -68,17 +77,20 @@ export default function DonateProvider({ children }: { children: ReactNode }) {
                     onClick={() => setSelectedAmount(amt)}
                     className={`py-3 border rounded-xl font-bold transition-colors cursor-pointer ${
                       selectedAmount === amt
-                        ? "bg-luminous-cyan text-black border-luminous-cyan shadow-[0_0_15px_rgba(34,211,238,0.5)]"
-                        : "border-white/20 hover:bg-luminous-cyan hover:text-black hover:shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+                        ? "bg-luminous-cyan text-black border-luminous-cyan shadow-[0_0_15px_rgba(148,205,255,0.5)]"
+                        : "border-white/20 hover:bg-luminous-cyan hover:text-black hover:shadow-[0_0_15px_rgba(148,205,255,0.5)]"
                     }`}
                   >
                     ${amt}
                   </button>
                 ))}
               </div>
-              <Button variant="primary" className="w-full" onClick={handleDonate}>
+              <Button variant="primary" className="w-full" onClick={handleDonate} disabled={!selectedAmount}>
                 {selectedAmount ? `Donate $${selectedAmount}` : "Select an Amount"}
               </Button>
+              {donateError && (
+                <p className="text-red-400 text-sm text-center">Something went wrong. Please try again later.</p>
+              )}
               <p className="text-xs text-luminous-muted text-center">
                 You will be redirected to a secure payment page.
               </p>
