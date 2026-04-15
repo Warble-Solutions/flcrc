@@ -81,14 +81,14 @@ export default function DonatePage() {
                           {tier.price}
                         </span>
                       </div>
-                      <div className={`p-3 rounded-2xl bg-gradient-to-br ${tier.color.replace('from-', 'from-').replace('to-', 'to-')} text-white shadow-lg`}>
+                      <div className={`p-3 rounded-2xl bg-gradient-to-br ${tier.color} text-white shadow-lg`}>
                         <Icon size={24} />
                       </div>
                     </div>
                     <ul className="space-y-4 mb-8 flex-grow">
                       {tier.features.map((feat, j) => (
                         <li key={j} className="flex items-start gap-3 text-sm text-slate-600 font-medium">
-                          <Check size={18} className={`shrink-0 mt-0.5 bg-clip-text text-transparent bg-gradient-to-br ${tier.color} text-blue-600`} />
+                          <Check size={18} className="shrink-0 mt-0.5 text-[#94cdff]" />
                           <span>{feat}</span>
                         </li>
                       ))}
