@@ -8,9 +8,11 @@ export function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-  // Guard against placeholder values during build/SSR
+  // During SSR/build, env vars may be empty or placeholders.
+  // Return a throwaway (non-cached) dummy client so builds don't crash.
+  // IMPORTANT: Do NOT cache this — once real env vars load on the client,
+  // the next call must create and cache the real client.
   if (!url || !key || !url.startsWith("http")) {
-    // Return a dummy client that won't crash during SSR prerender
     return createBrowserClient(
       "https://placeholder.supabase.co",
       "placeholder-key"
