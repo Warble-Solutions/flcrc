@@ -8,11 +8,11 @@ import { Compass, Users, Link as LinkIcon, Handshake, Shield, Globe } from "luci
 import PageBanner from "@/components/layout/PageBanner";
 
 const fiveCs = [
-  { name: "Community Outreach", icon: Globe, color: "text-[#94cdff]" },
-  { name: "Connecting Families with Resources", icon: LinkIcon, color: "text-[#beda5b]" },
-  { name: "Collaborative Partnerships", icon: Handshake, color: "text-[#ffe453]" },
-  { name: "Community Safety and Wellness", icon: Shield, color: "text-[#ff9664]" },
-  { name: "Cultural Awareness", icon: Users, color: "text-[#8cb6ec]" },
+  { name: "Community Outreach", icon: Globe, color: "text-[#6fa8dc]" },
+  { name: "Connecting Families with Resources", icon: LinkIcon, color: "text-[#9fbf45]" },
+  { name: "Collaborative Partnerships", icon: Handshake, color: "text-[#e6c830]" },
+  { name: "Community Safety and Wellness", icon: Shield, color: "text-[#e87d4a]" },
+  { name: "Cultural Awareness", icon: Users, color: "text-[#5b93c7]" },
 ];
 
 export default function StrategicPlanPage() {
@@ -32,7 +32,7 @@ export default function StrategicPlanPage() {
               {fiveCs.map((item, i) => {
                 const Icon = item.icon;
                 return (
-                  <div key={i} className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-[#8cb6ec] transition-all">
+                  <div key={i} className="text-center p-6 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg hover:border-[#5b93c7] transition-all">
                     <Icon size={32} className={`mx-auto mb-4 ${item.color.replace('text-white', 'text-slate-600')}`} />
                     <h4 className="font-bold text-slate-800 text-sm">{item.name}</h4>
                   </div>

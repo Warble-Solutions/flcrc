@@ -51,7 +51,7 @@ export default function AdminSubmissionsPage() {
           <Filter size={14} className="text-gray-400" />
           {["all", "contact", "rental", "program_application", "event_booking", "volunteer", "sponsor"].map((f) => (
             <button key={f} onClick={() => setFilter(f)}
-              className={`text-xs font-bold px-3 py-1.5 rounded-full capitalize cursor-pointer transition-all ${filter === f ? "bg-[#94cdff]/20 text-[#94cdff]" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>
+              className={`text-xs font-bold px-3 py-1.5 rounded-full capitalize cursor-pointer transition-all ${filter === f ? "bg-[#6fa8dc]/20 text-[#6fa8dc]" : "text-gray-400 hover:text-white hover:bg-white/5"}`}>
               {f}
             </button>
           ))}
@@ -72,7 +72,7 @@ export default function AdminSubmissionsPage() {
                 <button key={sub.id} onClick={() => { setSelectedId(sub.id); if (!sub.is_read) toggleRead(sub.id, false); }}
                   className={`w-full text-left px-5 py-4 hover:bg-white/5 transition-colors cursor-pointer ${selectedId === sub.id ? "bg-white/5" : ""}`}>
                   <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full shrink-0 ${sub.is_read ? "bg-gray-600" : "bg-[#94cdff]"}`} />
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${sub.is_read ? "bg-gray-600" : "bg-[#6fa8dc]"}`} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span className={`font-medium text-sm truncate ${sub.is_read ? "text-gray-400" : "text-white"}`}>{sub.name}</span>
@@ -99,7 +99,7 @@ export default function AdminSubmissionsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => toggleRead(selected.id, selected.is_read)}
-                    className="p-2 text-gray-400 hover:text-[#94cdff] hover:bg-white/5 rounded-lg transition-all cursor-pointer" title={selected.is_read ? "Mark as unread" : "Mark as read"}>
+                    className="p-2 text-gray-400 hover:text-[#6fa8dc] hover:bg-white/5 rounded-lg transition-all cursor-pointer" title={selected.is_read ? "Mark as unread" : "Mark as read"}>
                     {selected.is_read ? <MailOpen size={16} /> : <Mail size={16} />}
                   </button>
                   <button onClick={() => deleteSubmission(selected.id)}

@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   ChevronRight,
+  Settings,
 } from "lucide-react";
 
 const navItems = [
@@ -23,6 +24,7 @@ const navItems = [
   { href: "/admin/programs", label: "Programs", icon: BookOpen },
   { href: "/admin/team", label: "Team", icon: Users },
   { href: "/admin/submissions", label: "Submissions", icon: Inbox },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminLayout({
@@ -103,7 +105,7 @@ export default function AdminLayout({
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group ${
                   isActive
-                    ? "bg-[#94cdff]/10 text-[#94cdff]"
+                    ? "bg-[#6fa8dc]/10 text-[#6fa8dc]"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -149,7 +151,7 @@ export default function AdminLayout({
           </h1>
           <Link
             href="/"
-            className="ml-auto text-xs text-gray-500 hover:text-[#94cdff] transition-colors"
+            className="ml-auto text-xs text-gray-500 hover:text-[#6fa8dc] transition-colors"
           >
             View Site →
           </Link>

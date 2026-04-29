@@ -16,11 +16,11 @@ function CrownIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const sponsors = [
-  { name: "Elite Sponsor", price: "$25,000+", icon: CrownIcon, color: "text-[#94cdff]", bg: "from-[#94cdff]/20 to-[#8cb6ec]/20" },
+  { name: "Elite Sponsor", price: "$25,000+", icon: CrownIcon, color: "text-[#6fa8dc]", bg: "from-[#6fa8dc]/20 to-[#5b93c7]/20" },
   { name: "Platinum Sponsor", price: "$20,000", icon: Hexagon, color: "text-slate-400", bg: "from-slate-300/20 to-slate-500/20" },
-  { name: "Gold Sponsor", price: "$10,000", icon: CircleDot, color: "text-[#eed02e]", bg: "from-[#ffe453]/20 to-[#eed02e]/20" },
+  { name: "Gold Sponsor", price: "$10,000", icon: CircleDot, color: "text-[#d4b828]", bg: "from-[#e6c830]/20 to-[#d4b828]/20" },
   { name: "Silver Sponsor", price: "$5,000", icon: Shield, color: "text-slate-500", bg: "from-slate-400/20 to-slate-600/20" },
-  { name: "Bronze Sponsor", price: "$2,500", icon: Triangle, color: "text-[#f08855]", bg: "from-[#ff9664]/20 to-[#f08855]/20" },
+  { name: "Bronze Sponsor", price: "$2,500", icon: Triangle, color: "text-[#d4703f]", bg: "from-[#e87d4a]/20 to-[#d4703f]/20" },
 ];
 
 export default function SponsorshipPage() {

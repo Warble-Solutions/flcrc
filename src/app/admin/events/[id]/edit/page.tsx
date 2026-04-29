@@ -8,11 +8,11 @@ import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 
 const colorOptions = [
-  { label: "Blue", value: "from-[#94cdff] to-[#8cb6ec]" },
-  { label: "Lime → Blue", value: "from-[#beda5b] to-[#94cdff]" },
-  { label: "Coral → Gold", value: "from-[#ff9664] to-[#ffe453]" },
-  { label: "Gold → Lime", value: "from-[#ffe453] to-[#beda5b]" },
-  { label: "Gold", value: "from-[#ffe453] to-[#eed02e]" },
+  { label: "Blue", value: "from-[#6fa8dc] to-[#5b93c7]" },
+  { label: "Lime → Blue", value: "from-[#9fbf45] to-[#6fa8dc]" },
+  { label: "Coral → Gold", value: "from-[#e87d4a] to-[#e6c830]" },
+  { label: "Gold → Lime", value: "from-[#e6c830] to-[#9fbf45]" },
+  { label: "Gold", value: "from-[#e6c830] to-[#d4b828]" },
 ];
 
 export default function EditEventPage({
@@ -27,7 +27,7 @@ export default function EditEventPage({
     date: "",
     time: "",
     location: "",
-    color: "from-[#94cdff] to-[#8cb6ec]",
+    color: "from-[#6fa8dc] to-[#5b93c7]",
   });
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -116,7 +116,7 @@ export default function EditEventPage({
             required
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50"
           />
         </div>
 
@@ -128,7 +128,7 @@ export default function EditEventPage({
             rows={3}
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50 resize-none"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50 resize-none"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function EditEventPage({
               required
               value={form.date}
               onChange={(e) => setForm({ ...form, date: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50 [color-scheme:dark]"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50 [color-scheme:dark]"
             />
           </div>
           <div>
@@ -153,7 +153,7 @@ export default function EditEventPage({
               type="text"
               value={form.time}
               onChange={(e) => setForm({ ...form, time: e.target.value })}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50"
               placeholder="e.g. 6:00 PM"
             />
           </div>
@@ -167,7 +167,7 @@ export default function EditEventPage({
             type="text"
             value={form.location}
             onChange={(e) => setForm({ ...form, location: e.target.value })}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50"
           />
         </div>
 
@@ -183,7 +183,7 @@ export default function EditEventPage({
                 onClick={() => setForm({ ...form, color: opt.value })}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm cursor-pointer transition-all ${
                   form.color === opt.value
-                    ? "border-[#94cdff] bg-[#94cdff]/10 text-[#94cdff]"
+                    ? "border-[#6fa8dc] bg-[#6fa8dc]/10 text-[#6fa8dc]"
                     : "border-white/10 text-gray-400 hover:border-white/20"
                 }`}
               >
@@ -205,7 +205,7 @@ export default function EditEventPage({
         <button
           type="submit"
           disabled={saving}
-          className="flex items-center gap-2 bg-[#94cdff] hover:bg-[#8cb6ec] text-white font-bold px-6 py-3 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
+          className="flex items-center gap-2 bg-[#6fa8dc] hover:bg-[#5b93c7] text-white font-bold px-6 py-3 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
         >
           <Save size={16} />
           {saving ? "Saving..." : "Update Event"}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Calendar, Tag, ArrowRight, Newspaper } from "lucide-react";
+import { Calendar, Tag, ArrowRight, Newspaper, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import PageBanner from "@/components/layout/PageBanner";
 
@@ -112,11 +112,11 @@ export default function NewsPage() {
         imageSrc="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=1600&q=80"
       />
 
-      {/* ===== FEATURED ARTICLE — Light Section ===== */}
-      <section className="bg-white text-slate-900 py-24 px-4 z-10 relative">
+      {/* ===== FEATURED ARTICLE — Brand Gradient Section ===== */}
+      <section className="relative py-24 px-4 z-10" style={{background: "linear-gradient(135deg, #e87d4a 0%, #e6c830 100%)"}}>
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+            <p className="text-sm font-bold uppercase tracking-widest text-white mb-3 text-center">
               Featured Story
             </p>
           </ScrollReveal>
@@ -127,7 +127,7 @@ export default function NewsPage() {
               rel="noopener noreferrer"
               className="block group"
             >
-              <div className="grid lg:grid-cols-2 gap-10 items-center bg-gradient-to-br from-[#ff9664] to-[#ffe453] rounded-3xl border border-[#ff9664] overflow-hidden hover:shadow-2xl hover:shadow-[#ff9664]/20 transition-all">
+              <div className="grid lg:grid-cols-2 gap-0 items-center bg-white rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-black/40 transition-all">
                 <div className="h-72 lg:h-full overflow-hidden">
                   <img
                     src={featured.image}
@@ -136,27 +136,27 @@ export default function NewsPage() {
                   />
                 </div>
                 <div className="p-8 lg:p-12 relative z-10">
-                  <div className="flex items-center gap-3 text-sm text-slate-800 font-bold uppercase tracking-widest mb-4">
+                  <div className="flex items-center gap-3 text-sm text-slate-500 font-bold uppercase tracking-widest mb-4">
                     <Calendar size={14} />
                     {featured.date}
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-black text-slate-900 drop-shadow-sm mb-4">
+                  <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
                     {featured.title}
                   </h2>
-                  <p className="text-slate-800/90 leading-relaxed text-lg mb-6 font-medium">
+                  <p className="text-slate-600 leading-relaxed text-lg mb-6">
                     {featured.excerpt}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {featured.categories.map((cat) => (
                       <span
                         key={cat}
-                        className="text-xs font-bold uppercase tracking-wider bg-slate-900/20 backdrop-blur-sm text-slate-900 border border-slate-900/20 px-3 py-1 rounded-full"
+                        className="text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1 rounded-full"
                       >
                         {cat}
                       </span>
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 uppercase tracking-wider group-hover:gap-3 transition-all drop-shadow-md">
+                  <span className="inline-flex items-center gap-2 text-sm font-bold text-[#6fa8dc] uppercase tracking-wider group-hover:gap-3 transition-all">
                     Read Full Article <ArrowRight size={14} />
                   </span>
                 </div>
@@ -171,7 +171,7 @@ export default function NewsPage() {
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                 All Stories
               </p>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900">
@@ -202,7 +202,7 @@ export default function NewsPage() {
                         <Calendar size={12} />
                         {article.date}
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#8cb6ec] transition-colors leading-snug">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#5b93c7] transition-colors leading-snug">
                         {article.title}
                       </h3>
                       <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
@@ -224,7 +224,7 @@ export default function NewsPage() {
                           </span>
                         )}
                       </div>
-                      <span className="inline-flex items-center gap-2 text-xs font-bold text-[#8cb6ec] uppercase tracking-wider group-hover:gap-3 transition-all">
+                      <span className="inline-flex items-center gap-2 text-xs font-bold text-[#5b93c7] uppercase tracking-wider group-hover:gap-3 transition-all">
                         Read More <ArrowRight size={12} />
                       </span>
                     </div>
@@ -247,21 +247,27 @@ export default function NewsPage() {
               Subscribe to our newsletter or follow us on social media to never
               miss an update from FLCRC.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-col items-center gap-8">
               <Link href="/contact">
-                <button className="px-10 py-4 rounded-full bg-white text-slate-900 font-bold text-sm uppercase tracking-wider hover:bg-slate-100 transition-all cursor-pointer">
+                <button className="px-10 py-4 rounded-full bg-white text-slate-900 font-bold text-sm uppercase tracking-wider hover:bg-slate-100 transition-all cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-1">
                   Contact Us
                 </button>
               </Link>
-              <a
-                href="https://www.facebook.com/FLCRCRichmond/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="px-10 py-4 rounded-full border-2 border-white/30 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-all cursor-pointer">
-                  Follow on Facebook
-                </button>
-              </a>
+              
+              <div className="flex items-center gap-4">
+                <a href="https://www.facebook.com/FLCRCRichmond/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#6fa8dc] hover:-translate-y-1 transition-all">
+                  <Facebook size={20} />
+                </a>
+                <a href="https://www.instagram.com/flcrc.richmond/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#e87d4a] hover:-translate-y-1 transition-all">
+                  <Instagram size={20} />
+                </a>
+                <a href="https://www.youtube.com/channel/UC1lc1ZAp8HyQys_oL-5Vajg" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#e6c830] hover:-translate-y-1 transition-all">
+                  <Youtube size={20} />
+                </a>
+                <a href="https://x.com/flcrc" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-[#5b93c7] hover:-translate-y-1 transition-all">
+                  <Twitter size={20} />
+                </a>
+              </div>
             </div>
           </ScrollReveal>
         </div>

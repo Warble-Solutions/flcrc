@@ -44,6 +44,7 @@ export type Database = {
           tag: string | null;
           icon: string | null;
           color: string | null;
+          slug: string | null;
           is_featured: boolean;
           sort_order: number;
           created_at: string;
@@ -55,6 +56,7 @@ export type Database = {
           tag?: string | null;
           icon?: string | null;
           color?: string | null;
+          slug?: string | null;
           is_featured?: boolean;
           sort_order?: number;
           created_at?: string;
@@ -66,6 +68,7 @@ export type Database = {
           tag?: string | null;
           icon?: string | null;
           color?: string | null;
+          slug?: string | null;
           is_featured?: boolean;
           sort_order?: number;
           created_at?: string;
@@ -135,6 +138,41 @@ export type Database = {
           created_at?: string;
         };
       };
+      site_settings: {
+        Row: {
+          id: string;
+          phone: string | null;
+          email: string | null;
+          address: string | null;
+          facebook: string | null;
+          instagram: string | null;
+          youtube: string | null;
+          x_twitter: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          phone?: string | null;
+          email?: string | null;
+          address?: string | null;
+          facebook?: string | null;
+          instagram?: string | null;
+          youtube?: string | null;
+          x_twitter?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          phone?: string | null;
+          email?: string | null;
+          address?: string | null;
+          facebook?: string | null;
+          instagram?: string | null;
+          youtube?: string | null;
+          x_twitter?: string | null;
+          updated_at?: string | null;
+        };
+      };
     };
   };
 };
@@ -144,3 +182,4 @@ export type Event = Database["public"]["Tables"]["events"]["Row"];
 export type Program = Database["public"]["Tables"]["programs"]["Row"];
 export type TeamMember = Database["public"]["Tables"]["team_members"]["Row"];
 export type FormSubmission = Database["public"]["Tables"]["form_submissions"]["Row"];
+export type SiteSettings = Database["public"]["Tables"]["site_settings"]["Row"];

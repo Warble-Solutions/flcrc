@@ -12,14 +12,14 @@ const tiers = [
     name: "Tier 1",
     price: "$25",
     icon: Heart,
-    color: "from-[#94cdff] to-[#8cb6ec]",
+    color: "from-[#6fa8dc] to-[#5b93c7]",
     features: ["Annual Membership Card", "Digital Membership Scroll"],
   },
   {
     name: "Tier 2",
     price: "$60",
     icon: Star,
-    color: "from-[#beda5b] to-[#b2c84e]",
+    color: "from-[#9fbf45] to-[#8aad3a]",
     features: [
       "Annual Membership Card and Certificate",
       "Digital Membership Scroll",
@@ -30,7 +30,7 @@ const tiers = [
     name: "Tier 3",
     price: "$75",
     icon: Award,
-    color: "from-[#ff9664] to-[#f08855]",
+    color: "from-[#e87d4a] to-[#d4703f]",
     features: [
       "Annual Membership Card and Certificate",
       "T-shirt included",
@@ -42,7 +42,7 @@ const tiers = [
     name: "Tier 4 (Institutional)",
     price: "$1,000",
     icon: Crown,
-    color: "from-[#ffe453] to-[#eed02e]",
+    color: "from-[#e6c830] to-[#d4b828]",
     features: [
       "Institutional Annual Membership Card",
       "Digital Membership Scroll",
@@ -88,7 +88,7 @@ export default function DonatePage() {
                     <ul className="space-y-4 mb-8 flex-grow">
                       {tier.features.map((feat, j) => (
                         <li key={j} className="flex items-start gap-3 text-sm text-slate-600 font-medium">
-                          <Check size={18} className="shrink-0 mt-0.5 text-[#94cdff]" />
+                          <Check size={18} className="shrink-0 mt-0.5 text-[#6fa8dc]" />
                           <span>{feat}</span>
                         </li>
                       ))}

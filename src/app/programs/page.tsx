@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   GraduationCap,
   ArrowRight,
@@ -19,12 +20,12 @@ import PageBanner from "@/components/layout/PageBanner";
 
 // Color mapping for the icon color in the card
 const colorMap: Record<string, string> = {
-  "bg-blue-600": "text-[#94cdff]",
-  "bg-purple-600": "text-[#beda5b]",
-  "bg-emerald-600": "text-[#beda5b]",
-  "bg-rose-600": "text-[#ff9664]",
-  "bg-[#eed02e]": "text-[#eed02e]",
-  "bg-red-400": "text-[#ff9664]",
+  "bg-blue-600": "text-[#6fa8dc]",
+  "bg-purple-600": "text-[#9fbf45]",
+  "bg-emerald-600": "text-[#9fbf45]",
+  "bg-rose-600": "text-[#e87d4a]",
+  "bg-[#d4b828]": "text-[#d4b828]",
+  "bg-red-400": "text-[#e87d4a]",
 };
 
 const programImages: Record<string, string> = {
@@ -34,39 +35,8 @@ const programImages: Record<string, string> = {
 };
 
 export default function ProgramsPage() {
-  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [filter, setFilter] = useState("All");
   const [programs, setPrograms] = useState<Program[]>(fallbackPrograms);
-  const [appForm, setAppForm] = useState({ name: "", email: "", phone: "", reason: "" });
-  const [appSubmitted, setAppSubmitted] = useState(false);
-  const [appSubmitting, setAppSubmitting] = useState(false);
-
-  const handleApply = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedProgram) return;
-    setAppSubmitting(true);
-    try {
-      const supabase = createClient();
-      await supabase.from("form_submissions").insert({
-        type: "program_application",
-        name: appForm.name,
-        email: appForm.email,
-        phone: appForm.phone || null,
-        message: appForm.reason || null,
-        metadata: { program_title: selectedProgram.title, program_tag: selectedProgram.tag },
-      });
-    } catch (err) {
-      console.error("Program application error:", err);
-    }
-    setAppSubmitting(false);
-    setAppSubmitted(true);
-  };
-
-  const closeProgram = () => {
-    setSelectedProgram(null);
-    setAppSubmitted(false);
-    setAppForm({ name: "", email: "", phone: "", reason: "" });
-  };
 
   useEffect(() => {
     const supabase = createClient();
@@ -103,7 +73,7 @@ export default function ProgramsPage() {
                   className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     filter === cat
                       ? "bg-[#1b2847] text-white shadow-lg scale-105"
-                      : "bg-white border border-slate-200 text-slate-500 hover:text-[#8cb6ec] hover:border-[#8cb6ec]"
+                      : "bg-white border border-slate-200 text-slate-500 hover:text-[#5b93c7] hover:border-[#5b93c7]"
                   }`}
                 >
                   {cat}
@@ -119,30 +89,30 @@ export default function ProgramsPage() {
               const iconColor = colorMap[prog.color || ""] || "text-luminous-cyan";
               return (
                 <ScrollReveal key={prog.id} delay={i * 50} className="h-full">
-                  <div
-                    className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#8cb6ec] transition-all cursor-pointer group flex flex-col relative overflow-hidden"
-                    onClick={() => setSelectedProgram(prog)}
+                  <Link
+                    href={`/programs/${prog.slug || "yale-leadership"}`}
+                    className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#5b93c7] transition-all cursor-pointer group flex flex-col relative overflow-hidden block"
                   >
                     <div className="relative z-10 flex-grow">
                       <div className="flex justify-between items-start mb-8">
                         <IconComp size={32} className={`text-opacity-80 ${iconColor.replace('text-', 'text-')}`} />
                         {prog.tag && (
-                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-[#8cb6ec]/30 bg-[#94cdff]/10 text-[#8cb6ec]">
+                          <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-[#5b93c7]/30 bg-[#6fa8dc]/10 text-[#5b93c7]">
                             {prog.tag}
                           </span>
                         )}
                       </div>
-                      <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-[#8cb6ec] transition-colors">
+                      <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-[#5b93c7] transition-colors">
                         {prog.title}
                       </h3>
                       <p className="text-slate-600 mb-8 leading-relaxed flex-grow">{prog.description}</p>
                     </div>
                     <div className="relative z-10 mt-auto">
-                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#8cb6ec] group-hover:gap-4 transition-all w-max py-2">
+                      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[#5b93c7] group-hover:gap-4 transition-all w-max py-2">
                         Explore <ArrowRight size={16} />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </ScrollReveal>
               );
             })}
@@ -170,70 +140,6 @@ export default function ProgramsPage() {
           </ScrollReveal>
         </div>
       </section>
-
-      {/* Program Detail Modal */}
-      <Modal
-        isOpen={!!selectedProgram}
-        onClose={closeProgram}
-        title={selectedProgram?.title || ""}
-      >
-        {selectedProgram && (
-          <div className="space-y-6">
-            <div className="rounded-xl overflow-hidden h-48 border border-white/10">
-              <Image
-                src={programImages[selectedProgram.tag || ""] || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"}
-                className="w-full h-full object-cover"
-                alt={selectedProgram.title}
-                width={800}
-                height={400}
-              />
-            </div>
-            <p className="text-lg text-luminous-muted leading-relaxed">
-              {selectedProgram.description}
-            </p>
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10">
-              <h4 className="font-bold text-white mb-3">What we provide:</h4>
-              <ul className="space-y-2 text-luminous-muted text-sm">
-                {["Certified Curriculum", "Expert Mentors", "Community Networking", "Certificate of Completion"].map((item, i) => (
-                  <li key={i} className="flex gap-3 items-center">
-                    <Check size={16} className="text-luminous-cyan" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {appSubmitted ? (
-              <div className="text-center py-6 space-y-3">
-                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
-                  <Check size={32} className="text-emerald-400" />
-                </div>
-                <h4 className="text-xl font-bold text-white">Application Submitted!</h4>
-                <p className="text-luminous-muted text-sm">We&apos;ll review your application for <strong className="text-white">{selectedProgram.title}</strong> and reach out soon.</p>
-                <Button variant="outline" onClick={closeProgram} className="mt-4">Close</Button>
-              </div>
-            ) : (
-              <form onSubmit={handleApply} className="space-y-4">
-                <h4 className="font-bold text-white text-sm uppercase tracking-wider">Apply for this Program</h4>
-                <input type="text" required placeholder="Full Name" value={appForm.name}
-                  onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
-                <input type="email" required placeholder="Email Address" value={appForm.email}
-                  onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
-                <input type="tel" placeholder="Phone Number (optional)" value={appForm.phone}
-                  onChange={(e) => setAppForm({ ...appForm, phone: e.target.value })}
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white placeholder:text-gray-500" />
-                <textarea rows={3} placeholder="Why are you interested in this program?" value={appForm.reason}
-                  onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
-                  className="w-full p-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-luminous-cyan transition-colors text-white resize-none placeholder:text-gray-500" />
-                <Button variant="primary" type="submit" className="w-full" disabled={appSubmitting}>
-                  {appSubmitting ? "Submitting..." : "Submit Application"}
-                </Button>
-              </form>
-            )}
-          </div>
-        )}
-      </Modal>
     </>
   );
 }

@@ -53,6 +53,19 @@ CREATE TABLE IF NOT EXISTS form_submissions (
   created_at  timestamptz DEFAULT now()
 );
 
+-- SITE SETTINGS TABLE (Single row intended)
+CREATE TABLE IF NOT EXISTS site_settings (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  phone       text,
+  email       text,
+  address     text,
+  facebook    text,
+  instagram   text,
+  youtube     text,
+  x_twitter   text,
+  updated_at  timestamptz DEFAULT now()
+);
+
 -- =============================================
 -- ROW LEVEL SECURITY (RLS)
 -- =============================================
@@ -62,6 +75,7 @@ ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE programs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE form_submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 
 -- PUBLIC READ (anon can read events, programs, team)
 CREATE POLICY "Public can read events" ON events FOR SELECT TO anon USING (true);
@@ -76,6 +90,8 @@ CREATE POLICY "Admin full access events" ON events FOR ALL TO authenticated USIN
 CREATE POLICY "Admin full access programs" ON programs FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin full access team" ON team_members FOR ALL TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin full access submissions" ON form_submissions FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Public can read settings" ON site_settings FOR SELECT TO anon USING (true);
+CREATE POLICY "Admin full access settings" ON site_settings FOR ALL TO authenticated USING (true) WITH CHECK (true);
 
 -- =============================================
 -- SEED DATA (current hardcoded content)
@@ -123,3 +139,7 @@ INSERT INTO team_members (name, role, bio, category, sort_order) VALUES
   ('Jackie Thomas, BSN, RN', 'Registered Nurse', '', 'staff', 17),
   ('Kenae Thibodeaux', 'Education Specialist', '', 'staff', 18),
   ('Abby Santiago', 'Graphic and Technology Designer', '', 'staff', 19);
+
+-- Seed Site Settings
+INSERT INTO site_settings (phone, email, address, facebook, instagram, youtube, x_twitter) VALUES
+  ('(281) 402-6269', 'info@familylifecrc.org', '821 E Highway 90A, Suite 104, Richmond, Texas 77406', 'https://www.facebook.com/FLCRCRichmond/', 'https://www.instagram.com/flcrc.richmond/', 'https://www.youtube.com/channel/UC1lc1ZAp8HyQys_oL-5Vajg', 'https://x.com/flcrc');

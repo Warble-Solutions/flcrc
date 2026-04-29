@@ -59,7 +59,7 @@ export default function AdminTeamPage() {
           <h2 className="text-2xl font-bold text-white">Team</h2>
           <p className="text-sm text-gray-400 mt-1">{members.length} member{members.length !== 1 && "s"}</p>
         </div>
-        <button onClick={openAdd} className="flex items-center gap-2 bg-[#94cdff] hover:bg-[#8cb6ec] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer">
+        <button onClick={openAdd} className="flex items-center gap-2 bg-[#6fa8dc] hover:bg-[#5b93c7] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer">
           <Plus size={16} /> Add Member
         </button>
       </div>
@@ -70,20 +70,20 @@ export default function AdminTeamPage() {
           <h3 className="text-lg font-bold text-white">{editId ? "Edit" : "Add"} Team Member</h3>
           <div className="grid grid-cols-2 gap-4">
             <input type="text" required placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50" />
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50" />
             <input type="text" required placeholder="Role / Title" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50" />
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50" />
           </div>
           <textarea rows={3} placeholder="Bio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50 resize-none" />
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50 resize-none" />
           <div className="flex items-center gap-4">
             <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#94cdff]/50 [color-scheme:dark]">
+              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#6fa8dc]/50 [color-scheme:dark]">
               <option value="leadership">Leadership</option>
               <option value="board">Board</option>
               <option value="staff">Staff</option>
             </select>
-            <button type="submit" disabled={saving} className="flex items-center gap-2 bg-[#94cdff] hover:bg-[#8cb6ec] text-white font-bold px-5 py-3 rounded-xl transition-colors disabled:opacity-50 cursor-pointer">
+            <button type="submit" disabled={saving} className="flex items-center gap-2 bg-[#6fa8dc] hover:bg-[#5b93c7] text-white font-bold px-5 py-3 rounded-xl transition-colors disabled:opacity-50 cursor-pointer">
               {saving ? "Saving..." : editId ? "Update" : "Add"}
             </button>
             <button type="button" onClick={() => setShowForm(false)} className="text-gray-400 hover:text-white text-sm cursor-pointer">Cancel</button>
@@ -111,7 +111,7 @@ export default function AdminTeamPage() {
                     <div className="text-xs text-gray-500">{m.role}</div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <button onClick={() => openEdit(m)} className="p-2 text-gray-400 hover:text-[#94cdff] hover:bg-white/5 rounded-lg transition-all cursor-pointer">
+                    <button onClick={() => openEdit(m)} className="p-2 text-gray-400 hover:text-[#6fa8dc] hover:bg-white/5 rounded-lg transition-all cursor-pointer">
                       <Pencil size={16} />
                     </button>
                     <button onClick={() => deleteMember(m.id)} className="p-2 text-gray-400 hover:text-red-400 hover:bg-white/5 rounded-lg transition-all cursor-pointer">

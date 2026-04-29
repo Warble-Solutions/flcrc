@@ -250,7 +250,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
           <div className="max-w-7xl mx-auto px-4 mb-12">
             <ScrollReveal>
               <div className="text-center">
-                <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+                <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                   Our Space
                 </p>
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900">
@@ -262,15 +262,15 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
           <VenueCarousel onImageClick={openGallery} />
         </section>
 
-        {/* ===== PRICING — Dark Section ===== */}
-        <section className="relative py-24 px-4 bg-luminous-bg z-10">
+        {/* ===== PRICING — Light Section ===== */}
+        <section className="relative py-24 px-4 bg-slate-50 z-10">
           <div className="max-w-7xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-luminous-cyan mb-3">
+                <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                   Transparent Pricing
                 </p>
-                <h2 className="text-4xl md:text-5xl font-black text-white">
+                <h2 className="text-4xl md:text-5xl font-black text-slate-900">
                   Rental Packages
                 </h2>
               </div>
@@ -280,14 +280,14 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
               {pricingItems.map((item, i) => (
                 <ScrollReveal key={i} delay={i * 100}>
                   <div
-                    className={`rounded-2xl p-8 backdrop-blur-xl border transition-all h-full flex flex-col ${
+                    className={`rounded-2xl p-8 border transition-all h-full flex flex-col ${
                       item.highlight
-                        ? "bg-gradient-to-b from-luminous-cyan/10 to-transparent border-luminous-cyan/30 shadow-[0_0_30px_rgba(148,205,255,0.1)]"
-                        : "bg-white/5 border-white/10 hover:border-white/20"
+                        ? "bg-gradient-to-b from-[#6fa8dc]/10 to-white border-[#6fa8dc]/30 shadow-lg shadow-[#6fa8dc]/10"
+                        : "bg-white border-slate-200 hover:border-slate-300 hover:shadow-md"
                     }`}
                   >
                     {item.highlight && (
-                      <span className="inline-block self-start text-[10px] font-bold uppercase tracking-widest text-luminous-cyan bg-luminous-cyan/10 px-3 py-1 rounded-full mb-4">
+                      <span className="inline-block self-start text-[10px] font-bold uppercase tracking-widest text-[#6fa8dc] bg-[#6fa8dc]/10 px-3 py-1 rounded-full mb-4">
                         Most Popular
                       </span>
                     )}
@@ -295,20 +295,20 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       <div
                         className={`w-12 h-12 rounded-xl flex items-center justify-center ${
                           item.highlight
-                            ? "bg-luminous-cyan text-black"
-                            : "bg-white/10 text-white"
+                            ? "bg-[#6fa8dc] text-white"
+                            : "bg-slate-100 text-slate-600"
                         }`}
                       >
                         <item.icon size={24} />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-white">
+                        <h3 className="text-xl font-bold text-slate-900">
                           {item.title}
                         </h3>
                       </div>
                     </div>
                     <div className="mb-6">
-                      <span className="text-5xl font-black text-gradient">
+                      <span className="text-5xl font-black text-slate-900">
                         {item.price}
                       </span>
                     </div>
@@ -316,14 +316,14 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       {item.details.map((detail, j) => (
                         <li
                           key={j}
-                          className="flex items-center gap-3 text-sm text-luminous-muted"
+                          className="flex items-center gap-3 text-sm text-slate-600"
                         >
                           <Check
                             size={16}
                             className={
                               item.highlight
-                                ? "text-luminous-cyan"
-                                : "text-white/50"
+                                ? "text-[#6fa8dc]"
+                                : "text-slate-400"
                             }
                           />
                           {detail}
@@ -338,7 +338,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
             {/* Add-ons */}
             <ScrollReveal>
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-bold text-slate-900">
                   Optional Add-Ons
                 </h3>
               </div>
@@ -346,18 +346,18 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {addonItems.map((addon, i) => (
                 <ScrollReveal key={i} delay={i * 50}>
-                  <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-luminous-fuchsia/30 transition-colors">
+                  <div className="bg-white border border-slate-200 rounded-xl p-6 text-center hover:border-[#e87d4a]/40 hover:shadow-md transition-all">
                     <addon.icon
                       size={24}
-                      className="text-luminous-fuchsia mx-auto mb-3"
+                      className="text-[#e87d4a] mx-auto mb-3"
                     />
-                    <div className="font-bold text-white text-sm mb-1">
+                    <div className="font-bold text-slate-900 text-sm mb-1">
                       {addon.title}
                     </div>
-                    <div className="text-2xl font-black text-gradient mb-2">
+                    <div className="text-2xl font-black text-[#e87d4a] mb-2">
                       {addon.price}
                     </div>
-                    <p className="text-xs text-luminous-muted">{addon.desc}</p>
+                    <p className="text-xs text-slate-500">{addon.desc}</p>
                   </div>
                 </ScrollReveal>
               ))}
@@ -370,7 +370,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
           <div className="max-w-3xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                   Book Now
                 </p>
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
@@ -421,7 +421,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.name}
                         onChange={(e) => setRentalForm({ ...rentalForm, name: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                         placeholder="John Smith"
                       />
                     </div>
@@ -434,7 +434,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.email}
                         onChange={(e) => setRentalForm({ ...rentalForm, email: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -450,7 +450,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.phone}
                         onChange={(e) => setRentalForm({ ...rentalForm, phone: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                         placeholder="(555) 123-4567"
                       />
                     </div>
@@ -463,7 +463,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.eventDate}
                         onChange={(e) => setRentalForm({ ...rentalForm, eventDate: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                       />
                     </div>
                   </div>
@@ -477,7 +477,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.eventType}
                         onChange={(e) => setRentalForm({ ...rentalForm, eventType: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                       >
                         <option value="">Select event type</option>
                         <option>Wedding Reception</option>
@@ -500,7 +500,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         max={128}
                         value={rentalForm.guests}
                         onChange={(e) => setRentalForm({ ...rentalForm, guests: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                         placeholder="e.g. 100"
                       />
                     </div>
@@ -515,7 +515,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                         required
                         value={rentalForm.hours}
                         onChange={(e) => setRentalForm({ ...rentalForm, hours: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                       >
                         <option value="">Select duration</option>
                         <option>4 hours (minimum)</option>
@@ -532,7 +532,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       <select
                         value={rentalForm.alcohol}
                         onChange={(e) => setRentalForm({ ...rentalForm, alcohol: e.target.value })}
-                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all"
+                        className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all"
                       >
                         <option>No</option>
                         <option>Yes</option>
@@ -554,13 +554,13 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       ].map((addon, i) => (
                         <label
                           key={i}
-                          className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-[#8cb6ec] transition-colors"
+                          className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-[#5b93c7] transition-colors"
                         >
                           <input
                             type="checkbox"
                             checked={rentalForm.addons.includes(addon)}
                             onChange={() => toggleAddon(addon)}
-                            className="w-4 h-4 accent-[#8cb6ec]"
+                            className="w-4 h-4 accent-[#5b93c7]"
                           />
                           <span className="text-sm text-slate-700">
                             {addon}
@@ -578,7 +578,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                       rows={4}
                       value={rentalForm.notes}
                       onChange={(e) => setRentalForm({ ...rentalForm, notes: e.target.value })}
-                      className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#8cb6ec] focus:ring-1 focus:ring-[#8cb6ec] transition-all resize-none"
+                      className="w-full p-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#5b93c7] focus:ring-1 focus:ring-[#5b93c7] transition-all resize-none"
                       placeholder="Any specific requirements, setup preferences, or questions..."
                     />
                   </div>
@@ -592,7 +592,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer disabled:opacity-50"
+                    className="w-full bg-slate-600 text-white font-bold py-4 rounded-xl hover:bg-slate-500 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer disabled:opacity-50"
                   >
                     <Send size={16} />
                     {submitting ? "Submitting..." : "Submit Rental Request"}
@@ -603,29 +603,29 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
           </div>
         </section>
 
-        {/* ===== CONTACT STRIP — Dark ===== */}
-        <section className="relative py-16 px-4 bg-luminous-bg z-10">
+        {/* ===== CONTACT STRIP — Light ===== */}
+        <section className="relative py-16 px-4 bg-slate-100 z-10">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <div className="glass rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="bg-white rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm border border-slate-200">
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">
                     Have Questions?
                   </h3>
-                  <p className="text-luminous-muted">
+                  <p className="text-slate-500">
                     Our team is happy to help you plan your perfect event.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 text-sm">
                   <a
                     href="tel:1-888-337-1411"
-                    className="flex items-center gap-2 text-white font-bold hover:text-luminous-cyan transition-colors"
+                    className="flex items-center gap-2 text-slate-700 font-bold hover:text-[#6fa8dc] transition-colors"
                   >
                     <Phone size={16} /> 1-888-337-1411
                   </a>
                   <a
                     href="mailto:info@familylifecrc.org"
-                    className="flex items-center gap-2 text-white font-bold hover:text-luminous-cyan transition-colors"
+                    className="flex items-center gap-2 text-slate-700 font-bold hover:text-[#6fa8dc] transition-colors"
                   >
                     <Mail size={16} /> info@familylifecrc.org
                   </a>

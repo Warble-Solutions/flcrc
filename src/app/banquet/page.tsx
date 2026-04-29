@@ -58,7 +58,7 @@ export default function BanquetPage() {
           </div>
 
           <div className="text-center mb-16">
-            <p className="text-sm font-bold uppercase tracking-widest text-[#eed02e] mb-3">
+            <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
               Registration
             </p>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">Reserve Your Seat</h2>
@@ -100,12 +100,12 @@ export default function BanquetPage() {
                 </div>
 
                 <div 
-                  className={`border-2 rounded-2xl p-6 cursor-pointer transition-all ${selectedTier === 'vip' ? 'border-[#eed02e] bg-[#ffe453]/10' : 'border-slate-200 bg-white hover:border-[#eed02e]/50'}`}
+                  className={`border-2 rounded-2xl p-6 cursor-pointer transition-all ${selectedTier === 'vip' ? 'border-[#d4b828] bg-[#e6c830]/10' : 'border-slate-200 bg-white hover:border-[#d4b828]/50'}`}
                   onClick={() => setSelectedTier('vip')}
                 >
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-3">
-                      <Star size={24} className="text-[#eed02e]" />
+                      <Star size={24} className="text-[#d4b828]" />
                       <h3 className="text-xl font-black text-slate-900">VIP / Sponsor Table</h3>
                     </div>
                     <span className="text-2xl font-black text-slate-900">$1,500</span>
@@ -160,7 +160,7 @@ export default function BanquetPage() {
                     </div>
                   ) : (
                     <>
-                      <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#ff9664] to-[#ffe453] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-[#ff9664]/20 mt-4">
+                      <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#e87d4a] to-[#e6c830] text-slate-900 font-bold rounded-xl text-lg hover:opacity-90 transition-opacity uppercase tracking-widest text-sm shadow-xl shadow-[#e87d4a]/20 mt-4">
                         Register {"->"}
                       </button>
                       <p className="text-center text-xs text-slate-400 mt-4">Online payment is coming soon. Upon registering, our team will reach out to confirm your reservation and arrange payment.</p>

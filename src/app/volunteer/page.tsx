@@ -116,7 +116,7 @@ export default function VolunteerPage() {
                       Something went wrong. Please try again or contact us directly.
                     </div>
                   )}
-                  <button type="submit" disabled={submitting} className="w-full py-4 bg-slate-900 text-white font-bold rounded-xl text-lg hover:bg-slate-800 transition-colors uppercase tracking-widest text-sm">
+                  <button type="submit" disabled={submitting} className="w-full py-4 bg-slate-600 text-white font-bold rounded-xl text-lg hover:bg-slate-500 transition-colors uppercase tracking-widest text-sm">
                     {submitting ? "Sending..." : "Submit Volunteer Form"}
                   </button>
                 </form>

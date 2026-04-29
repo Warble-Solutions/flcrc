@@ -60,7 +60,7 @@ export default function AdminEventsPage() {
         </div>
         <Link
           href="/admin/events/new"
-          className="flex items-center gap-2 bg-[#94cdff] hover:bg-[#8cb6ec] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors"
+          className="flex items-center gap-2 bg-[#6fa8dc] hover:bg-[#5b93c7] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors"
         >
           <Plus size={16} />
           Add Event
@@ -141,7 +141,7 @@ export default function AdminEventsPage() {
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           href={`/admin/events/${evt.id}/edit`}
-                          className="p-2 text-gray-400 hover:text-[#94cdff] hover:bg-white/5 rounded-lg transition-all"
+                          className="p-2 text-gray-400 hover:text-[#6fa8dc] hover:bg-white/5 rounded-lg transition-all"
                         >
                           <Pencil size={16} />
                         </Link>

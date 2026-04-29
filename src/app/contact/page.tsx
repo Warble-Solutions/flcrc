@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MapPin,
   Phone,
@@ -17,6 +17,8 @@ import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { useDonate } from "@/components/layout/DonateProvider";
 import PageBanner from "@/components/layout/PageBanner";
+import { fallbackSettings } from "@/lib/fallback-data";
+import type { SiteSettings } from "@/lib/supabase/types";
 
 export default function ContactPage() {
   const { openDonate } = useDonate();
@@ -30,6 +32,16 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+  const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      const supabase = createClient();
+      const { data } = await supabase.from("site_settings").select("*").single();
+      if (data) setSettings(data);
+    }
+    fetchSettings();
+  }, []);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,21 +82,16 @@ export default function ContactPage() {
               {
                 icon: MapPin,
                 title: "Visit Us",
-                lines: [
-                  "Family Life and Community",
-                  "Resource Center",
-                  "821 E Highway 90A",
-                  "Richmond, TX 77406",
-                ],
+                lines: settings.address ? settings.address.split(",") : ["821 E Highway 90A, Richmond, TX 77406"],
                 color: "bg-blue-600",
-                href: "https://maps.google.com/?q=821+E+Highway+90A+Richmond+TX+77406",
+                href: `https://maps.google.com/?q=${encodeURIComponent(settings.address || "821 E Highway 90A, Richmond, TX 77406")}`,
               },
               {
                 icon: Phone,
                 title: "Call Us",
-                lines: ["1-888-337-1411"],
+                lines: [settings.phone || "1-888-337-1411"],
                 color: "bg-emerald-600",
-                href: "tel:1-888-337-1411",
+                href: `tel:${settings.phone?.replace(/[^0-9]/g, "") || "18883371411"}`,
               },
               {
                 icon: Printer,
@@ -96,9 +103,9 @@ export default function ContactPage() {
               {
                 icon: Mail,
                 title: "Email Us",
-                lines: ["info@familylifecrc.org"],
+                lines: [settings.email || "info@familylifecrc.org"],
                 color: "bg-rose-600",
-                href: "mailto:info@familylifecrc.org",
+                href: `mailto:${settings.email || "info@familylifecrc.org"}`,
               },
             ].map((card, i) => (
               <ScrollReveal key={i} delay={i * 100}>
@@ -257,7 +264,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer disabled:opacity-50"
+                      className="w-full bg-slate-600 text-white font-bold py-4 rounded-xl hover:bg-slate-500 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-400/30 active:translate-y-0 transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-sm cursor-pointer disabled:opacity-50"
                     >
                       <Send size={16} />
                       {submitting ? "Sending..." : "Send Message"}

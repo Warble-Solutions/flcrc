@@ -30,18 +30,17 @@ export default function HeroCarousel({
   }, [next, autoPlayInterval]);
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
+    <div className="relative w-full min-h-[80vh] overflow-hidden">
       {/* Slides */}
       {children.map((slide, i) => (
         <div
           key={i}
-          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-            i === current
+          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${i === current
               ? "opacity-100 translate-x-0 z-10"
               : i < current
-              ? "opacity-0 -translate-x-full z-0"
-              : "opacity-0 translate-x-full z-0"
-          }`}
+                ? "opacity-0 -translate-x-full z-0"
+                : "opacity-0 translate-x-full z-0"
+            }`}
         >
           {slide}
         </div>
@@ -67,11 +66,10 @@ export default function HeroCarousel({
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              i === current
+            className={`transition-all duration-300 rounded-full cursor-pointer ${i === current
                 ? "w-10 h-3 bg-luminous-cyan shadow-[0_0_10px_rgba(148,205,255,0.5)]"
                 : "w-3 h-3 bg-white/30 hover:bg-white/50"
-            }`}
+              }`}
           />
         ))}
       </div>

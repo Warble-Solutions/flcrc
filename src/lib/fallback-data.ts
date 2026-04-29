@@ -1,4 +1,4 @@
-import type { Event, Program, TeamMember } from "./supabase/types";
+import type { Event, Program, TeamMember, SiteSettings } from "./supabase/types";
 
 /** Fallback events when Supabase is unavailable */
 export const fallbackEvents: Event[] = [
@@ -8,7 +8,7 @@ export const fallbackEvents: Event[] = [
     date: "2026-08-01",
     time: "TBA",
     location: "FLCRC Main Hall",
-    color: "from-[#94cdff] to-[#8cb6ec]",
+    color: "from-[#6fa8dc] to-[#5b93c7]",
     description: null,
     is_sold_out: false,
     created_at: "",
@@ -19,7 +19,7 @@ export const fallbackEvents: Event[] = [
     date: "2026-09-26",
     time: "TBA",
     location: "FLCRC Main Hall",
-    color: "from-[#beda5b] to-[#94cdff]",
+    color: "from-[#9fbf45] to-[#6fa8dc]",
     description: null,
     is_sold_out: false,
     created_at: "",
@@ -30,7 +30,7 @@ export const fallbackEvents: Event[] = [
     date: "2026-11-14",
     time: "8:00 AM",
     location: "Community Park",
-    color: "from-[#ff9664] to-[#ffe453]",
+    color: "from-[#e87d4a] to-[#e6c830]",
     description: null,
     is_sold_out: false,
     created_at: "",
@@ -41,7 +41,7 @@ export const fallbackEvents: Event[] = [
     date: "2026-12-05",
     time: "6:00 PM",
     location: "FLCRC Grand Hall",
-    color: "from-[#ffe453] to-[#beda5b]",
+    color: "from-[#e6c830] to-[#9fbf45]",
     description: null,
     is_sold_out: false,
     created_at: "",
@@ -49,41 +49,44 @@ export const fallbackEvents: Event[] = [
 ];
 
 /** Fallback featured programs (homepage) */
-export const fallbackFeaturedPrograms: Array<{ title: string; description: string | null; icon: string | null; color: string | null; tag: string | null }> = [
+export const fallbackFeaturedPrograms: Array<{ title: string; description: string | null; icon: string | null; color: string | null; tag: string | null; slug?: string | null }> = [
   {
     title: "Y.A.L.E. Program",
     description:
       "Youth Ambassador Leadership Education — providing area-wide leadership opportunities for students 5th grade through college to develop skills through community initiatives.",
     icon: "GraduationCap",
-    color: "bg-[#8cb6ec]",
+    color: "bg-[#5b93c7]",
     tag: "Youth",
+    slug: "yale-leadership",
   },
   {
     title: "GRIT / Victim Services",
     description:
       "Certified mental health professionals provide free, confidential services to crime victims. Finding Your GRIT motivates student victims with healing through action.",
     icon: "Zap",
-    color: "bg-[#eed02e]",
+    color: "bg-[#d4b828]",
     tag: "Community",
+    slug: "grit-program",
   },
   {
     title: "RPYL Program",
     description:
       "Restorative Practices & Youth Leadership — a framework-based program promoting conflict resolution in schools, workplaces, and communities.",
     icon: "RefreshCw",
-    color: "bg-[#b2c84e]",
+    color: "bg-[#8aad3a]",
     tag: "Education",
+    slug: "restorative-practices",
   },
 ];
 
 /** Fallback programs (full list for programs page) */
 export const fallbackPrograms: Program[] = [
-  { id: "1", title: "YALE Leadership", description: "Youth Ambassador Leadership Education — civic engagement & mentorship for tomorrow's leaders.", tag: "Youth", icon: "GraduationCap", color: "bg-blue-600", is_featured: true, sort_order: 0, created_at: "" },
-  { id: "2", title: "Restorative Practices", description: "Conflict resolution training that heals rather than punishes. For schools, workplaces, and homes.", tag: "Community", icon: "RefreshCw", color: "bg-purple-600", is_featured: true, sort_order: 1, created_at: "" },
-  { id: "3", title: "Parent Chat", description: "Support circles where parents connect, share experiences, and learn together.", tag: "Family", icon: "MessageCircle", color: "bg-emerald-600", is_featured: false, sort_order: 2, created_at: "" },
-  { id: "4", title: "GRIT Program", description: "Growth Rewarding Insight Tools — building resilience in at-risk youth.", tag: "Youth", icon: "Zap", color: "bg-[#eed02e]", is_featured: true, sort_order: 3, created_at: "" },
-  { id: "5", title: "Victim Services", description: "Confidential crisis intervention, counseling, and legal advocacy for crime victims.", tag: "Community", icon: "Shield", color: "bg-rose-600", is_featured: false, sort_order: 4, created_at: "" },
-  { id: "6", title: "Scholarships", description: "Financial aid and awards to support students pursuing higher education.", tag: "Family", icon: "BookOpen", color: "bg-emerald-600", is_featured: false, sort_order: 5, created_at: "" },
+  { id: "1", title: "YALE Leadership", slug: "yale-leadership", description: "Youth Ambassador Leadership Education — civic engagement & mentorship for tomorrow's leaders.", tag: "Youth", icon: "GraduationCap", color: "bg-blue-600", is_featured: true, sort_order: 0, created_at: "" },
+  { id: "2", title: "Restorative Practices", slug: "restorative-practices", description: "Conflict resolution training that heals rather than punishes. For schools, workplaces, and homes.", tag: "Community", icon: "RefreshCw", color: "bg-purple-600", is_featured: true, sort_order: 1, created_at: "" },
+  { id: "3", title: "Parent Chat", slug: "parent-chat", description: "Support circles where parents connect, share experiences, and learn together.", tag: "Family", icon: "MessageCircle", color: "bg-emerald-600", is_featured: false, sort_order: 2, created_at: "" },
+  { id: "4", title: "GRIT Program", slug: "grit-program", description: "Growth Rewarding Insight Tools — building resilience in at-risk youth.", tag: "Youth", icon: "Zap", color: "bg-[#d4b828]", is_featured: true, sort_order: 3, created_at: "" },
+  { id: "5", title: "Victim Services", slug: "victim-services", description: "Confidential crisis intervention, counseling, and legal advocacy for crime victims.", tag: "Community", icon: "Shield", color: "bg-rose-600", is_featured: false, sort_order: 4, created_at: "" },
+  { id: "6", title: "Scholarships", slug: "scholarships", description: "Financial aid and awards to support students pursuing higher education.", tag: "Family", icon: "BookOpen", color: "bg-emerald-600", is_featured: false, sort_order: 5, created_at: "" },
 ];
 
 /** Fallback team members */
@@ -93,3 +96,16 @@ export const fallbackTeam: TeamMember[] = [
   { id: "3", name: "Sharon Delesbore, Ph.D.", role: "Program Coordinator", bio: "Dr. Delesbore brings 30 years in public education leadership, serving as teacher, principal, and dean of instruction.", category: "staff", sort_order: 2, created_at: "" },
   { id: "4", name: "Cleo Wadley, Ed.D.", role: "Board President", bio: "Dr. Wadley brings 30+ years in public education. He serves as Officer of Leadership Development for Harris County Dept. of Education.", category: "board", sort_order: 3, created_at: "" },
 ];
+
+/** Fallback site settings */
+export const fallbackSettings: SiteSettings = {
+  id: "1",
+  phone: "(281) 402-6269",
+  email: "info@familylifecrc.org",
+  address: "821 E Highway 90A, Suite 104, Richmond, Texas 77406",
+  facebook: "https://www.facebook.com/FLCRCRichmond/",
+  instagram: "https://www.instagram.com/flcrc.richmond/",
+  youtube: "https://www.youtube.com/channel/UC1lc1ZAp8HyQys_oL-5Vajg",
+  x_twitter: "https://x.com/flcrc",
+  updated_at: new Date().toISOString()
+};

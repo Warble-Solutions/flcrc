@@ -25,11 +25,11 @@ import { useDonate } from "@/components/layout/DonateProvider";
 import type { TeamMember } from "@/lib/supabase/types";
 
 const coreCompetencies = [
-  { title: "Community Support", icon: Network, gradient: "from-[#94cdff] to-[#8cb6ec]" },
-  { title: "Crime Victim Services", icon: Shield, gradient: "from-[#ff9664] to-[#ffe453]" },
-  { title: "Stronger Families", icon: HeartHandshake, gradient: "from-[#ffe453] to-[#beda5b]" },
-  { title: "Trainings", icon: BookOpen, gradient: "from-[#beda5b] to-[#94cdff]" },
-  { title: "Youth Services", icon: GraduationCap, gradient: "from-[#ffe453] to-[#eed02e]" },
+  { title: "Community Support", icon: Network, gradient: "from-[#6fa8dc] to-[#5b93c7]" },
+  { title: "Crime Victim Services", icon: Shield, gradient: "from-[#e87d4a] to-[#e6c830]" },
+  { title: "Stronger Families", icon: HeartHandshake, gradient: "from-[#e6c830] to-[#9fbf45]" },
+  { title: "Trainings", icon: BookOpen, gradient: "from-[#9fbf45] to-[#6fa8dc]" },
+  { title: "Youth Services", icon: GraduationCap, gradient: "from-[#e6c830] to-[#d4b828]" },
 ];
 
 const strategicPlan = [
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal>
               <div>
-                <p className="text-sm font-bold uppercase tracking-widest text-blue-600 mb-3">
+                <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                   Our Goal
                 </p>
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
@@ -149,7 +149,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <p className="text-sm font-bold uppercase tracking-widest text-purple-600 mb-3">
+              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                 Our Approach
               </p>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900">
@@ -211,7 +211,7 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <p className="text-sm font-bold uppercase tracking-widest text-emerald-600 mb-3">
+              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
                 Our People
               </p>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900">

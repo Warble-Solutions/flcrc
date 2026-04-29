@@ -1,0 +1,20 @@
+<USER_REQUEST>
+here are all the changes i was asked to make, don't do any but for now let's just make a checklist of these changes and mark what is done so far and then we'll finish them all one by one
+
+or do you recommand we tackle them all in one go? 
+don't do any of the changes until we are 100% sure about the approch 
+
+Website Change Checklist
+General Site-Wide Changes
+[ ] Colors: Slightly darken the four brand colors (make them less "vibrant/neon") wherever they appear on the site.
+
+[ ] Subheadings: Change all subheadings and small text currently in light blue to a specific dark gray for better readability.
+
+[ ] Layout Consistency: Use a slightly blue-gray background for specific sections (like "Facility Rentals") with white boxes for elements to make them pop subtly.
+
+Header / Banner Section
+[ ] Banner Size: Reduce the overall height/size of the banners.
+
+[ ] Third Banner: Change the gradient to a "blue-red" style (refer to Abigail's original color document).
+
+<truncated 1919 bytes>

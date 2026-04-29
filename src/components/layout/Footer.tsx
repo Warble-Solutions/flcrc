@@ -1,8 +1,35 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { fallbackSettings } from "@/lib/fallback-data";
+import type { SiteSettings } from "@/lib/supabase/types";
 
 export default function Footer() {
+  const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const supabase = createClient();
+        const { data } = await supabase.from("site_settings").select("*").single();
+        if (data) setSettings(data);
+      } catch (e) {
+        // use fallback silently
+      }
+    }
+    fetchSettings();
+  }, []);
+  // format address
+
+  // Format address nicely by splitting at commas if possible
+  const addressLines = settings.address?.split(",") || [];
+  const addressLine1 = addressLines[0] || settings.address;
+  const addressLine2 = addressLines.slice(1).join(",").trim() || "";
+
   return (
     <footer className="relative border-t border-white/10 bg-slate-900/80 backdrop-blur-xl pt-20 pb-10 px-6 z-10">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
@@ -61,25 +88,26 @@ export default function Footer() {
           <ul className="space-y-4 text-luminous-muted text-sm">
             <li className="flex items-start gap-3">
               <MapPin size={16} className="shrink-0 mt-0.5" />
-              <span>821 E Highway 90A<br />Richmond, TX 77406</span>
+              <span>{addressLine1}<br />{addressLine2}</span>
             </li>
             <li className="flex items-center gap-3">
-              <Phone size={16} /> 1-888-337-1411
+              <Phone size={16} /> {settings.phone}
             </li>
             <li className="flex items-center gap-3">
-              <Mail size={16} /> info@familylifecrc.org
+              <Mail size={16} /> {settings.email}
             </li>
           </ul>
           
           <div className="flex gap-4 mt-6">
             {[
-              { icon: Facebook, href: "https://www.facebook.com/FLCRCRichmond/" },
-              { icon: Twitter, href: "https://twitter.com/flcrc" },
-              { icon: Instagram, href: "https://www.instagram.com/flcrc.richmond/" },
-            ].map(({ icon: Icon, href }, i) => (
+              { icon: Facebook, href: settings.facebook },
+              { icon: Instagram, href: settings.instagram },
+              { icon: Youtube, href: settings.youtube },
+              { icon: Twitter, href: settings.x_twitter },
+            ].filter(social => social.href).map(({ icon: Icon, href }, i) => (
               <a
                 key={i}
-                href={href}
+                href={href!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-luminous-cyan hover:text-black transition-all cursor-pointer"
