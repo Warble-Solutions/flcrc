@@ -22,6 +22,10 @@ import {
   GraduationCap,
   Shield,
   BookOpen,
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
 } from "lucide-react";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -31,59 +35,11 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { HERO_IMAGES } from "@/lib/images";
 import { createClient } from "@/lib/supabase/client";
 import { iconMap } from "@/lib/icons";
-import { fallbackEvents, fallbackFeaturedPrograms } from "@/lib/fallback-data";
+import { fallbackEvents, fallbackFeaturedPrograms, newsArticles } from "@/lib/fallback-data";
 import { useDonate } from "@/components/layout/DonateProvider";
 import type { Event, Program } from "@/lib/supabase/types";
 
-// ───── FAQ Data ─────
-const faqs = [
-  {
-    q: "What does FLCRC stand for?",
-    a: "Family Life and Community Resource Center — a 501(c)(3) non-profit dedicated to building stronger families and communities in Fort Bend County, Texas.",
-  },
-  {
-    q: "What programs do you offer?",
-    a: "We offer Youth Ambassador Leadership Education (Y.A.L.E.), Growth Rewarding Insight Tools (GRIT), Restorative Practices & Youth Leadership (RPYL), Victim Intervention Program (VIP), Back-2-School Parent Chat, Summer Enrichment Camp, Scholarships & Awards, and the Bullying Awareness Conference.",
-  },
-  {
-    q: "How can I get involved?",
-    a: "You can volunteer, become a sponsor, donate, or become a member. We're also hiring — visit our Get Involved page for current opportunities.",
-  },
-  {
-    q: "Are the programs free?",
-    a: "Our Victim Intervention Program (VIP) services are free and confidential. The Y.A.L.E. program has an annual membership fee of $75 (renewals $30). Many other programs and events are offered free of charge.",
-  },
-  {
-    q: "Where is FLCRC located?",
-    a: "We're located at 821 E Highway 90A, Richmond, TX 77406, serving the greater Fort Bend County area.",
-  },
-];
 
-// ───── FAQ Accordion Item ─────
-function FAQItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div
-      className="border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-blue-400 cursor-pointer"
-      onClick={() => setOpen(!open)}
-    >
-      <div className="flex justify-between items-center p-6">
-        <h3 className="font-bold text-lg text-slate-900 pr-4">{q}</h3>
-        {open ? (
-          <ChevronUp size={20} className="text-blue-600 shrink-0" />
-        ) : (
-          <ChevronDown size={20} className="text-slate-400 shrink-0" />
-        )}
-      </div>
-      <div
-        className={`px-6 overflow-hidden transition-all duration-500 ${open ? "max-h-40 pb-6" : "max-h-0"
-          }`}
-      >
-        <p className="text-slate-600 leading-relaxed">{a}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function HomePage() {
   const { openDonate } = useDonate();
@@ -190,7 +146,7 @@ export default function HomePage() {
 
         {/* ── Slide 2: Programs & Youth ── */}
         <div className="relative w-full min-h-[80vh] flex items-center justify-center">
-          <Image src={HERO_IMAGES[2]} alt="Youth programs" fill className="object-cover" quality={90} />
+          <Image src={HERO_IMAGES[2]} alt="Youth programs" fill className="object-cover" quality={90} priority />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.1)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
@@ -217,12 +173,12 @@ export default function HomePage() {
 
         {/* ── Slide 3: Capital Campaign ── */}
         <div className="relative w-full min-h-[80vh] flex items-center justify-center">
-          <Image src={HERO_IMAGES[3]} alt="Community support" fill className="object-cover" quality={90} />
+          <Image src={HERO_IMAGES[3]} alt="Community support" fill className="object-cover" quality={90} priority />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/30 to-slate-900/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(52,211,153,0.08)_0%,transparent_60%)]" />
           <div className="relative z-20 max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
-              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6fa8dc] to-[#e87d4a]">New Generation</span><br />
+              Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#94cdff] to-[#ffe453]">New Generation</span><br />
               of Leaders
             </h1>
             <p className="text-xl md:text-2xl text-white drop-shadow-md max-w-3xl mx-auto leading-relaxed font-light mb-14">
@@ -375,7 +331,7 @@ export default function HomePage() {
                         {prog.tag}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-blue-700 transition-colors">
+                    <h3 className="text-2xl font-bold mb-3 text-slate-900 group-hover:text-slate-600 transition-colors">
                       {prog.title}
                     </h3>
                     <p className="text-slate-500 leading-relaxed mb-6 flex-grow">
@@ -603,30 +559,61 @@ export default function HomePage() {
         </div>
       </section>
 
+
+
       {/* ╔══════════════════════════════════════════╗
-         ║  FAQ — Light Section                      ║
+         ║  RECENT NEWS — Light Section              ║
          ╚══════════════════════════════════════════╝ */}
-      <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
-        <div className="max-w-3xl mx-auto">
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
-                Questions?
-              </p>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
-                Frequently Asked
+              <span className="text-sm font-bold uppercase tracking-widest text-emerald-600 mb-3 block">
+                Latest Updates
+              </span>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+                Recent News
               </h2>
             </div>
           </ScrollReveal>
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <ScrollReveal key={i} delay={i * 50}>
-                <div className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden">
-                  <FAQItem q={faq.q} a={faq.a} />
-                </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {newsArticles.slice(0, 3).map((article, i) => (
+              <ScrollReveal key={i} delay={i * 100}>
+                <Link href={article.link} className="block h-full group" target="_blank" rel="noopener noreferrer">
+                  <div className="h-full border border-slate-200 rounded-3xl overflow-hidden bg-white shadow-sm group-hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div className="relative h-48 w-full overflow-hidden border-b border-slate-100">
+                      <Image src={article.image} alt={article.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div className="p-8 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider">
+                        <Calendar size={14} /> {article.date}
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-600 transition-colors line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="text-slate-500 leading-relaxed mb-6 flex-grow line-clamp-3">
+                        {article.excerpt}
+                      </p>
+                      <div className="text-sm font-bold text-slate-500 flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                        Read Article <ArrowRight size={16} />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </ScrollReveal>
             ))}
           </div>
+          
+          <ScrollReveal>
+            <div className="text-center mt-12">
+              <Link href="/news">
+                <Button variant="outline" className="px-8 py-4">
+                  View All News
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -640,11 +627,10 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-r from-luminous-violet/10 to-luminous-fuchsia/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white relative z-10">
-                Join the Signal
+                Stay Connected
               </h2>
               <p className="text-luminous-muted text-lg mb-10 max-w-xl mx-auto relative z-10">
-                Be the first to know about upcoming workshops, volunteer
-                opportunities, and community success stories.
+                Sign up to receive email updates about the latest happenings and upcoming events at FLCRC!
               </p>
 
               {newsletterSubmitted ? (
@@ -663,7 +649,7 @@ export default function HomePage() {
                     placeholder="Enter your email address"
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
-                    className="flex-1 bg-black/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(148,205,255,0.3)] transition-all"
+                    className="flex-1 bg-[#1b2847]/50 border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-luminous-cyan focus:shadow-[0_0_15px_rgba(148,205,255,0.3)] transition-all"
                   />
                   <Button
                     variant="primary"
@@ -678,6 +664,25 @@ export default function HomePage() {
               {newsletterError && (
                 <p className="text-red-400 text-sm text-center mt-4 relative z-10">Something went wrong. Please try again later.</p>
               )}
+
+              {/* Follow Us Section */}
+              <div className="mt-16 pt-10 border-t border-white/10 relative z-10">
+                <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-widest">Follow Us</h3>
+                <div className="flex items-center justify-center gap-6">
+                  <a href="https://www.facebook.com/FLCRCRichmond/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-14 h-14 rounded-full bg-[#1b2847]/50 border border-white/10 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-500 hover:scale-110 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300">
+                    <Facebook size={24} />
+                  </a>
+                  <a href="https://www.instagram.com/flcrc.richmond/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-14 h-14 rounded-full bg-[#1b2847]/50 border border-white/10 flex items-center justify-center text-white hover:bg-pink-600 hover:border-pink-500 hover:scale-110 hover:shadow-[0_0_20px_rgba(219,39,119,0.4)] transition-all duration-300">
+                    <Instagram size={24} />
+                  </a>
+                  <a href="https://www.youtube.com/channel/UC1lc1ZAp8HyQys_oL-5Vajg" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-14 h-14 rounded-full bg-[#1b2847]/50 border border-white/10 flex items-center justify-center text-white hover:bg-red-600 hover:border-red-500 hover:scale-110 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)] transition-all duration-300">
+                    <Youtube size={24} />
+                  </a>
+                  <a href="https://x.com/flcrc" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-14 h-14 rounded-full bg-[#1b2847]/50 border border-white/10 flex items-center justify-center text-white hover:bg-slate-800 hover:border-slate-700 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300">
+                    <Twitter size={24} />
+                  </a>
+                </div>
+              </div>
             </GlassCard>
           </ScrollReveal>
         </div>

@@ -102,7 +102,7 @@ export default function EventDetailPage() {
       <PageBanner 
         title={event.title} 
         subtitle={event.description || "Join us at this FLCRC event to connect, learn, and grow with our community."} 
-        imageSrc="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80"
+        imageSrc="/images/headers/events.jpg"
       />
       
       <section className="relative bg-white text-slate-900 py-16 px-4 z-10">

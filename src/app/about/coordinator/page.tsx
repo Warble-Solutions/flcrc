@@ -12,7 +12,7 @@ export default function ProgramCoordinatorPage() {
       <PageBanner 
         title="Program Coordinator" 
         subtitle="Now Hiring Full-Time Position • Richmond, TX" 
-        imageSrc="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80"
+        imageSrc="/images/headers/about.jpg"
       />
       <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
         <div className="max-w-4xl mx-auto">

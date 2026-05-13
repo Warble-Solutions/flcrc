@@ -3,13 +3,7 @@
  * IMAGE PATHS — Easy to replace later
  * ====================================
  *
- * To replace any image:
- * 1. Drop your new image into /public/images/<folder>/
- * 2. Name it the same (e.g., 1.jpg) or update the path below
- *
- * Current images use Unsplash URLs as placeholders.
- * Once you have local files, just change the URLs below to:
- *   /images/people/1.jpg  (etc.)
+ * Local images stored in /public/images/headers/
  */
 
 export const PEOPLE_IMAGES = {
@@ -20,13 +14,13 @@ export const PEOPLE_IMAGES = {
 };
 
 export const HERO_IMAGES = {
-  1: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1200&q=80",
-  2: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80",
-  3: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&q=80",
+  1: "/images/headers/slider-1.jpg",
+  2: "/images/headers/slider-2.jpg",
+  3: "/images/headers/slider-3.jpg",
 };
 
 export const PROGRAM_IMAGES = {
-  1: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80",
-  2: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
-  3: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80",
+  1: "/images/headers/yale.jpg",
+  2: "/images/headers/grit.jpg",
+  3: "/images/headers/restorative.jpg",
 };

@@ -16,7 +16,7 @@ export default function CampPage() {
       <PageBanner
         title="Summer Camp Registration"
         subtitle="Transform your summer into a six-week adventure. The Youth Ambassador Leadership Education (Y.A.L.E.) program provides students from 5th grade through college a highly engaging environment to build confidence and skills."
-        imageSrc="https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=1600&q=80"
+        imageSrc="/images/headers/summer-camp.jpg"
       />
 
       {/* ===== CAMP DETAILS — Light Section ===== */}

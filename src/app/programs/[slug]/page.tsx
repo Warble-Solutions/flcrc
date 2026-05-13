@@ -14,9 +14,10 @@ import type { Program } from "@/lib/supabase/types";
 import PageBanner from "@/components/layout/PageBanner";
 
 const programImages: Record<string, string> = {
-  Youth: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80",
-  Community: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
-  Family: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80",
+  Youth: "/images/headers/yale.jpg",
+  Community: "/images/headers/grit.jpg",
+  Family: "/images/headers/parent-chat.jpg",
+  Education: "/images/headers/restorative.jpg",
 };
 
 export default function ProgramDetailPage() {
@@ -82,7 +83,7 @@ export default function ProgramDetailPage() {
     );
   }
 
-  const imageSrc = programImages[program.tag || ""] || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80";
+  const imageSrc = programImages[program.tag || ""] || "/images/headers/programs.jpg";
 
   return (
     <>

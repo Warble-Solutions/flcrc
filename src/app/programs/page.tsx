@@ -29,9 +29,10 @@ const colorMap: Record<string, string> = {
 };
 
 const programImages: Record<string, string> = {
-  Youth: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=80",
-  Community: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80",
-  Family: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80",
+  Youth: "/images/headers/yale.jpg",
+  Community: "/images/headers/grit.jpg",
+  Family: "/images/headers/parent-chat.jpg",
+  Education: "/images/headers/restorative.jpg",
 };
 
 export default function ProgramsPage() {
@@ -58,7 +59,7 @@ export default function ProgramsPage() {
       <PageBanner 
         title="Our Programs" 
         subtitle="Empowering youth and families through comprehensive educational, leadership, and wellness programs designed to build a thriving community." 
-        imageSrc="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1600&q=80"
+        imageSrc="/images/headers/programs.jpg"
       />
       <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10">
         <div className="max-w-7xl mx-auto">

@@ -155,7 +155,7 @@ function VenueCarousel({ onImageClick }: { onImageClick: (i: number) => void }) 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+              <div className="absolute inset-0 bg-[#1b2847]/0 group-hover:bg-[#1b2847]/30 transition-all flex items-center justify-center">
                 <span className="text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">
                   View
                 </span>
@@ -242,7 +242,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
       <PageBanner 
         title="Facility Rentals" 
         subtitle="Host your next event, banquet, or conference at our beautiful, modern venue." 
-        imageSrc="https://images.unsplash.com/photo-1519167758488-643f8ab3aabe?w=1600&q=80"
+        imageSrc="/images/headers/rentals.jpg"
       />
 
         {/* ===== VENUE CAROUSEL — Light Section ===== */}
@@ -380,7 +380,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
                   Complete the form below, or email{" "}
                   <a
                     href="mailto:info@familylifecrc.org"
-                    className="text-blue-600 font-bold hover:underline"
+                    className="text-slate-500 font-bold hover:underline"
                   >
                     info@familylifecrc.org
                   </a>{" "}
@@ -636,7 +636,7 @@ const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
         </section>
 {/* ===== LIGHTBOX GALLERY ===== */}
       {galleryIndex !== null && (
-        <div className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-xl flex items-center justify-center">
+        <div className="fixed inset-0 z-[70] bg-[#1b2847]/95 backdrop-blur-xl flex items-center justify-center">
           <button
             onClick={closeGallery}
             className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer z-10"

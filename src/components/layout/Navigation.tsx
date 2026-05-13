@@ -9,7 +9,6 @@ import Button from "@/components/ui/Button";
 import { useDonate } from "@/components/layout/DonateProvider";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { 
     label: "About", 
     subLinks: [
@@ -17,23 +16,10 @@ const navLinks = [
       { href: "/about/team", label: "Our Team" },
       { href: "/about/financials", label: "Financials" },
       { href: "/about/strategic-plan", label: "Strategic Plan" },
-      { href: "/about/coordinator", label: "Program Coordinator" },
     ]
   },
-  { 
-    label: "Programs", 
-    subLinks: [
-      { href: "/programs", label: "Overview" },
-      { href: "/camp", label: "Summer Camp" },
-    ]
-  },
-  { 
-    label: "Events", 
-    subLinks: [
-      { href: "/events", label: "All Events" },
-      { href: "/banquet", label: "2026 Banquet" },
-    ]
-  },
+  { href: "/programs", label: "Programs" },
+  { href: "/events", label: "Events" },
   { href: "/news", label: "News" },
   { href: "/facility-rentals", label: "Rentals" },
   { 
@@ -41,8 +27,8 @@ const navLinks = [
     subLinks: [
       { href: "/volunteer", label: "Volunteer" },
       { href: "/donate", label: "Donate" },
-      { href: "/sponsorship", label: "Sponsorship" },
-      { href: "/campaign", label: "Campaign" },
+      { href: "/become-a-member", label: "Become a Member" },
+      { href: "/campaign", label: "Support Our Capital Campaign" },
     ]
   },
   { href: "/contact", label: "Contact" },
@@ -65,7 +51,7 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-slate-900/80 backdrop-blur-xl border-b border-white/10 py-3"
+            ? "bg-[#1b2847]/95 backdrop-blur-xl border-b border-white/10 py-3"
             : "bg-transparent py-6"
         }`}
       >
@@ -126,9 +112,11 @@ export default function Navigation() {
                 )}
               </div>
             ))}
-            <Button variant="glow" onClick={openDonate}>
-              Donate
-            </Button>
+            <Link href="/donate">
+              <Button variant="glow">
+                Donate
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -181,16 +169,11 @@ export default function Navigation() {
                 )}
               </div>
             ))}
-            <Button
-              variant="primary"
-              onClick={() => {
-                openDonate();
-                setMobileOpen(false);
-              }}
-              className="mt-6 w-full"
-            >
-              Make a Donation
-            </Button>
+            <Link href="/donate" className="mt-6 w-full block" onClick={() => setMobileOpen(false)}>
+              <Button variant="primary" className="w-full">
+                Make a Donation
+              </Button>
+            </Link>
           </div>
         </div>
       )}

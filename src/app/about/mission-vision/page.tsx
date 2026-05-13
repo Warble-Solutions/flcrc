@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlassCard from "@/components/ui/GlassCard";
-import { Check, Target, Heart, Shield, Users, BookOpen } from "lucide-react";
+import { Check, Target, Heart, Shield, Users, BookOpen, ChevronUp, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import PageBanner from "@/components/layout/PageBanner";
@@ -24,13 +25,60 @@ const strategicPlan = [
   "Providing direct services to crime victims",
 ];
 
+const faqs = [
+  {
+    q: "What does FLCRC stand for?",
+    a: "Family Life and Community Resource Center — a 501(c)(3) non-profit dedicated to building stronger families and communities in Fort Bend County, Texas.",
+  },
+  {
+    q: "What programs do you offer?",
+    a: "We offer Youth Ambassador Leadership Education (Y.A.L.E.), Growth Rewarding Insight Tools (GRIT), Restorative Practices & Youth Leadership (RPYL), Victim Intervention Program (VIP), Back-2-School Parent Chat, Summer Enrichment Camp, Scholarships & Awards, and the Bullying Awareness Conference.",
+  },
+  {
+    q: "How can I get involved?",
+    a: "You can volunteer, become a sponsor, donate, or become a member. We're also hiring — visit our Get Involved page for current opportunities.",
+  },
+  {
+    q: "Are the programs free?",
+    a: "Our Victim Intervention Program (VIP) services are free and confidential. The Y.A.L.E. program has an annual membership fee of $75 (renewals $30). Many other programs and events are offered free of charge.",
+  },
+  {
+    q: "Where is FLCRC located?",
+    a: "We're located at 821 E Highway 90A, Richmond, TX 77406, serving the greater Fort Bend County area.",
+  },
+];
+
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-400 cursor-pointer"
+      onClick={() => setOpen(!open)}
+    >
+      <div className="flex justify-between items-center p-6">
+        <h3 className="font-bold text-lg text-slate-900 pr-4">{q}</h3>
+        {open ? (
+          <ChevronUp size={20} className="text-slate-600 shrink-0" />
+        ) : (
+          <ChevronDown size={20} className="text-slate-400 shrink-0" />
+        )}
+      </div>
+      <div
+        className={`px-6 overflow-hidden transition-all duration-500 ${open ? "max-h-40 pb-6" : "max-h-0"}`}
+      >
+        <p className="text-slate-600 leading-relaxed">{a}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function MissionVisionPage() {
   return (
     <>
       <PageBanner 
         title="Our Mission & Vision" 
         subtitle="The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community." 
-        imageSrc="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"
+        imageSrc="/images/headers/about.jpg"
       />
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-6xl mx-auto">
@@ -111,6 +159,29 @@ export default function MissionVisionPage() {
             </div>
           </div>
         </ScrollReveal>
+        </div>
+      </section>
+      <section className="relative bg-slate-50 text-slate-900 py-24 px-4 z-10 border-t border-slate-200">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <p className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3">
+                Questions?
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+                Frequently Asked Questions
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <ScrollReveal key={i} delay={i * 50}>
+                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <FAQItem q={faq.q} a={faq.a} />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

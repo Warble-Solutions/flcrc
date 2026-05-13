@@ -21,7 +21,7 @@ export default function BanquetPage() {
       <PageBanner
         title="2026 FLCRC Annual Banquet"
         subtitle="Join us for an evening of celebration, community, and commitment to building stronger families in Fort Bend County."
-        imageSrc="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1600&q=80"
+        imageSrc="/images/headers/events.jpg"
       />
 
       {/* ===== BANQUET DETAILS — Light Section ===== */}

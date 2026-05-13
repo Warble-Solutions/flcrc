@@ -71,7 +71,7 @@ export default function ContactPage() {
       <PageBanner 
         title="Contact Us" 
         subtitle="We'd love to hear from you. Whether you have a question about our programs, events, or anything else — our team is ready to help." 
-        imageSrc="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&q=80"
+        imageSrc="/images/headers/about.jpg"
       />
 
       {/* ===== CONTACT INFO CARDS — Light Section ===== */}
@@ -124,7 +124,7 @@ export default function ContactPage() {
                         <a
                           key={j}
                           href={card.href}
-                          className="block text-sm text-blue-600 font-medium hover:underline"
+                          className="block text-sm text-slate-500 font-medium hover:underline"
                           target={card.href.startsWith("http") ? "_blank" : undefined}
                           rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         >
@@ -307,7 +307,7 @@ export default function ContactPage() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-all"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 hover:border-slate-400 hover:text-slate-500 transition-all"
                       >
                         <Icon size={16} />
                         {label}
@@ -325,14 +325,14 @@ export default function ContactPage() {
                   <div className="space-y-3">
                     <a
                       href="tel:1-888-337-1411"
-                      className="flex items-center gap-3 text-sm text-slate-600 hover:text-blue-600 transition-colors"
+                      className="flex items-center gap-3 text-sm text-slate-600 hover:text-slate-500 transition-colors"
                     >
                       <Phone size={14} className="text-emerald-600" />
                       1-888-337-1411
                     </a>
                     <a
                       href="mailto:info@familylifecrc.org"
-                      className="flex items-center gap-3 text-sm text-slate-600 hover:text-blue-600 transition-colors"
+                      className="flex items-center gap-3 text-sm text-slate-600 hover:text-slate-500 transition-colors"
                     >
                       <Mail size={14} className="text-rose-600" />
                       info@familylifecrc.org

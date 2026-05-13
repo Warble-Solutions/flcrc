@@ -14,7 +14,7 @@ export default function FinancialsPage() {
       <PageBanner 
         title="Our Financials" 
         subtitle="The Family Life and Community Resource Center is a 501(c)(3) non-profit. Transparency is a fundamental value of our organization." 
-        imageSrc="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80"
+        imageSrc="/images/headers/about.jpg"
       />
 
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
