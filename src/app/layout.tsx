@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import DonateProvider from "@/components/layout/DonateProvider";
 import PublicLayout from "@/components/layout/PublicLayout";
 
 const inter = Inter({
@@ -48,11 +47,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <DonateProvider>
-          <PublicLayout>{children}</PublicLayout>
-        </DonateProvider>
+        <PublicLayout>{children}</PublicLayout>
       </body>
     </html>
   );

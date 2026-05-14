@@ -58,7 +58,7 @@ function getImageForMember(name: string) {
     if (fileBase.includes(lastName) && fileBase.includes(firstName))
       return `/images/team/${file}`;
   }
-  return "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80";
+  return "/images/logo/logo.png";
 }
 
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
@@ -73,11 +73,11 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null;
-              target.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80";
+              target.src = "/images/logo/logo.png";
             }}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] via-transparent to-transparent opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1b2847] via-transparent to-transparent opacity-90" />
           <div className="absolute bottom-4 left-4 right-4">
             <h3 className="text-xl font-bold text-white mb-1 group-hover:text-luminous-cyan transition-colors">{member.name}</h3>
             <p className="text-white/80 text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">{member.role}</p>
@@ -125,6 +125,7 @@ export default function TeamPage() {
         title="Our Team" 
         subtitle="Meet the dedicated leadership, staff, and board members driving the mission of FLCRC. We are committed to building better communities by empowering families." 
         imageSrc="/images/headers/staff.jpg"
+        imagePosition="object-[center_15%]"
       />
 
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">

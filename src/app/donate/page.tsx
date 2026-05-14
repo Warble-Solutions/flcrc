@@ -55,7 +55,8 @@ export default function DonatePage() {
       <PageBanner
         title="Support Our Mission"
         subtitle="Your gift in any amount will help support our programs and make a tangible difference in the lives of youth and families in Fort Bend County."
-        imageSrc="/images/headers/donate.jpg"
+        imageSrc="/images/headers/slider-3.jpg"
+        imagePosition="object-[center_15%]"
       />
 
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">

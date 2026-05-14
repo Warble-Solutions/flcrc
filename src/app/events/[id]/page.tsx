@@ -162,10 +162,10 @@ export default function EventDetailPage() {
                   <h3 className="text-2xl font-black text-slate-900 mb-6">Past Event Highlights</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-slate-200 aspect-[4/3] rounded-2xl overflow-hidden relative">
-                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80')] bg-cover bg-center" />
+                      <div className="absolute inset-0 bg-[url('/images/summer%20camp/camp.jpg')] bg-cover bg-center" />
                     </div>
                     <div className="bg-slate-200 aspect-[4/3] rounded-2xl overflow-hidden relative">
-                      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80')] bg-cover bg-center" />
+                      <div className="absolute inset-0 bg-[url('/images/summer%20camp/camp2.jpg')] bg-cover bg-center" />
                     </div>
                   </div>
                 </div>

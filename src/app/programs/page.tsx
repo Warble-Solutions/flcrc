@@ -46,13 +46,37 @@ export default function ProgramsPage() {
       .select("*")
       .order("sort_order", { ascending: true })
       .then(({ data }: { data: Program[] | null }) => {
-        if (data && data.length > 0) setPrograms(data);
+        if (data && data.length > 0) {
+          // Merge local hardcoded additions that don't exist in the DB yet
+          const dbIds = new Set(data.map((d) => d.id));
+          const additions = fallbackPrograms.filter((p) => !dbIds.has(p.id));
+          
+          // Map DB data to apply requested text changes before merge
+          const mappedData = data.map((prog) => {
+            if (prog.slug === "victim-services") {
+              return { ...prog, tag: "Crime Victim Services" };
+            }
+            return prog;
+          }).filter(prog => prog.slug !== "victim-services");
+
+          setPrograms([...mappedData, ...additions].sort((a, b) => a.sort_order - b.sort_order));
+        }
       })
       .catch((err: unknown) => console.error("Programs fetch error:", err));
   }, []);
 
-  const allTags = ["All", ...Array.from(new Set(programs.map((p) => p.tag).filter(Boolean)))];
-  const filtered = filter === "All" ? programs : programs.filter((p) => p.tag === filter);
+  const allTagsRaw = Array.from(new Set(programs.map((p) => p.tag).filter(Boolean)));
+  // Ensure Crime Victim Services is in the list
+  if (!allTagsRaw.includes("Crime Victim Services")) {
+    allTagsRaw.push("Crime Victim Services");
+  }
+  const allTags = ["All", ...allTagsRaw];
+  
+  const filtered = filter === "All" 
+    ? programs 
+    : filter === "Crime Victim Services"
+      ? programs.filter((p) => p.slug === "grit-program")
+      : programs.filter((p) => p.tag === filter);
 
   return (
     <>
@@ -91,7 +115,7 @@ export default function ProgramsPage() {
               return (
                 <ScrollReveal key={prog.id} delay={i * 50} className="h-full">
                   <Link
-                    href={`/programs/${prog.slug || "yale-leadership"}`}
+                    href={prog.slug === "summer-camp" ? "/camp" : `/programs/${prog.slug || "yale-leadership"}`}
                     className="h-full bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#5b93c7] transition-all cursor-pointer group flex flex-col relative overflow-hidden block"
                   >
                     <div className="relative z-10 flex-grow">

@@ -22,6 +22,7 @@ export default function StrategicPlanPage() {
         title="Strategic Planning" 
         subtitle="FLCRC board members and staff regularly engage in planning sessions to assess our current programs, services, and community data to identify the present and future needs of our organization." 
         imageSrc="/images/headers/about.jpg"
+        imagePosition="object-[center_15%]"
       />
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-6xl mx-auto">

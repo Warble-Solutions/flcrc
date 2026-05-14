@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
@@ -15,13 +16,11 @@ import {
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
-import { useDonate } from "@/components/layout/DonateProvider";
 import PageBanner from "@/components/layout/PageBanner";
 import { fallbackSettings } from "@/lib/fallback-data";
 import type { SiteSettings } from "@/lib/supabase/types";
 
 export default function ContactPage() {
-  const { openDonate } = useDonate();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -66,6 +65,20 @@ export default function ContactPage() {
     setSubmitting(false);
   };
 
+  const formatAddress = (addressStr: string | null) => {
+    if (!addressStr) return ["821 E Highway 90A", "Richmond, TX 77406"];
+    // Remove "Suite 104" and replace Texas with TX
+    let rawAddress = addressStr.replace(/,? \s*Suite 104/gi, "").replace(/Texas/gi, "TX");
+    const parts = rawAddress.split(",").map(s => s.trim());
+    if (parts.length >= 3) {
+      // e.g. "821 E Highway 90A", "Richmond", "TX 77406"
+      return [parts[0], `${parts[1]}, ${parts.slice(2).join(", ")}`];
+    } else if (parts.length === 2) {
+      return [parts[0], parts[1]];
+    }
+    return [rawAddress];
+  };
+
   return (
     <>
       <PageBanner 
@@ -82,7 +95,7 @@ export default function ContactPage() {
               {
                 icon: MapPin,
                 title: "Visit Us",
-                lines: settings.address ? settings.address.split(",") : ["821 E Highway 90A, Richmond, TX 77406"],
+                lines: formatAddress(settings.address),
                 color: "bg-blue-600",
                 href: `https://maps.google.com/?q=${encodeURIComponent(settings.address || "821 E Highway 90A, Richmond, TX 77406")}`,
               },
@@ -361,13 +374,11 @@ export default function ContactPage() {
               building stronger communities with FLCRC.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                variant="primary"
-                className="px-10 py-4"
-                onClick={openDonate}
-              >
-                Donate Now
-              </Button>
+              <Link href="/donate">
+                <Button variant="primary" className="px-10 py-4">
+                  Donate Now
+                </Button>
+              </Link>
               <a href="/volunteer">
                 <Button variant="glow" className="px-10 py-4">
                   Volunteer With Us

@@ -25,9 +25,12 @@ export default function Footer() {
   }, []);
   // format address
 
-  // Format address nicely by splitting at commas if possible
-  const addressLines = settings.address?.split(",") || [];
-  const addressLine1 = addressLines[0] || settings.address;
+  // Format address nicely and strip Suite 104
+  const formattedAddress = (settings.address || "821 E Highway 90A, Richmond, TX 77406")
+    .replace(/,? \s*Suite 104/gi, "")
+    .replace(/Texas/gi, "TX");
+  const addressLines = formattedAddress.split(",");
+  const addressLine1 = addressLines[0]?.trim() || formattedAddress;
   const addressLine2 = addressLines.slice(1).join(",").trim() || "";
 
   return (
@@ -74,7 +77,7 @@ export default function Footer() {
           </h4>
           <ul className="space-y-3 text-luminous-muted text-sm">
             <li><Link href="/donate" className="hover:text-luminous-fuchsia transition-colors">Donate Now</Link></li>
-            <li><Link href="/sponsorship" className="hover:text-luminous-fuchsia transition-colors">Sponsorship</Link></li>
+            <li><Link href="/become-a-member" className="hover:text-luminous-fuchsia transition-colors">Become a Member</Link></li>
             <li><Link href="/volunteer" className="hover:text-luminous-fuchsia transition-colors">Volunteer</Link></li>
             <li><Link href="/campaign" className="hover:text-luminous-fuchsia transition-colors">Capital Campaign</Link></li>
           </ul>

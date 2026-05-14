@@ -3,7 +3,6 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
-import { useDonate } from "@/components/layout/DonateProvider";
 import PageBanner from "@/components/layout/PageBanner";
 
 import { Shield, Hexagon, CircleDot, Triangle } from "lucide-react";
@@ -29,7 +28,6 @@ const raised = 15000;
 const percent = Math.min(100, Math.round((raised / goal) * 100));
 
 export default function CampaignPage() {
-  const { openDonate } = useDonate();
 
   return (
     <>
@@ -63,9 +61,11 @@ export default function CampaignPage() {
                 <p className="text-slate-600 font-medium mb-8 text-lg">
                   {percent}% funded towards our $200,000 target. Every contribution brings us closer!
                 </p>
-                <button className="px-10 py-4 bg-slate-900 text-white font-bold rounded-xl text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors" onClick={openDonate}>
-                  Donate to the Campaign
-                </button>
+                <Link href="/donate">
+                  <button className="px-10 py-4 bg-slate-900 text-white font-bold rounded-xl text-sm uppercase tracking-widest hover:bg-slate-800 transition-colors">
+                    Donate to the Campaign
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function CampaignPage() {
           <ScrollReveal delay={100}>
             <div className="aspect-square md:aspect-video rounded-3xl overflow-hidden glass border border-white/10">
               <img
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&q=80"
+                src="/images/summer camp/feat-image.jpg"
                 alt="Students engaged in activities"
                 className="w-full h-full object-cover"
               />
@@ -114,9 +114,11 @@ export default function CampaignPage() {
                       <Icon size={56} className={`mx-auto mb-6 ${tier.color}`} />
                       <h3 className="text-2xl font-black text-slate-900 mb-2">{tier.name}</h3>
                       <p className={`text-4xl font-black mb-8 ${tier.color}`}>{tier.price}</p>
-                      <button className="px-8 py-3 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-all uppercase tracking-widest text-xs" onClick={openDonate}>
-                        Become a Sponsor
-                      </button>
+                      <Link href="/donate">
+                        <button className="px-8 py-3 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-all uppercase tracking-widest text-xs w-full">
+                          Become a Sponsor
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -137,7 +139,9 @@ export default function CampaignPage() {
                 <p className="text-luminous-muted mb-8 leading-relaxed">
                   By making a tax-deductible donation to our capital campaign, you will allow us to expand a highly engaging and impactful summer program for our youth. Complete your donation securely online.
                 </p>
-                <Button variant="primary" onClick={openDonate} className="w-full md:w-auto px-10">Make a Donation</Button>
+                <Link href="/donate">
+                  <Button variant="primary" className="w-full md:w-auto px-10">Make a Donation</Button>
+                </Link>
               </div>
               <div className="glass p-10 rounded-3xl border border-white/10 hover:border-luminous-fuchsia/30 transition-all text-center md:text-left">
                 <h3 className="text-2xl font-bold text-white mb-4">Donate by Check</h3>

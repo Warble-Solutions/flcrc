@@ -1,7 +1,6 @@
 "use client";
 
 
-import { useDonate } from "@/components/layout/DonateProvider";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import {
@@ -169,8 +168,7 @@ function VenueCarousel({ onImageClick }: { onImageClick: (i: number) => void }) 
 }
 
 export default function FacilityRentalsPage() {
-  const { openDonate } = useDonate();
-const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState(false);
   const [submitting, setSubmitting] = useState(false);

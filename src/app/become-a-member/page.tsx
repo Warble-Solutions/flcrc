@@ -1,10 +1,10 @@
 "use client";
 
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Link from "next/link";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { Heart, Star, Award, Crown, Check } from "lucide-react";
-import { useDonate } from "@/components/layout/DonateProvider";
 import PageBanner from "@/components/layout/PageBanner";
 
 const tiers = [
@@ -53,8 +53,7 @@ const tiers = [
   },
 ];
 
-export default function DonatePage() {
-  const { openDonate } = useDonate();
+export default function BecomeAMemberPage() {
 
   return (
     <>
@@ -93,9 +92,11 @@ export default function DonatePage() {
                         </li>
                       ))}
                     </ul>
-                    <button className="w-full py-3.5 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-all uppercase tracking-widest text-xs" onClick={openDonate}>
-                      Select Tier
-                    </button>
+                    <Link href="/donate">
+                      <button className="w-full py-3.5 bg-white border-2 border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white transition-all uppercase tracking-widest text-xs">
+                        Select Tier
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </ScrollReveal>
@@ -115,7 +116,9 @@ export default function DonatePage() {
               <p className="text-luminous-muted text-lg mb-10 max-w-xl mx-auto leading-relaxed">
                 Not ready for a membership but still want to make an impact? Your general donation goes directly toward funding our youth and family programs.
               </p>
-              <Button variant="primary" onClick={openDonate} className="px-12 py-4">Donate Now</Button>
+              <Link href="/donate">
+                <Button variant="primary" className="px-12 py-4">Donate Now</Button>
+              </Link>
             </div>
           </div>
         </ScrollReveal>

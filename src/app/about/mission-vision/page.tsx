@@ -79,6 +79,7 @@ export default function MissionVisionPage() {
         title="Our Mission & Vision" 
         subtitle="The Family Life and Community Resource Center (FLCRC) is a 501(c)(3) non-profit with the mission to promote positive change in the community." 
         imageSrc="/images/headers/about.jpg"
+        imagePosition="object-[center_15%]"
       />
       <section className="relative bg-white text-slate-900 py-24 px-4 z-10">
         <div className="max-w-6xl mx-auto">

@@ -21,7 +21,6 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { fallbackTeam } from "@/lib/fallback-data";
-import { useDonate } from "@/components/layout/DonateProvider";
 import type { TeamMember } from "@/lib/supabase/types";
 
 const coreCompetencies = [
@@ -42,7 +41,6 @@ const strategicPlan = [
 ];
 
 export default function AboutPage() {
-  const { openDonate } = useDonate();
   const [leadershipTeam, setLeadershipTeam] = useState<TeamMember[]>(fallbackTeam);
 
   useEffect(() => {
@@ -105,7 +103,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-3xl opacity-15" />
                 <div className="bg-slate-100 p-3 rounded-3xl border border-slate-200">
                   <Image
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1000"
+                    src="/images/headers/staff.jpg"
                     className="w-full rounded-2xl"
                     alt="FLCRC Team"
                     width={1000}

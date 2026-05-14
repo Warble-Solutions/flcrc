@@ -6,7 +6,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { useDonate } from "@/components/layout/DonateProvider";
 
 const navLinks = [
   { 
@@ -38,7 +37,6 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { openDonate } = useDonate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);

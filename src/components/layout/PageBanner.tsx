@@ -4,10 +4,12 @@ export default function PageBanner({
   title,
   subtitle,
   imageSrc,
+  imagePosition = "object-[center_35%]",
 }: {
   title: string;
   subtitle?: string;
   imageSrc: string;
+  imagePosition?: string;
 }) {
   return (
     <div className="relative w-full h-[55vh] min-h-[400px] flex items-center justify-center">
@@ -15,7 +17,7 @@ export default function PageBanner({
         src={imageSrc}
         alt={title}
         fill
-        className="object-cover object-[center_35%]"
+        className={`object-cover ${imagePosition}`}
         quality={90}
         priority
       />

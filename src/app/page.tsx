@@ -36,13 +36,11 @@ import { HERO_IMAGES } from "@/lib/images";
 import { createClient } from "@/lib/supabase/client";
 import { iconMap } from "@/lib/icons";
 import { fallbackEvents, fallbackFeaturedPrograms, newsArticles } from "@/lib/fallback-data";
-import { useDonate } from "@/components/layout/DonateProvider";
 import type { Event, Program } from "@/lib/supabase/types";
 
 
 
 export default function HomePage() {
-  const { openDonate } = useDonate();
 
   // Dynamic events from Supabase
   const [dbEvents, setDbEvents] = useState<Event[] | null>(null);
@@ -137,9 +135,11 @@ export default function HomePage() {
                   Discover Our Programs <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md" onClick={openDonate}>
-                <HandHeart size={18} /> Make a Donation
-              </Button>
+              <Link href="/donate">
+                <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md">
+                  <HandHeart size={18} /> Make a Donation
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -190,9 +190,11 @@ export default function HomePage() {
                   Learn About the Campaign <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md" onClick={openDonate}>
-                <HandHeart size={18} /> Donate Now
-              </Button>
+              <Link href="/donate">
+                <Button variant="glow" className="px-12 py-5 text-sm bg-slate-900/60 backdrop-blur-md">
+                  <HandHeart size={18} /> Donate Now
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -464,7 +466,7 @@ export default function HomePage() {
                 desc: "Partner with us as a corporate or community sponsor. Your brand helps families and builds trust.",
                 color: "bg-purple-600",
                 cta: "Become a Sponsor",
-                href: "/sponsorship",
+                href: "/campaign",
               },
               {
                 icon: Briefcase,
@@ -472,7 +474,7 @@ export default function HomePage() {
                 desc: "Every dollar directly funds programs for at-risk youth and families in crisis. 85% goes to services.",
                 color: "bg-rose-600",
                 cta: "Make a Donation",
-                href: null,
+                href: "/donate",
               },
             ].map((card, i) => (
               <ScrollReveal key={i} delay={i * 100}>
@@ -486,20 +488,11 @@ export default function HomePage() {
                   <p className="text-slate-500 leading-relaxed flex-grow mb-6">
                     {card.desc}
                   </p>
-                  {card.href ? (
-                    <Link href={card.href}>
-                      <button className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
-                        {card.cta}
-                      </button>
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={openDonate}
-                      className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer"
-                    >
+                  <Link href={card.href}>
+                    <button className="w-full py-3 rounded-full border-2 border-slate-900 text-slate-900 font-bold text-xs uppercase tracking-wider hover:bg-slate-900 hover:text-white transition-all cursor-pointer">
                       {card.cta}
                     </button>
-                  )}
+                  </Link>
                 </div>
               </ScrollReveal>
             ))}
@@ -580,7 +573,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             {newsArticles.slice(0, 3).map((article, i) => (
               <ScrollReveal key={i} delay={i * 100}>
-                <Link href={article.link} className="block h-full group" target="_blank" rel="noopener noreferrer">
+                <Link href={`/news/${article.slug}`} className="block h-full group">
                   <div className="h-full border border-slate-200 rounded-3xl overflow-hidden bg-white shadow-sm group-hover:shadow-xl transition-all duration-300 flex flex-col">
                     <div className="relative h-48 w-full overflow-hidden border-b border-slate-100">
                       <Image src={article.image} alt={article.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
