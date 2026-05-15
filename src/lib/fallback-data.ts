@@ -1209,7 +1209,7 @@ export const newsArticles = [
     "slug": "y-a-l-e-serves-with-habitat-for-humanity",
     "date": "Recent",
     "excerpt": "On April 14, 2018, Y.A.L.E. ambassadors joined Alpha Kappa Alpha Sorority, Inc. in a Habitat for Humanity project. This mission: to help build a home!...",
-    "image": "/images/headers/news.jpg",
+    "image": "/images/news/thumb-yale-serves-with-habitat-for-humanity.jpg",
     "link": "https://familylifecrc.org/yale-serves-with-habitat-for-humanity/",
     "categories": [
       "Y.A.L.E.",
