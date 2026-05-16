@@ -33,7 +33,7 @@ export default function NewsPage() {
       />
 
       {/* ===== FEATURED ARTICLE — Brand Gradient Section ===== */}
-      <section className="relative py-24 px-4 z-10 bg-gradient-to-br from-[#e87d4a] via-[#f1a66a] to-[#e6c830]">
+      <section className="relative py-24 px-4 z-10 bg-gradient-to-br from-[#d12a2f] via-[#e87d4a] to-[#e6c830]">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <p className="text-sm font-bold uppercase tracking-widest text-white mb-6 text-center">
